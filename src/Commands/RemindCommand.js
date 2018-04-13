@@ -2,7 +2,6 @@ const durationParser = require('duration-parser');
 const humanizeDuration = require('humanize-duration');
 const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
-const config = require('../config.json');
 
 class Remind extends BaseCommand {
 	constructor(bot, r) {
@@ -28,6 +27,7 @@ class Remind extends BaseCommand {
 			const duration = durationParser(args[0]);
 			if (duration < 30000) return msg.channel.createMessage(':exclamation:   **»**   The duration time must be greater than or equal to 30 seconds.');
 			this.r.table('reminders').insert({
+				id: String(Math.floor(Math.random() * 1000000)),
 				userID: msg.author.id,
 				message: args.slice(1).join(' '),
 				end: Date.now() + duration,
