@@ -1,0 +1,31 @@
+{
+	"name": "equinox",
+	"version": "1.0.1",
+	"description": "A feature rich Discord bot packed full of the best functionalities you'll ever need.",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node ."
+	},
+	"keywords": [
+		"discord",
+		"bot",
+		"features",
+		"music"
+	],
+	"author": "PassTheMayo",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"dateformat": "^3.0.3",
+		"duration-parser": "^1.0.2",
+		"eris": "^0.8.5",
+		"google-translate-api": "^2.3.0",
+		"humanize-duration": "^3.14.0",
+		"rethinkdbdash": "^2.3.31",
+		"snekfetch": "^3.6.4",
+		"ytdl-core": "^0.20.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PassTheMayo/Equinox.git"
+	}
+}

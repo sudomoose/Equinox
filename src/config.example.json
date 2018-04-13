@@ -1,0 +1,27 @@
+{
+    "token": "",
+    "default_prefix": "e!",
+    "rethinkdb": {
+        "silent": true,
+        "discovery": true,
+        "host": "localhost",
+        "db": "equinox"
+    },
+    "api_keys": {
+        "openweathermap": ""
+    },
+    "links": {
+        "server": "https://discord.gg/3hqURjk"
+    },
+    "webhooks": {
+        "guilds": {
+            "id": "",
+            "token": ""
+        },
+        "commands": {
+            "id": "",
+            "token": ""
+        }
+    },
+    "client_options": {}
+}
