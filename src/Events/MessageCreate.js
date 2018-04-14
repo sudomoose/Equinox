@@ -1,8 +1,12 @@
 const Logger = require('../Util/Logger.js');
 const handleDatabaseError = require('../Util/handleDatabaseError');
-const config = require('../config.json');
 const WebhookClient = require('../Structure/WebhookClient');
-const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
+let config;
+let webhook;
+if (!('TEST_TOKEN' in process.env)) {
+	config = require('../config.json');
+	webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
+}
 
 module.exports = (bot, r) => {
 	bot.on('messageCreate', (msg) => {

@@ -2,7 +2,8 @@ const snekfetch = require('snekfetch');
 const BaseCommand = require('../Structure/BaseCommand');
 const stripTrailingZero = require('../Util/stripTrailingZero');
 const Logger = require('../Util/Logger');
-const config = require('../config.json');
+let config;
+if (!('TEST_TOKEN' in process.env)) config = require('../config.json');
 
 class Weather extends BaseCommand {
 	constructor(bot, r) {
