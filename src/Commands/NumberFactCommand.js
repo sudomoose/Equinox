@@ -9,7 +9,7 @@ class NumberFact extends BaseCommand {
 			aliases: [
 				'numfact'
 			],
-			description: 'Gives you a fact about a number,',
+			description: 'Gives you a fact about a number.',
 			category: 'Fun',
 			usage: 'numberfact [<number>]',
 			hidden: false

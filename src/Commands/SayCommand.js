@@ -7,7 +7,7 @@ class Say extends BaseCommand {
 			aliases: [],
 			description: 'Sends whatever you tell it to say.',
 			category: 'Fun',
-			usage: 'remind <message...>',
+			usage: 'say <message...>',
 			hidden: false
 		});
 		this.bot = bot;

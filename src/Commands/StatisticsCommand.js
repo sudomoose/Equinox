@@ -22,7 +22,7 @@ class Statistics extends BaseCommand {
 	}
 
 	execute(msg) {
-		snekfetch.get('https://api.github.com/repos/PassTheMayo/Equinox/commits').then((result) => {
+		snekfetch.get('https://api.github.com/repos/EquinoxBot/Equinox/commits').then((result) => {
 			this.r.table('reminders').count().run((error, reminders) => {
 				if (error) return handleDatabaseError(error, msg);
 				this.r.table('commands').count().run((error, commands) => {
