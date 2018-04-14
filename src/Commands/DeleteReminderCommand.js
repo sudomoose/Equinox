@@ -23,6 +23,7 @@ class DeleteReminder extends BaseCommand {
 		this.r.table('reminders').get(args[0]).run((error, reminder) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (!reminder) return msg.channel.createMessage(':exclamation:   **»**   Unable to find any reminders by that ID.');
+			if (reminder.userID !== msg.author.id) return msg.channel.createMessage(':no_entry_sign:   **»**   You cannot delete someone else\'s reminder.');
 			this.r.table('reminders').get(args[0]).delete().run((error) => {
 				if (error) return handleDatabaseError(error, msg);
 				msg.channel.createMessage(':wastebasket:   **»**   Successfully deleted reminder for `' + reminder.message + '`.');
