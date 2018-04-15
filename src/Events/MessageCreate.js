@@ -18,7 +18,7 @@ module.exports = (bot, r) => {
 		const commands = bot.commands.filter((c) => c.command === command || c.aliases.includes(command));
 		const args = msg.content.replace(/ {2,}/g, ' ').replace(prefix, '').split(' ').slice(1);
 		if (commands.length > 0) {
-			webhook.send({
+			if (bot.user.id !== '336658909206937600') webhook.send({
 				title: 'A command was used',
 				color: bot.embedColor,
 				description: '**Command**: ' + command + '\n**Guild**: ' + (msg.channel.guild ? msg.channel.guild.name : 'N/A') + '\n**User**: ' + msg.author.username + '#' + msg.author.discriminator
