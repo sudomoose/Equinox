@@ -26,40 +26,42 @@ class Remind extends BaseCommand {
 		try {
 			const duration = durationParser(args[0]);
 			if (duration < 30000) return msg.channel.createMessage(':exclamation:   **»**   The duration time must be greater than or equal to 30 seconds.');
+			const id = String(Math.floor(Math.random() * 1000000));
+			const end = Date.now() + duration;
 			this.r.table('reminders').insert({
-				id: String(Math.floor(Math.random() * 1000000)),
+				id,
 				userID: msg.author.id,
 				message: args.slice(1).join(' '),
-				end: Date.now() + duration,
+				end,
 				duration
-			}, { returnChanges: true }).run((error, result) => {
+			}).run((error) => {
 				if (error) return handleDatabaseError(error, msg);
 				msg.channel.createMessage(':alarm_clock:   **»**   Okay, I\'ll remind you in ' + humanizeDuration(duration, { round: true }) + ' to `' + args.slice(1).join(' ') + '`.');
 				if (duration > 2147483647) {
 					const wait = () => {
-						if (result.changes[0].new_val.end - Date.now() <= 2147483647) {
-							setTimeout(() => {
-								this.r.table('reminders').get(result.generated_keys[0]).delete().run((error) => {
+						if (end - Date.now() <= 2147483647) {
+							this.bot.reminders.set(id, setTimeout(() => {
+								this.r.table('reminders').get(id).delete().run((error) => {
 									if (error) return handleDatabaseError(error);
 									msg.author.getDMChannel().then((user) => {
 										user.createMessage(':alarm_clock:   **»**   About ' + humanizeDuration(duration, { round: true }) + ' ago, you asked me to remind you about `' + args.slice(1).join(' ') + '`.');
 									});
 								});
-							}, Math.max(result.changes[0].new_val.end - Date.now(), 0));
+							}, Math.max(end - Date.now(), 0)));
 						} else {
-							setTimeout(wait, 2147483647);
+							this.bot.reminders.set(id, setTimeout(wait, 2147483647));
 						}
 					};
 					wait();
 				} else {
-					setTimeout(() => {
-						this.r.table('reminders').get(result.generated_keys[0]).delete().run((error) => {
+					this.bot.reminders.set(id, setTimeout(() => {
+						this.r.table('reminders').get(id).delete().run((error) => {
 							if (error) return handleDatabaseError(error);
 							msg.author.getDMChannel().then((user) => {
 								user.createMessage(':alarm_clock:   **»**   About ' + humanizeDuration(duration, { round: true }) + ' ago, you asked me to remind you about `' + args.slice(1).join(' ') + '`.');
 							});
 						});
-					}, duration);
+					}, duration));
 				}
 			});
 		} catch (e) {

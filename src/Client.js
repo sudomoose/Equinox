@@ -16,7 +16,7 @@ class Client {
 		this.bot.embedColor = 15277667;
 		this.bot.commands = new Collection();
 		this.bot.prefixes = new Collection();
-		this.bot.balance = new Collection();
+		this.bot.reminders = new Collection();
 
 		this.loadCommand(path.join(__dirname, 'Commands'));
 		this.loadEvents(path.join(__dirname, 'Events'));

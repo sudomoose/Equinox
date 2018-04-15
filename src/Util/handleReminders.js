@@ -9,7 +9,7 @@ module.exports = (bot, r) => {
 			if (reminder.end - Date.now() > 2147483647) {
 				const wait = () => {
 					if (reminder.end - Date.now() <= 2147483647) {
-						setTimeout(() => {
+						bot.reminders.set(reminder.id, setTimeout(() => {
 							r.table('reminders').get(reminder.id).delete().run((error) => {
 								if (error) return handleDatabaseError(error);
 								const user = bot.users.get(reminder.userID);
@@ -19,14 +19,14 @@ module.exports = (bot, r) => {
 									});
 								}
 							});
-						}, Math.max(reminder.end - Date.now(), 0));
+						}, Math.max(reminder.end - Date.now(), 0)));
 					} else {
-						setTimeout(wait, 2147483647);
+						bot.reminders.set(reminder.id, setTimeout(wait, 2147483647));
 					}
 				};
 				wait();
 			} else {
-				setTimeout(() => {
+				bot.reminders.set(reminder.id, setTimeout(() => {
 					r.table('reminders').get(reminder.id).delete().run((error) => {
 						if (error) return handleDatabaseError(error);
 						const user = bot.users.get(reminder.userID);
@@ -36,7 +36,7 @@ module.exports = (bot, r) => {
 							});
 						}
 					});
-				}, Math.max(reminder.end - Date.now(), 0));
+				}, Math.max(reminder.end - Date.now(), 0)));
 			}
 		}
 	});
