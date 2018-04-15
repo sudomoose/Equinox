@@ -1,12 +1,8 @@
 const Logger = require('../Util/Logger.js');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const WebhookClient = require('../Structure/WebhookClient');
-let config;
-let webhook;
-if (!('TEST_TOKEN' in process.env)) {
-	config = require('../config.json');
-	webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
-}
+const config = require('../config.json');
+const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
 
 module.exports = (bot, r) => {
 	bot.on('messageCreate', (msg) => {
@@ -18,7 +14,7 @@ module.exports = (bot, r) => {
 		const commands = bot.commands.filter((c) => c.command === command || c.aliases.includes(command));
 		const args = msg.content.replace(/ {2,}/g, ' ').replace(prefix, '').split(' ').slice(1);
 		if (commands.length > 0) {
-			if (bot.user.id !== '336658909206937600') webhook.send({
+			if (bot.user.id !== '336658909206937600' && !commands[0].hidden) webhook.send({
 				title: 'A command was used',
 				color: bot.embedColor,
 				description: '**Command**: ' + command + '\n**Guild**: ' + (msg.channel.guild ? msg.channel.guild.name : 'N/A') + '\n**User**: ' + msg.author.username + '#' + msg.author.discriminator

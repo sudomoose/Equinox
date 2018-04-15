@@ -3,9 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const rethink = require('rethinkdbdash');
 const Collection = require('./Structure/Collection');
-const TEST_ENVIRONMENT = 'TEST_TOKEN' in process.env;
-let config;
-if (!TEST_ENVIRONMENT) config = require('./config.json');
+const config = require('./config.json');
 
 class Client {
 	constructor(...args) {
@@ -13,7 +11,7 @@ class Client {
 	}
 
 	launch() {
-		if (!TEST_ENVIRONMENT) this.r = rethink(config.rethinkdb);
+		this.r = rethink(config.rethinkdb);
 
 		this.bot.embedColor = 15277667;
 		this.bot.commands = new Collection();

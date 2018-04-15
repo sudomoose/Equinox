@@ -1,6 +1,5 @@
 const BaseCommand = require('../Structure/BaseCommand');
-let config;
-if (!('TEST_TOKEN' in process.env)) config = require('../config.json');
+const config = require('../config.json');
 
 class Support extends BaseCommand {
 	constructor(bot, r) {

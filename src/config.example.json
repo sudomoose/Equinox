@@ -8,7 +8,11 @@
         "db": "equinox"
     },
     "api_keys": {
-        "openweathermap": ""
+        "openweathermap": "",
+        "discordbots.org": "",
+        "bots.discord.pw": "",
+        "ls.terminal.ink": "",
+        "botlist.space": ""
     },
     "links": {
         "server": "https://discord.gg/3hqURjk"
