@@ -19,6 +19,7 @@ class CommandUsage extends BaseCommand {
 	}
 
 	execute(msg) {
+		let start = Date.now();
 		const data = {
 			hour: {},
 			day: {},
