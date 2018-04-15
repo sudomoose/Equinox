@@ -22,7 +22,7 @@ class Settings extends BaseCommand {
 
 	execute(msg, args) {
 		if (!msg.channel.guild) return msg.channel.createMessage(':exclamation:   **»**   This command cannot be used in a direct message.');
-		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide `set`, `unset`, `add`, `remove`, or `list`.');
+		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide `set`, `unset`, or `list`.');
 		this.r.table('settings').get(msg.channel.guild.id).run((error, settings) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (args[0].toLowerCase() === 'set') {
