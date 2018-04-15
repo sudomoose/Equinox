@@ -61,7 +61,7 @@ class CommandUsage extends BaseCommand {
 											if (data.hour[a] < data.hour[b]) return 1;
 											if (data.hour[a] > data.hour[b]) return -1;
 											return 0;
-										}).map((command) => '`[' + Array(Math.ceil(data.hour[command] / Object.values(data.hour).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.ceil(data.hour[command] / Object.values(data.hour).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.hour[command] / Object.values(data.hour).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.hour[command] + ')').join('\n'),
+										}).map((command) => '`[' + Array(Math.round(data.hour[command] / Object.values(data.hour).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.round(data.hour[command] / Object.values(data.hour).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.hour[command] / Object.values(data.hour).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.hour[command] + ')').join('\n'),
 										inline: false
 									},
 									{
@@ -70,7 +70,7 @@ class CommandUsage extends BaseCommand {
 											if (data.day[a] < data.day[b]) return 1;
 											if (data.day[a] > data.day[b]) return -1;
 											return 0;
-										}).map((command) => '`[' + Array(Math.ceil(data.day[command] / Object.values(data.day).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.ceil(data.day[command] / Object.values(data.day).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.day[command] / Object.values(data.day).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.day[command] + ')').join('\n'),
+										}).map((command) => '`[' + Array(Math.round(data.day[command] / Object.values(data.day).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.round(data.day[command] / Object.values(data.day).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.day[command] / Object.values(data.day).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.day[command] + ')').join('\n'),
 										inline: false
 									},
 									{
@@ -79,7 +79,7 @@ class CommandUsage extends BaseCommand {
 											if (data.week[a] < data.week[b]) return 1;
 											if (data.week[a] > data.week[b]) return -1;
 											return 0;
-										}).map((command) => '`[' + Array(Math.ceil(data.week[command] / Object.values(data.week).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.ceil(data.week[command] / Object.values(data.week).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.week[command] / Object.values(data.week).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.week[command] + ')').join('\n'),
+										}).map((command) => '`[' + Array(Math.round(data.week[command] / Object.values(data.week).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.round(data.week[command] / Object.values(data.week).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.week[command] / Object.values(data.week).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.week[command] + ')').join('\n'),
 										inline: false
 									},
 									{
@@ -88,7 +88,7 @@ class CommandUsage extends BaseCommand {
 											if (data.total[a] < data.total[b]) return 1;
 											if (data.total[a] > data.total[b]) return -1;
 											return 0;
-										}).map((command) => '`[' + Array(Math.ceil(data.total[command] / Object.values(data.total).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.ceil(data.total[command] / Object.values(data.total).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.total[command] / Object.values(data.total).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.total[command] + ')').join('\n'),
+										}).map((command) => '`[' + Array(Math.round(data.total[command] / Object.values(data.total).reduce((a, b) => a + b, 0) * 10)).fill('█').join('') + Array(10 - Math.round(data.total[command] / Object.values(data.total).reduce((a, b) => a + b, 0) * 10)).fill(' ').join('') + ']` - ' + command + ' (' + ((data.total[command] / Object.values(data.total).reduce((a, b) => a + b, 0)) * 100).toFixed(1) + '%, ' + data.total[command] + ')').join('\n'),
 										inline: false
 									}
 								]
