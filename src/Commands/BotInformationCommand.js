@@ -68,7 +68,7 @@ class ChannelInfo extends BaseCommand {
 					});
 					checkDB();
 				}).catch((error) => {
-					if (error.status === 404) checkDB();
+					if (error.status === 404) return checkDB();
 					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 					Logger.error('Failed to get bot info', error);
 				});
@@ -98,7 +98,7 @@ class ChannelInfo extends BaseCommand {
 					});
 					checkTerminal();
 				}).catch((error) => {
-					if (error.status === 404) checkTerminal();
+					if (error.status === 404) return checkTerminal();
 					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 					Logger.error('Failed to get bot info', error);
 				});
@@ -123,7 +123,7 @@ class ChannelInfo extends BaseCommand {
 					});
 					checkBL();
 				}).catch((error) => {
-					if (error.status === 404) checkBL();
+					if (error.status === 404) return checkBL();
 					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 					Logger.error('Failed to get bot info', error);
 				});
