@@ -29,7 +29,8 @@ class Balance extends BaseCommand {
 		} else {
 			this.r.table('uptime').get(msg.author.id).run((error, uptime) => {
 				if (error) return handleDatabaseError(error, msg);
-				msg.channel.createMessage(':watch:   **»**   You\'ve been online for ' + (uptime.status === 'online' ? (((Date.now() - uptime.since) + uptime.duration) / (Date.now() - uptime.timestamp)) * 100 : (uptime.duration / (Date.now() - uptime.timestamp)) * 100).toFixed(1) + '% of the time.');
+
+				msg.channel.createMessage(':watch:   **»**   You\'ve been online for ' + (uptime ? (uptime.status === 'online' ? (((Date.now() - uptime.since) + uptime.duration) / (Date.now() - uptime.timestamp)) * 100 : (uptime.duration / (Date.now() - uptime.timestamp)) * 100) : 0).toFixed(1) + '% of the time.');
 			});
 		}
 	}
