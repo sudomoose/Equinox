@@ -13,7 +13,7 @@ module.exports = (bot) => {
 	}).catch((error) => {
 		Logger.error('Failed to update guild count', error);
 	});
-	snekfetch.post('https://ls.terminal.ink/api/bots/' + bot.user.id + '/').set('Authorization', config.api_keys['ls.terminal.ink']).send({
+	snekfetch.post('https://ls.terminal.ink/api/v1/bots/' + bot.user.id + '/').set('Authorization', config.api_keys['ls.terminal.ink']).send({
 		server_count: bot.guilds.size
 	}).catch((error) => {
 		Logger.error('Failed to update guild count', error);
