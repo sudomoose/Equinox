@@ -15,7 +15,8 @@
         "botlist.space": ""
     },
     "links": {
-        "server": "https://discord.gg/3hqURjk"
+        "server": "https://discord.gg/3hqURjk",
+        "github": "https://github.com/EquinoxBot/Equinox"
     },
     "webhooks": {
         "guilds": {

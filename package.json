@@ -1,6 +1,6 @@
 {
 	"name": "equinox",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "A feature rich Discord bot packed full of the best functionalities you'll ever need.",
 	"main": "src/index.js",
 	"scripts": {
