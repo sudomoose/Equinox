@@ -93,7 +93,7 @@ class ChannelInfo extends BaseCommand {
 					});
 					if (embed.fields.filter((field) => field.name === 'Owners').length < 1) embed.fields.push({
 						name: 'Owners',
-						value: result.body.owners.map((owner) => '<@' + owner + '>').join(', '),
+						value: result.body.owner_ids.map((owner) => '<@' + owner + '>').join(', '),
 						inline: true
 					});
 					checkTerminal();
