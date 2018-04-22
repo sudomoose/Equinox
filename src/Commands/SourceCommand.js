@@ -8,7 +8,7 @@ class Balance extends BaseCommand {
 			aliases: [
 				'src'
 			],
-			description: 'Gets the source of the bot on GitHub..',
+			description: 'Gets the source of the bot on GitHub.',
 			category: 'Utility',
 			usage: 'source',
 			hidden: false

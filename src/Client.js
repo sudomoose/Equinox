@@ -17,6 +17,7 @@ class Client {
 		this.bot.commands = new Collection();
 		this.bot.prefixes = new Collection();
 		this.bot.reminders = new Collection();
+		this.bot.queue = {};
 
 		this.loadCommand(path.join(__dirname, 'Commands'));
 		this.loadEvents(path.join(__dirname, 'Events'));

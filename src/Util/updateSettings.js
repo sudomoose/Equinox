@@ -19,7 +19,8 @@ module.exports = (r, guildID, value) => {
 						enabled: 'leaveMessages' in value && 'enabled' in value.leaveMessages ? value.leaveMessages.enabled : false,
 						channelID: 'leaveMessages' in value && 'channelID' in value.leaveMessages ? value.leaveMessages.channelID : null,
 						message: 'leaveMessages' in value && 'message' in value.leaveMessages ? value.leaveMessages.message : null
-					}
+					},
+					moderators: 'moderators' in value ? value.moderators : []
 				}).run((error) => {
 					if (error) return reject(error);
 					resolve();

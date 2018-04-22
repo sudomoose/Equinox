@@ -28,5 +28,15 @@
             "token": ""
         }
     },
+    "lavalink": {
+        "nodes": [
+            {
+                "host": "localhost",
+                "port": 8080,
+                "region": "us",
+                "password": "youshallnotpass"
+            }
+        ]
+    },
     "client_options": {}
 }

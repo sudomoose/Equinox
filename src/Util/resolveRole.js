@@ -1,15 +1,15 @@
-module.exports = (bot, query) => {
+module.exports = (bot, query, guild) => {
 	return new Promise((resolve, reject) => {
 		if (/^\d+$/.test(query)) {
-			const guilds = bot.guilds.filter((guild) => guild.roles.has(query));
-			if (guilds.length > 0) return resolve(guilds[0].roles.get(query));
+			const role = guild.roles.get(query);
+			if (role) return resolve(role);
 		} else if (/^<@&(\d+)>$/.test(query)) {
 			const match = query.match(/^<@&(\d+)>$/);
-			const guilds = bot.guilds.filter((guild) => guild.roles.has(match[0]));
-			if (guilds.length > 0) return resolve(guilds[0].roles.get(match[0]));
+			const role = guild.roles.get(match[1]);
+			if (role) return resolve(role);
 		} else {
-			const guilds = bot.guilds.filter((guild) => guild.roles.filter((role) => role.name.toLowerCase().includes(query.toLowerCase())).length > 0);
-			if (guilds.length > 0) return resolve(guilds[0].roles.filter((role) => role.name.toLowerCase().includes(query.toLowerCase()))[0]);
+			const roles = guild.roles.filter((role) => role.name.toLowerCase().includes(query.toLowerCase()));
+			if (roles.length > 0) return resolve(roles[0]);
 		}
 		reject();
 	});

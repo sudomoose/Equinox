@@ -19,8 +19,8 @@ class RoleInfo extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (args.length < 1 && !msg.channel.guild) return msg.channel.createMessage(':question:   **»**   You must provide a role name, role mention, or role ID.');
-		resolveRole(this.bot, args.length > 0 ? args.join(' ') : msg.member.roles[msg.member.roles.length - 1]).then((role) => {
+		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
+		resolveRole(this.bot, args.length > 0 ? args.join(' ') : msg.member.roles[msg.member.roles.length - 1], msg.channel.guild).then((role) => {
 			const embed = {
 				title: 'Role Information',
 				color: role.color,
