@@ -33,7 +33,7 @@ class Pay extends BaseCommand {
 						if (error) return handleDatabaseError(error, msg);
 						if (balance) {
 							this.r.table('balance').get(user.id).update({
-								amount: balance.balance + Number(args[1])
+								amount: balance.amount + Number(args[1])
 							}).run((error) => {
 								if (error) return handleDatabaseError(error, msg);
 								msg.channel.createMessage(':money_with_wings:   **»**   Successfully sent $' + Number(args[1]).toLocaleString() + ' to `' + user.username + '#' + user.discriminator + '`.');
