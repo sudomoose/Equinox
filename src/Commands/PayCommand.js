@@ -26,14 +26,14 @@ class Pay extends BaseCommand {
 				if (error) return handleDatabaseError(error, msg);
 				if (!balance || Number(args[1]) > balance.amount) return msg.channel.createMessage(':exclamation:   **»**   You cannot transfer more money than you have.');
 				this.r.table('balance').get(msg.author.id).update({
-					balance: balance.amount - Number(args[1])
+					amount: balance.amount - Number(args[1])
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
-					this.r.table('balance').get(user.id).run((error, user) => {
+					this.r.table('balance').get(user.id).run((error, balance) => {
 						if (error) return handleDatabaseError(error, msg);
-						if (user) {
+						if (balance) {
 							this.r.table('balance').get(user.id).update({
-								amount: user.balance + Number(args[1])
+								amount: balance.balance + Number(args[1])
 							}).run((error) => {
 								if (error) return handleDatabaseError(error, msg);
 								msg.channel.createMessage(':money_with_wings:   **»**   Successfully sent $' + Number(args[1]).toLocaleString() + ' to `' + user.username + '#' + user.discriminator + '`.');
