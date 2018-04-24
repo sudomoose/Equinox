@@ -20,7 +20,8 @@ module.exports = (r, guildID, value) => {
 						channelID: 'leaveMessages' in value && 'channelID' in value.leaveMessages ? value.leaveMessages.channelID : null,
 						message: 'leaveMessages' in value && 'message' in value.leaveMessages ? value.leaveMessages.message : null
 					},
-					moderators: 'moderators' in value ? value.moderators : []
+					moderators: 'moderators' in value ? value.moderators : [],
+					autoSnipe: 'autoSnipe' in value ? value.autoSnipe : false
 				}).run((error) => {
 					if (error) return reject(error);
 					resolve();

@@ -40,7 +40,7 @@ class Settings extends BaseCommand {
 						msg.channel.createMessage(':exclamation:   **»**   Unknown argument `' + args[2].toLowerCase() + '`. Please refer to the command usage for more information.');
 					}
 					updateSettings(this.r, msg.channel.guild.id, { joinMessages: { enabled } }).then(() => {
-						msg.channel.createMessage(':white_check_mark:   **»**   Successfully enabled join messages.');
+						msg.channel.createMessage(':white_check_mark:   **»**   Successfully ' + (enabled ? 'enabled' : 'disabled') + ' join messages.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});
@@ -70,7 +70,7 @@ class Settings extends BaseCommand {
 						msg.channel.createMessage(':exclamation:   **»**   Unknown argument `' + args[2].toLowerCase() + '`. Please refer to the command usage for more information.');
 					}
 					updateSettings(this.r, msg.channel.guild.id, { leaveMessages: { enabled } }).then(() => {
-						msg.channel.createMessage(':white_check_mark:   **»**   Successfully enabled leave messages.');
+						msg.channel.createMessage(':white_check_mark:   **»**   Successfully ' + (enabled ? 'enabled' : 'disabled') + ' leave messages.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});
@@ -87,6 +87,20 @@ class Settings extends BaseCommand {
 				} else if (args[1].toLowerCase() === 'leavemessages.message') {
 					updateSettings(this.r, msg.channel.guild.id, { leaveMessages: { message: args.slice(2).join(' ') } }).then(() => {
 						msg.channel.createMessage(':white_check_mark:   **»**   Successfully set the leave message to `' + args.slice(2).join(' ') + '`.');
+					}).catch((error) => {
+						handleDatabaseError(error, msg);
+					});
+				} else if (args[1].toLowerCase() === 'autosnipe') {
+					let enabled;
+					if (args[2].toLowerCase() === 'true' || args[2].toLowerCase() === 'yes' || args[2].toLowerCase() === 'y') {
+						enabled = true;
+					} else if (args[2].toLowerCase() === 'false' || args[2].toLowerCase() === 'no' || args[2].toLowerCase() === 'n') {
+						enabled = false;
+					} else {
+						msg.channel.createMessage(':exclamation:   **»**   Unknown argument `' + args[2].toLowerCase() + '`. Please refer to the command usage for more information.');
+					}
+					updateSettings(this.r, msg.channel.guild.id, { autoSnipe: enabled }).then(() => {
+						msg.channel.createMessage(':white_check_mark:   **»**   Successfully ' + (enabled ? 'enabled' : 'disabled') + ' auto-snipe.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});
@@ -124,7 +138,7 @@ class Settings extends BaseCommand {
 					});
 				}
 			} else if (args[0].toLowerCase() === 'list') {
-				msg.channel.createMessage('```\nJoin Messages\n    Enabled: ' + (settings && settings.joinMessages.enabled ? 'Yes' : 'No') + '\n    Channel: ' + (settings && settings.joinMessages.channelID ? (msg.channel.guild.channels.has(settings.joinMessages.channelID) ? '#' + msg.channel.guild.channels.get(settings.joinMessages.channelID).name + ' (' + settings.joinMessages.channelID + ')' : 'Unknown channel') : 'Not set') + '\n    Message: ' + (settings && settings.joinMessages.message ? 'Configured' : 'Not set') + '\n\nLeave Messages\n    Enabled: ' + (settings && settings.leaveMessages.enabled ? 'Yes' : 'No') + '\n    Channel: ' + (settings && settings.leaveMessages.channelID ? (msg.channel.guild.channels.has(settings.leaveMessages.channelID) ? '#' + msg.channel.guild.channels.get(settings.leaveMessages.channelID).name + ' (' + settings.leaveMessages.channelID + ')' : 'Unknown channel') : 'Not set') + '\n    Message: ' + (settings && settings.leaveMessages.message ? 'Configured' : 'Not set') + '\n\nAdjust settings by using "' + msg.prefix + 'settings set <category>.<setting> <value>" (example: ' + msg.prefix + 'settings set joinmessages.enabled yes)```');
+				msg.channel.createMessage('```\nJoin Messages\n    Enabled: ' + (settings && settings.joinMessages.enabled ? 'Yes' : 'No') + '\n    Channel: ' + (settings && settings.joinMessages.channelID ? (msg.channel.guild.channels.has(settings.joinMessages.channelID) ? '#' + msg.channel.guild.channels.get(settings.joinMessages.channelID).name + ' (' + settings.joinMessages.channelID + ')' : 'Unknown channel') : 'Not set') + '\n    Message: ' + (settings && settings.joinMessages.message ? 'Configured' : 'Not set') + '\n\nLeave Messages\n    Enabled: ' + (settings && settings.leaveMessages.enabled ? 'Yes' : 'No') + '\n    Channel: ' + (settings && settings.leaveMessages.channelID ? (msg.channel.guild.channels.has(settings.leaveMessages.channelID) ? '#' + msg.channel.guild.channels.get(settings.leaveMessages.channelID).name + ' (' + settings.leaveMessages.channelID + ')' : 'Unknown channel') : 'Not set') + '\n    Message: ' + (settings && settings.leaveMessages.message ? 'Configured' : 'Not set') + '\n\nAutosnipe: ' + (settings && settings.autoSnipe ? 'Enabled' : 'Disabled') + '\n\nAdjust settings by using "' + msg.prefix + 'settings set <category>.<setting> <value>" (example: ' + msg.prefix + 'settings set joinmessages.enabled yes)```');
 			} else if (args[0].toLowerCase() === 'tags') {
 				msg.channel.createMessage('```md\n{user.id} - The user\'s ID.\n{user.username} - The username of the user.\n{user.discriminator} - The four digit number following the username.\n{user.tag} - The full username and discriminator of the user.\n{user.createdAt.time} - The time in which the user created their account.\n{user.createdAt.date} - The date in which the user created their account.\n{user.createdAt.datetime} - The date and time in which the user created their account.\n{user.avatarURL} - The full avatar URL of the user.\n{user.joinedAt.time} - The time that the user joined the server.\n{user.joinedAt.date} - The date that the user joined the server.\n{user.joinedAt.datetime} - The date and time that the user joined the server.\n{date} - The current date.\n{time} - The current time.\n{datetime} - The current data and time.\n{guild.name} - The name of the server.\n{guild.id} - The ID of the server.\n{guild.members} - The total user count in the server.\n{guild.roles} - The amount of roles in the server.\n{guild.emojis} - The amount of emojis in the server.\n{guild.createdAt.time} - The time in which the server was created.\n{guild.createdAt.date} - The date in which the server was created.\n{guild.createdAt.datetime} - The date and time in which the server was created.```');
 			} else {
