@@ -22,7 +22,7 @@
 		"google-translate-api": "^2.3.0",
 		"humanize-duration": "^3.14.0",
 		"rethinkdbdash": "^2.3.31",
-		"snekfetch": "^3.6.4",
+		"snekfetch": "^4.0.0",
 		"ytdl-core": "^0.20.2"
 	},
 	"repository": {

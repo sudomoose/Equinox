@@ -1,7 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
-class Balance extends BaseCommand {
+class Snipe extends BaseCommand {
 	constructor(bot, r) {
 		super({
 			command: 'snipe',
@@ -52,4 +52,4 @@ class Balance extends BaseCommand {
 	}
 }
 
-module.exports = Balance;
+module.exports = Snipe;
