@@ -1,6 +1,7 @@
 const util = require('util');
 const BaseCommand = require('../Structure/BaseCommand');
 const uploadToHastebin = require('../Util/uploadToHastebin');
+const formatArbitrary = require('../Util/formatArbitrary');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Evaluate extends BaseCommand {
@@ -25,7 +26,7 @@ class Evaluate extends BaseCommand {
 			if (!developer) return msg.channel.createMessage(':no_entry_sign:   **»**   You do not have permission to run this command.');
 			try {
 				let result = await eval(args.join(' '));
-				result = util.inspect(result);
+				result = formatArbitrary(util.inspect(result));
 				if (result.length > 1992) {
 					uploadToHastebin(result).then((url) => {
 						msg.channel.createMessage(':outbox_tray:   **»**   ' + url);

@@ -1,6 +1,7 @@
 const child_process = require('child_process');
 const BaseCommand = require('../Structure/BaseCommand');
 const uploadToHastebin = require('../Util/uploadToHastebin');
+const formatArbitrary = require('../Util/formatArbitrary');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Execute extends BaseCommand {
@@ -24,7 +25,7 @@ class Execute extends BaseCommand {
 			if (error) return handleDatabaseError(error, msg);
 			if (!developer) return msg.channel.createMessage(':no_entry_sign:   **»**   You do not have permission to run this command.');
 			child_process.exec(args.join(' '), (error, stdout, stderr) => {
-				const result = stderr || stdout;
+				const result = formatArbitrary(stderr || stdout);
 				if (result.length > 1992) {
 					uploadToHastebin(result).then((url) => {
 						msg.channel.createMessage(':outbox_tray:   **»**   ' + url);
