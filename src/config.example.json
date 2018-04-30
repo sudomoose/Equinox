@@ -12,11 +12,16 @@
         "discordbots.org": "",
         "bots.discord.pw": "",
         "ls.terminal.ink": "",
-        "botlist.space": ""
+        "botlist.space": "",
+        "cleverbot": {
+            "user": "",
+            "key": ""
+        }
     },
     "links": {
         "server": "https://discord.gg/3hqURjk",
-        "github": "https://github.com/EquinoxBot/Equinox"
+        "github": "https://github.com/EquinoxBot/Equinox",
+        "donate": "http://patreon.com/PassTheMayo"
     },
     "webhooks": {
         "guilds": {

@@ -1,6 +1,6 @@
 {
 	"name": "equinox",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "A feature rich Discord bot packed full of the best functionalities you'll ever need.",
 	"main": "src/index.js",
 	"scripts": {
@@ -15,6 +15,7 @@
 	"author": "PassTheMayo",
 	"license": "Apache-2.0",
 	"dependencies": {
+		"cleverbot.io": "^1.0.4",
 		"dateformat": "^3.0.3",
 		"duration-parser": "^1.0.2",
 		"eris": "^0.8.5",
