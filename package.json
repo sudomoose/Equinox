@@ -21,6 +21,7 @@
 		"eris": "^0.8.5",
 		"eris-lavalink": "^1.0.2",
 		"google-translate-api": "^2.3.0",
+		"google-translate-token": "^1.0.0",
 		"humanize-duration": "^3.14.0",
 		"rethinkdbdash": "^2.3.31",
 		"snekfetch": "^4.0.0",
