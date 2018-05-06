@@ -6,7 +6,7 @@ const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.c
 
 module.exports = (bot, r) => {
 	bot.on('messageCreate', (msg) => {
-		if (!bot.ready || msg.author.bot) return;
+		if (!bot.ready || !msg.author || msg.author.bot) return;
 		let prefix = msg.channel.guild && bot.prefixes.has(msg.channel.guild.id) ? bot.prefixes.get(msg.channel.guild.id) : config.default_prefix;
 		if (!msg.content.startsWith(prefix)) return;
 		msg.prefix = prefix;
