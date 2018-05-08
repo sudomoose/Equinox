@@ -20,9 +20,13 @@ module.exports = (bot, r) => {
 
 		r.table('intervals').get('restart').run((error, restart) => {
 			if (error) return handleDatabaseError(error);
-			if (!restart || !(restart.channelID in bot.channelGuildMap)) return;
-			const channel = bot.guilds.get(bot.channelGuildMap[restart.channelID]).channels.get(restart.channelID);
-			channel.createMessage(':white_check_mark:   **»**   Successfully restarted in `' + humanizeDuration(Date.now() - restart.timestamp) + '`.');
+			if (!restart) return;
+			r.table('intervals').get('restart').delete().run((error) => {
+				if (error) return handleDatabaseError(error);
+				if (!(restart.channelID in bot.channelGuildMap)) return;
+				const channel = bot.guilds.get(bot.channelGuildMap[restart.channelID]).channels.get(restart.channelID);
+				channel.createMessage(':white_check_mark:   **»**   Successfully restarted in `' + humanizeDuration(Date.now() - restart.timestamp) + '`.');
+			});
 		});
 	});
 };
