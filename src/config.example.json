@@ -1,6 +1,7 @@
 {
     "token": "",
     "default_prefix": "e!",
+    "pm2_process": "Equinox",
     "rethinkdb": {
         "silent": true,
         "discovery": true,
