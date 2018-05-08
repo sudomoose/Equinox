@@ -13,7 +13,7 @@ class Client {
 	launch() {
 		this.r = rethink(config.rethinkdb);
 
-		this.bot.embedColor = 15277667;
+		this.bot.embedColor = 3066993; // 15277667
 		this.bot.commands = new Collection();
 		this.bot.prefixes = new Collection();
 		this.bot.reminders = new Collection();
