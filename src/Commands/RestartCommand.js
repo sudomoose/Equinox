@@ -26,7 +26,8 @@ class Restart extends BaseCommand {
 			this.r.table('intervals').insert({
 				id: 'restart',
 				channelID: msg.channel.id,
-				userID: msg.author.id
+				userID: msg.author.id,
+				timestamp: Date.now()
 			}, { conflict: 'replace' }).run((error) => {
 				if (error) return handleDatabaseError(error, msg);
 				msg.channel.createMessage(':arrows_counterclockwise:   **»**   Restarting the PM2 process...');
