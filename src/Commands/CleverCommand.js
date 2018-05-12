@@ -11,7 +11,7 @@ class Cleverbot extends BaseCommand {
 				'clever'
 			],
 			description: 'Ask Artifical "Intelligence" a question.',
-			category: 'Utility',
+			category: 'Fun',
 			usage: 'cleverbot <question...>',
 			hidden: false
 		});

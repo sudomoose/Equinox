@@ -10,7 +10,7 @@ class Volume extends BaseCommand {
 			],
 			description: 'See the volume or change the volume.',
 			category: 'Music',
-			usage: 'volume [volume]',
+			usage: 'volume [<volume>]',
 			hidden: false
 		});
 		this.bot = bot;
