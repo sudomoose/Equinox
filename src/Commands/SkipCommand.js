@@ -1,7 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 
 class Skip extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'skip',
 			aliases: [],
@@ -12,6 +12,7 @@ class Skip extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {

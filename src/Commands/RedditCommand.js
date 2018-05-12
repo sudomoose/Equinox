@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const Logger = require('../Util/Logger');
 
 class Reddit extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'reddit',
 			aliases: [],
@@ -14,6 +14,7 @@ class Reddit extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

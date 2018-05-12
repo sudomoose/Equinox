@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const resolveGuild = require('../Util/resolveGuild');
 
 class ServerInfo extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'serverinfo',
 			aliases: [
@@ -18,6 +18,7 @@ class ServerInfo extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

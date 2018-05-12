@@ -1,7 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 
 class Say extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'coinflip',
 			aliases: [
@@ -15,6 +15,7 @@ class Say extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {

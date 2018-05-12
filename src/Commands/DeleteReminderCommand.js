@@ -2,7 +2,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class DeleteReminder extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'deletereminder',
 			aliases: [
@@ -16,6 +16,7 @@ class DeleteReminder extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

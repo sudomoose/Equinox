@@ -1,7 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 
 class Pause extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'pause',
 			aliases: [],
@@ -12,6 +12,7 @@ class Pause extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {

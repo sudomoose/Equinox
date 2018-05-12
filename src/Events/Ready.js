@@ -6,9 +6,11 @@ const updateGuildCount = require('../Util/updateGuildCount');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const config = require('../config.json');
 
-module.exports = (bot, r) => {
+module.exports = (bot, r, metrics) => {
 	bot.on('ready', () => {
 		Logger.info('Successfully logged in as ' + bot.user.username + '.');
+
+		metrics.increment('ready');
 		
 		bot.voiceConnections = new Lavalink.PlayerManager(bot, config.lavalink.nodes, {
 			userId: bot.user.id,
@@ -28,5 +30,10 @@ module.exports = (bot, r) => {
 				channel.createMessage(':white_check_mark:   **»**   Successfully restarted in `' + humanizeDuration(Date.now() - restart.timestamp) + '`.');
 			});
 		});
+
+		setInterval(() => {
+			metrics.gauge('uptime', Date.now() - bot.startTime);
+			metrics.gauge('voiceConnections', bot.voiceConnections.size);
+		}, 15000);
 	});
 };

@@ -4,7 +4,7 @@ const WebhookClient = require('../Structure/WebhookClient');
 const config = require('../config.json');
 const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
 
-module.exports = (bot, r) => {
+module.exports = (bot, r, metrics) => {
 	bot.on('messageCreate', (msg) => {
 		if (!bot.ready || !msg.author || msg.author.bot) return;
 		let prefix = msg.channel.guild && bot.prefixes.has(msg.channel.guild.id) ? bot.prefixes.get(msg.channel.guild.id) : config.default_prefix;
@@ -29,6 +29,7 @@ module.exports = (bot, r) => {
 				successful: false
 			}).run((error, result) => {
 				if (error) return handleDatabaseError(error, msg);
+				metrics.increment('commands.top', [ 'command:' + command.command ]);
 				try {
 					commands[0].execute(msg, args);
 					r.table('commands').get(result.generated_keys[0]).update({

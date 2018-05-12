@@ -5,7 +5,7 @@ const formatArbitrary = require('../Util/formatArbitrary');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Evaluate extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'eval',
 			aliases: [
@@ -18,6 +18,7 @@ class Evaluate extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

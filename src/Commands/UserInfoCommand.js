@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const resolveUser = require('../Util/resolveUser');
 
 class UserInfo extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'userinfo',
 			aliases: [
@@ -16,6 +16,7 @@ class UserInfo extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

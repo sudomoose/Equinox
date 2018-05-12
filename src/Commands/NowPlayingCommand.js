@@ -2,7 +2,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const formatDuration = require('../Util/formatDuration');
 
 class Volume extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'nowplaying',
 			aliases: [
@@ -15,6 +15,7 @@ class Volume extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {

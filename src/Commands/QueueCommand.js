@@ -1,7 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 
 class Queue extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'queue',
 			aliases: [],
@@ -12,6 +12,7 @@ class Queue extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {

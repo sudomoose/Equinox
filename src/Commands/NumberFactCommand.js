@@ -3,7 +3,7 @@ const Logger = require('../Util/Logger');
 const BaseCommand = require('../Structure/BaseCommand');
 
 class NumberFact extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'numberfact',
 			aliases: [
@@ -16,6 +16,7 @@ class NumberFact extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

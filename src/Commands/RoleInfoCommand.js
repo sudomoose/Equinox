@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const resolveRole = require('../Util/resolveRole');
 
 class RoleInfo extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'roleinfo',
 			aliases: [
@@ -16,6 +16,7 @@ class RoleInfo extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

@@ -18,6 +18,10 @@
             "user": "",
             "key": ""
         },
+        "datadog": {
+            "appKey": "",
+            "apiKey": ""
+        },
         "youtube": ""
     },
     "links": {

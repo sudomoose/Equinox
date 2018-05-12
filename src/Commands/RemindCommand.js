@@ -4,7 +4,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Remind extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'remind',
 			aliases: [
@@ -18,6 +18,7 @@ class Remind extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

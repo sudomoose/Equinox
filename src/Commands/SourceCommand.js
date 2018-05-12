@@ -2,7 +2,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const config = require('../config.json');
 
 class Balance extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'source',
 			aliases: [
@@ -15,6 +15,7 @@ class Balance extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {

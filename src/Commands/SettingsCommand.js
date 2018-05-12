@@ -5,7 +5,7 @@ const resolveChannel = require('../Util/resolveChannel');
 const resolveRole = require('../Util/resolveRole');
 
 class Settings extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'settings',
 			aliases: [
@@ -19,6 +19,7 @@ class Settings extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg, args) {

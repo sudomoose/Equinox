@@ -4,7 +4,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 const config = require('../config.json');
 
 class Restart extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics) {
 		super({
 			command: 'restart',
 			aliases: [
@@ -17,6 +17,7 @@ class Restart extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
 	}
 
 	execute(msg) {
