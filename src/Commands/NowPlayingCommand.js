@@ -38,7 +38,7 @@ class Volume extends BaseCommand {
 					},
 					{
 						name: 'Duration',
-						value: formatDuration(player.state.duration) + '/' + formatDuration(queue.queue[0].info.length),
+						value: formatDuration(player.state.position) + '/' + formatDuration(queue.queue[0].info.length),
 						inline: true
 					}
 				]
