@@ -29,7 +29,7 @@ module.exports = (bot, r, metrics) => {
 				successful: false
 			}).run((error, result) => {
 				if (error) return handleDatabaseError(error, msg);
-				metrics.increment('commands.top', [ 'command:' + command.command ]);
+				metrics.increment('commands.top', 1, [ 'command:' + command.command ]);
 				try {
 					commands[0].execute(msg, args);
 					r.table('commands').get(result.generated_keys[0]).update({
