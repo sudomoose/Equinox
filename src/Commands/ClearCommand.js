@@ -3,11 +3,11 @@ const BaseCommand = require('../Structure/BaseCommand');
 class Resume extends BaseCommand {
 	constructor(bot, r) {
 		super({
-			command: 'resume',
+			command: 'clear',
 			aliases: [],
-			description: 'Resumes playing the current song.',
+			description: 'Clears the queue and current song.',
 			category: 'Music',
-			usage: 'resume',
+			usage: 'clear',
 			hidden: false
 		});
 		this.bot = bot;
@@ -21,8 +21,9 @@ class Resume extends BaseCommand {
 		if (this.bot.voiceConnections.has(msg.channel.guild.id) && this.bot.voiceConnections.get(msg.channel.guild.id).channelId !== msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   I am already playing music within a different voice channel. Please join that channel instead.');
 		if (!(msg.channel.guild.id in this.bot.queue)) return msg.channel.createMessage(':exclamation:   **»**   I am not playing any music in that voice channel.');
 		const player = this.bot.voiceConnections.get(msg.channel.guild.id);
-		if (!player.paused) return msg.channel.createMessage(':exclamation:   **»**   The current song is already playing.');
-		player.setPause(false);
+		const queue = this.bot.queue[msg.channel.guild.id];
+		queue.queue = [];
+		player.stop();
 	}
 }
 

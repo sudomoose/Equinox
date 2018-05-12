@@ -17,7 +17,8 @@
         "cleverbot": {
             "user": "",
             "key": ""
-        }
+        },
+        "youtube": ""
     },
     "links": {
         "server": "https://discord.gg/3hqURjk",
