@@ -35,5 +35,15 @@ module.exports = (bot, r, metrics) => {
 			metrics.gauge('uptime', Date.now() - bot.startTime);
 			metrics.gauge('voiceConnections', bot.voiceConnections.size);
 		}, 15000);
+
+		const guilds = Array.from(bot.guilds.keys());
+		for (const guildID in guilds) {
+			r.table('guilds').insert({
+				id: guilds[guildID].id,
+				memberCount: guilds[guildID].memberCount
+			}, { conflict: 'update' }).run((error) => {
+				if (error) return handleDatabaseError(error);
+			});
+		}
 	});
 };
