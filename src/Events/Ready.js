@@ -45,5 +45,16 @@ module.exports = (bot, r, metrics) => {
 				if (error) return handleDatabaseError(error);
 			});
 		}
+
+		r.table('guilds')('id').run((error, guilds) => {
+			if (error) return handleDatabaseError(error);
+			for (let i = 0; i < guilds.length; i++) {
+				if (!bot.guilds.has(guilds[i])) {
+					r.table('guilds').get(guilds[i]).delete().run((error) => {
+						if (error) return handleDatabaseError(error);
+					});
+				}
+			}
+		});
 	});
 };
