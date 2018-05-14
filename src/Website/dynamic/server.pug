@@ -1,0 +1,91 @@
+extends layout.pug
+
+block content
+    // Header
+    header#header
+        h1
+            strong
+                a(href='/') Equinox
+        nav#nav
+            ul
+                li
+                    a(href='/') Home
+                li
+                    a(href='/dashboard') Dashboard
+    a.navPanelToggle(href='#menu')
+        span.fa.fa-bars
+    // Main
+    section#main.wrapper
+        .container
+            header.major.special
+                span.image.left
+                    if guild.iconURL
+                        img(src=guild.iconURL)
+                    else
+                        img(src='/images/equinox.jpg')
+                h2 #{guild.name}
+                p #{guild.memberCount.toLocaleString()} members
+            // Settings
+            section
+                form(method='post')
+                    h2.no-margin-bottom Auto Snipe
+                    p Automatically reposts messages upon deletion. Ignores users who have opt-out from snipes.
+                    div(class='row uniform 50%' style='margin-bottom: 20px;')
+                        div(class='8u 12u$(xsmall)')
+                            input#autoSnipe-yes(type='radio' name='autoSnipe' value='true' checked=(settings && settings.autoSnipe))
+                            label(for='autoSnipe-yes') Yes
+                        div(class='8u 12u$(xsmall)')
+                            input#autoSnipe-no(type='radio' name='autoSnipe' value='false' checked=(!settings || !settings.autoSnipe))
+                            label(for='autoSnipe-no') No
+                    hr
+                    h2 Join Messages
+                    h3 Enabled
+                    div(class='row uniform 50%' style='margin-bottom: 20px;')
+                        div(class='8u 12u$(xsmall)')
+                            input#joinMessagesEnabled-yes(type='radio' name='joinMessages.enabled' value='true' checked=(settings && settings.joinMessages.enabled))
+                            label(for='joinMessagesEnabled-yes') Yes
+                        div(class='8u 12u$(xsmall)')
+                            input#joinMessagesEnabled-no(type='radio' name='joinMessages.enabled' value='false' checked=(!settings || !settings.joinMessages.enabled))
+                            label(for='joinMessagesEnabled-no') No
+                    h3 Channel
+                    .select-wrapper(style='margin-bottom: 20px;')
+                        select(name='joinMessages.channelID')
+                            for channel in guild.channels.filter((channel) => channel.type === 0 && !channel.parentID).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                option(value=channel.id selected=(settings && settings.joinMessages.channelID === channel.id)) ##{channel.name}
+                            for category in guild.channels.filter((channel) => channel.type === 4 && channel.channels.filter((channel) => channel.type === 2).length !== channel.channels.size).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                optgroup(label=category.name)
+                                    for channel in guild.channels.filter((channel) => channel.parentID === category.id && channel.type === 0).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                        option(value=channel.id selected=(settings && settings.joinMessages.channelID === channel.id)) ##{channel.name}
+                    h3.no-margin-bottom Message
+                    p The message below supports 
+                        a(href='/tags' target='_blank') tags
+                        |  which are used as a placeholder for dynamic content.
+                    textarea(name='joinMessages.message' rows='6') #{settings && settings.joinMessages.message}
+                    hr
+                    h2 Leave Messages
+                    h3 Enabled
+                    div(class='row uniform 50%' style='margin-bottom: 20px;')
+                        div(class='8u 12u$(xsmall)')
+                            input#leaveMessagesEnabled-yes(type='radio' name='leaveMessages.enabled' value='true' checked=(settings && settings.leaveMessages.enabled))
+                            label(for='leaveMessagesEnabled-yes') Yes
+                        div(class='8u 12u$(xsmall)')
+                            input#leaveMessagesEnabled-no(type='radio' name='leaveMessages.enabled' value='false' checked=(!settings || !settings.leaveMessages.enabled))
+                            label(for='leaveMessagesEnabled-no') No
+                    h3 Channel
+                    .select-wrapper(style='margin-bottom: 20px;')
+                        select(name='leaveMessages.channelID')
+                            for channel in guild.channels.filter((channel) => channel.type === 0 && !channel.parentID).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                option(value=channel.id selected=(settings && settings.leaveMessages.channelID === channel.id)) ##{channel.name}
+                            for category in guild.channels.filter((channel) => channel.type === 4 && channel.channels.filter((channel) => channel.type === 2).length !== channel.channels.size).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                optgroup(label=category.name)
+                                    for channel in guild.channels.filter((channel) => channel.parentID === category.id && channel.type === 0).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                        option(value=channel.id selected=(settings && settings.leaveMessages.channelID === channel.id)) ##{channel.name}
+                    h3.no-margin-bottom Message
+                    p The message below supports 
+                        a(href='/tags' target='_blank') tags
+                        |  which are used as a placeholder for dynamic content.
+                    textarea(name='leaveMessages.message' rows='6') #{settings && settings.leaveMessages.message}
+                    hr
+                    ul.actions
+                        li
+                            button.button.special.medium(type='submit') Submit

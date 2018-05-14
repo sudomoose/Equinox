@@ -1,20 +1,17 @@
 const Eris = require('eris');
 const fs = require('fs');
 const path = require('path');
-const rethink = require('rethinkdbdash');
-const metrics = require('datadog-metrics');
 const Collection = require('./Structure/Collection');
 const config = require('./config.json');
 
 class Client {
-	constructor(...args) {
-		this.bot = new Eris(...args);
+	constructor(options) {
+		this.bot = new Eris(options.token, options.client_options);
+		this.r = options.rethinkdb;
+		this.metrics = options.metrics;
 	}
 
 	launch() {
-		this.r = rethink(config.rethinkdb);
-		this.metrics = metrics;
-
 		this.metrics.init({
 			prefix: 'equinox.',
 			apiKey: config.api_keys.datadog.apiKey,

@@ -3,6 +3,7 @@ const dateformat = require('dateformat');
 module.exports = (message, member, guild) => {
 	return message
 		.split('{user.id}').join(member.user.id)
+		.split('{user.mention}').join('<@' + member.user.id + '>')
 		.split('{user.createdAt.time}').join(dateformat(member.user.createdAt, 'hh:MM:ss TT'))
 		.split('{user.createdAt.date}').join(dateformat(member.user.createdAt, 'mm/dd/yyyy'))
 		.split('{user.createdAt.datetime}').join(dateformat(member.user.createdAt, 'mm/dd/yyyy hh:MM:ss TT'))

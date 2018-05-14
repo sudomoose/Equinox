@@ -1,0 +1,32 @@
+extends layout.pug
+
+block content
+    // Header
+    header#header
+        h1
+            strong
+                a(href='/') Equinox
+        nav#nav
+            ul
+                li
+                    a(href='/') Home
+                li
+                    a(href='/dashboard') Dashboard
+    a.navPanelToggle(href='#menu')
+        span.fa.fa-bars
+    // Main
+    section#main.wrapper
+        .container
+            header.major.special
+                h2 Welcome, #{user.username}##{user.discriminator}
+                p Click a server below to configure.
+            // Servers
+            section
+                .box.alt
+                    .row.uniform(class='50%')
+                        for guild in user.guilds
+                            a.2u(href='/dashboard/' + guild.id)
+                                span.image.fit(style='margin-bottom: 1em; box-shadow: 0 5px 20px rgb(127, 127, 127);')
+                                    img(src=(guild.icon ? 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png?size=256' : '/images/equinox.jpg') alt=guild.name + '\'s icon')
+                                header.major.special
+                                    h4 #{guild.name}

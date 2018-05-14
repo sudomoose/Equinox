@@ -1,0 +1,148 @@
+extends layout.pug
+
+block content
+    // Header
+    header#header
+        h1
+            strong
+                a(href='/') Equinox
+        nav#nav
+            ul
+                li
+                    a(href='/') Home
+                li
+                    a(href='/dashboard') Dashboard
+    a.navPanelToggle(href='#menu')
+        span.fa.fa-bars
+    // Main
+    section#main.wrapper
+        .container
+            header.major.special
+                h2 Tags
+                p A full list of variables to use in join or leave messages.
+            // Tags
+            .table-wrapper
+                table(style='table-layout: fixed;')
+                    thead
+                        tr
+                            th(style='width: 25%;') Name
+                            th(style='width: 35%;') Description
+                            th(style='width: 40%;') Example
+                    tbody
+                        tr
+                            td
+                                code {user.id}
+                            td The ID of the user.
+                            td 153173425844781056
+                        tr
+                            td
+                                code {user.mention}
+                            td Mentions the user.
+                            td
+                                span.mention @PassTheMayo
+                        tr
+                            td
+                                code {user.username}
+                            td The username of the user.
+                            td PassTheMayo
+                        tr
+                            td
+                                code {user.discriminator}
+                            td The four digit number of the user.
+                            td 1281
+                        tr
+                            td
+                                code {user.tag}
+                            td The combined username and discriminator of the user.
+                            td PassTheMayo#1281
+                        tr
+                            td
+                                code {user.avatarURL}
+                            td The full avatar URL for the user.
+                            td
+                                a(href='https://cdn.discordapp.com/avatars/153173425844781056/c27dde49224b9f00273557a9ca86e2a2.jpg?size=128' target='_blank') https://cdn.discordapp.com/avatars/153173425844781056/c27dde49224b9f00273557a9ca86e2a2.jpg?size=128
+                        tr
+                            td
+                                code {user.createdAt.time}
+                            td The time at which the user created their account.
+                            td 10:16:30 AM
+                        tr
+                            td
+                                code {user.createdAt.date}
+                            td The date at which the user created their account.
+                            td 02/27/2016
+                        tr
+                            td
+                                code {user.createdAt.datetime}
+                            td The time and date at which the user created their account.
+                            td 02/27/2016 10:16:30 AM
+                        tr
+                            td
+                                code {user.joinedAt.time}
+                            td The time at which the user joined the server.
+                            td 10:23:22 AM
+                        tr
+                            td
+                                code {user.joinedAt.date}
+                            td The date at which the user joined the server.
+                            td 02/25/2017
+                        tr
+                            td
+                                code {user.joinedAt.datetime}
+                            td The time and date at which the user joined the server.
+                            td 02/25/2017 10:23:22 AM
+                        tr
+                            td
+                                code {date}
+                            td The current date.
+                            td 05/13/2018
+                        tr
+                            td
+                                code {time}
+                            td The current time.
+                            td 9:31:52 PM
+                        tr
+                            td
+                                code {datetime}
+                            td The current time and date.
+                            td 05/13/2018 9:31:52 PM
+                        tr
+                            td
+                                code {guild.id}
+                            td The ID of the server.
+                            td 285084336225779722
+                        tr
+                            td
+                                code {guild.name}
+                            td The name of the server.
+                            td PassTheMayo Official
+                        tr
+                            td
+                                code {guild.members}
+                            td The member count of the server.
+                            td 90
+                        tr
+                            td
+                                code {guild.roles}
+                            td The role count of the server.
+                            td 6
+                        tr
+                            td
+                                code {guild.emojis}
+                            td The emoji count of the server.
+                            td 56
+                        tr
+                            td
+                                code {guild.createdAt.time}
+                            td The time at which the server was created.
+                            td 10:23:22 AM
+                        tr
+                            td
+                                code {guild.createdAt.date}
+                            td The date at which the server was created.
+                            td 02/25/2017
+                        tr
+                            td
+                                code {guild.createdAt.datetime}
+                            td The time and date at which the server was created.
+                            td 02/25/2017 10:23:22 AM

@@ -49,5 +49,15 @@
             }
         ]
     },
-    "client_options": {}
+    "client_options": {},
+    "website": {
+        "port": 3000,
+        "secret": "",
+        "discord": {
+            "clientID": "",
+            "clientSecret": "",
+            "scope": [ "identify", "guilds" ],
+            "callbackURL": "/auth/callback"
+        }
+    }
 }
