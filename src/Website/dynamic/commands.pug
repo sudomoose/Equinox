@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+    .jumbotron
+        .container
+            h1.title Commands
+            p.subtitle A full list of commands available for use in Equinox.
+    .container.container-margin
+        for category in categories
+            .card(style='margin-bottom: 30px;')
+                .card-header #{category} &ndash; #{commands.filter((command) => command.category === category).length}
+                .card-body(style='padding: 0;')
+                    table.table(style='margin-bottom: 0;')
+                        thead
+                            tr
+                                th(scope='col' style='border-top: none;') Command
+                                th(scope='col' style='border-top: none;') Description
+                                th(scope='col' style='border-top: none;') Aliases
+                        tbody
+                            for command in commands.filter((command) => command.category === category).sort((a, b) => a.command > b.command ? 1 : b.command > a.command ? -1 : 0)
+                                tr
+                                    td
+                                        code #{command.command}
+                                    td #{command.description}
+                                    td
+                                        code #{command.aliases.length > 0 ? command.aliases.join(', ') : 'N/A'}

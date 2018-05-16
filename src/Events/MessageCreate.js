@@ -6,6 +6,7 @@ const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.c
 
 module.exports = (bot, r, metrics) => {
 	bot.on('messageCreate', (msg) => {
+		bot.statistics.messagesReceived++;
 		if (!bot.ready || !msg.author || msg.author.bot) return;
 		let prefix = msg.channel.guild && bot.prefixes.has(msg.channel.guild.id) ? bot.prefixes.get(msg.channel.guild.id) : config.default_prefix;
 		if (!msg.content.startsWith(prefix)) return;
@@ -30,6 +31,7 @@ module.exports = (bot, r, metrics) => {
 			}).run((error, result) => {
 				if (error) return handleDatabaseError(error, msg);
 				metrics.increment('commands.top', 1, [ 'command:' + commands[0].command ]);
+				bot.statistics.commandUsage[commands[0].command] = (bot.statistics.commandUsage[commands[0].command] || 0) + 1;
 				try {
 					commands[0].execute(msg, args);
 					r.table('commands').get(result.generated_keys[0]).update({

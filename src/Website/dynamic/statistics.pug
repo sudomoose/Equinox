@@ -1,0 +1,40 @@
+extends layout.pug
+
+block content
+    .jumbotron
+        .container
+            h1.title Statistics
+            p.subtitle Detailed information about Equinox and its users.
+    .container.container-margin
+        .row
+                .col-lg-4.col-md-4.col-sm-12.text-center
+                    h2.title Shards
+                    h5 #{shards.toLocaleString()}
+                .col-lg-4.col-md-4.col-sm-12.text-center
+                    h2.title Guilds
+                    h5 #{guilds.toLocaleString()}
+                .col-lg-4.col-md-4.col-sm-12.text-center
+                    h2.title Users
+                    h5 #{users.toLocaleString()}
+        br
+        .row
+            .col-lg-4.col-md-4.col-sm-12.text-center
+                h2.title Voice Connections
+                h5 #{voiceConnections.toLocaleString()}
+            .col-lg-4.col-md-4.col-sm-12.text-center
+                h2.title Total Queue Length
+                h5 #{queueLength}
+            .col-lg-4.col-md-4.col-sm-12.text-center
+                h2.title Queue Size
+                h5 #{queueSize.toLocaleString()} songs
+        br
+        .row
+            .col-lg-4.col-md-4.col-sm-12.text-center
+                h2.title Most Used Command
+                h5 #{mostUsedCommand.command} (#{mostUsedCommand.usage})
+            .col-lg-4.col-md-4.col-sm-12.text-center
+                h2.title Events Received
+                h5 #{eventsReceived.toLocaleString()}
+            .col-lg-4.col-md-4.col-sm-12.text-center
+                h2.title Messages Received
+                h5 #{messagesReceived.toLocaleString()}

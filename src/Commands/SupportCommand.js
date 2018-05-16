@@ -9,7 +9,7 @@ class Support extends BaseCommand {
 				'support'
 			],
 			description: 'Gets the link to the support server.',
-			category: 'Utility',
+			category: 'General',
 			usage: 'support',
 			hidden: false
 		});

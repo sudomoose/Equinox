@@ -8,7 +8,7 @@ class Balance extends BaseCommand {
 				'inv'
 			],
 			description: 'Get the invite to get Equinox added to your server.',
-			category: 'Utility',
+			category: 'General',
 			usage: 'invite',
 			hidden: false
 		});

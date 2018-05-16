@@ -6,7 +6,7 @@ class Help extends BaseCommand {
 			command: 'help',
 			aliases: [],
 			description: 'Gets a list of commands sent to your channel.',
-			category: 'Utility',
+			category: 'General',
 			usage: 'help',
 			hidden: false
 		});

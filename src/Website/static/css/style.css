@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
+body {
+    padding-bottom: 50px;
+}
+
+.container-margin {
+    margin-top: 50px;
+}
+
+.title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+.card, .btn, .jumbotron, .nav-pills .nav-link.active {
+    border-radius: 0 !important;
+}
+
+.form-control {
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+}
+
+hr {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}

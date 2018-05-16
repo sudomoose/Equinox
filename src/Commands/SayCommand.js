@@ -6,7 +6,7 @@ class Say extends BaseCommand {
 			command: 'say',
 			aliases: [],
 			description: 'Sends whatever you tell it to say.',
-			category: 'Fun',
+			category: 'General',
 			usage: 'say <message...>',
 			hidden: false
 		});

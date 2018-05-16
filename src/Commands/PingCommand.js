@@ -6,7 +6,7 @@ class Ping extends BaseCommand {
 			command: 'ping',
 			aliases: [],
 			description: 'Check how long it takes to send a message.',
-			category: 'Utility',
+			category: 'General',
 			usage: 'ping',
 			hidden: false
 		});

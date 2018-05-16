@@ -1,89 +1,61 @@
 extends layout.pug
 
 block content
-	a.navPanelToggle(href='#menu')
-		span.fa.fa-bars
-	// Banner
-	section#banner
-		h2 Equinox
-		p
-			| A feature rich Discord bot packed full of the best
-			br
-			| functionalities you'll ever need.
-		ul.actions
-			li
-				a.button.special.big(href='/invite') Invite
-			li
-				a.button.special.big(href='/server') Support Server
-	// Features
-	section#three.wrapper.style2
-		.container
-			.feature-grid
-				.feature
-					.image
-						img(src='/images/music.png' alt='Music preview')
-					.content
-						header
-							h4 Music
-						p
-							| Listen to all your music, even playlists, with no limits or queue caps.
-				.feature
-					.image
-						img(src='/images/economy.png' alt='Economy preview')
-					.content
-						header
-							h4 Economy
-						p
-							| Make money inside the bot, then spend it all gambling and other criminal activities.
-				.feature
-					.image
-						img(src='/images/reminders.png' alt='Reminders preview')
-					.content
-						header
-							h4 Reminders
-						p
-							| Let us remind you about activities throughout your day, so you won't forget your turkey has been in the oven for 6 and a 1/2 hours.
-				.feature
-					.image
-						img(src='/images/fun.png' alt='Fun preview')
-					.content
-						header
-							h4 Fun
-						p
-							| Plenty of commands to keep you and your Roblox community entertained for hours to come.
-				.feature
-					.image
-						img(src='/images/image.png' alt='Image preview')
-					.content
-						header
-							h4 Image
-						p
-							| Mess around with image effects and other styles of imagery.
-				.feature
-					.image
-						img(src='/images/profile.png' alt='Profile preview')
-					.content
-						header
-							h4 Profile
-						p
-							| Personalize your in-bot profile to show off your achievements and rewards to your friends and family.
-	// Testimonials
-	section#one.wrapper.style1
-		.container(class='75%')
-			.row(class='200%')
-				.6u(class='12u$(medium)')
-					header.major
-						h2 Testimonials
-						p from our dear users
-				div(class='6u$ 12u$(medium)')
-					p
-						| There are no testimonials here, but you could be the first! Contact our developers in the support server.
-	// Conclusion
-	section#four.wrapper.style3
-		.container
-			header.major
-				h2 So, you ready?
-				p Equinox is ready to join, just hit invite!
-			ul.actions
-				li
-					a.button.special.big(href='/') Invite
+    .jumbotron
+        .container
+            .row
+                .col-lg-2.col-md-2.col-sm-2
+                    img.float-left(src='/images/equinox.jpg' style='border-radius: 100%; width: inherit;')
+                .col-lg-10.col-md-10.col-sm-10(style='display: inline-block')
+                    h1.title Equinox
+                    p.subtitle A feature rich Discord bot packed full of the best functionalities you'll ever need.
+                    a.btn.btn-primary(href='/invite' style='margin-right: 20px;') Invite Equinox
+                    a.btn.btn-primary(href='/server') Support Server
+    .container
+        .row
+            .col-lg-4
+                .card
+                    .card-body
+                        h5.card-title 
+                            img(src='/images/settings.png' style='width: 35px;')
+                            | &nbsp;&nbsp;&nbsp;Dashboard
+                        p.card-text Easily configure all of Equinox's settings by using our online dashboard, even a blind person could understand.
+            .col-lg-4
+                .card
+                    .card-body
+                        h5.card-title
+                            img(src='/images/music.png' style='width: 35px;')
+                            | &nbsp;&nbsp;&nbsp;Music
+                        p.card-text Easily queue up your entire 
+                            img(src='/images/fire.svg' style='width: 20px; margin-top: -5px;')
+                            |  playlist with Equinox's completely free music capabilities.
+            .col-lg-4
+                .card
+                    .card-body
+                        h5.card-title
+                            img(src='/images/utility.png' style='width: 35px;')
+                            | &nbsp;&nbsp;&nbsp;Utilities
+                        p.card-text Equinox provides you with tons of commands that can make your life so much easier.
+        br
+        .row
+            .col-lg-4
+                .card
+                    .card-body
+                        h5.card-title
+                            img(src='/images/image.png' style='width: 35px;')
+                            | &nbsp;&nbsp;&nbsp;Image Manipulation
+                        p.card-text Easily add filters, or overlays to images with the variety of commands that this bot offers.
+            .col-lg-4
+                .card
+                    .card-body
+                        h5.card-title
+                            img(src='/images/reminders.png' style='width: 35px;')
+                            | &nbsp;&nbsp;&nbsp;Reminders
+                        p.card-text Set reminders so that you won't forget that your lasagna has been in the oven for 6 hours.
+            .col-lg-4
+                .card
+                    .card-body
+                        h5.card-title
+                            img(src='/images/idea.png' style='width: 35px;')
+                            | &nbsp;&nbsp;&nbsp;Cleverbot
+                        p.card-text Talk with an "intelligent" AI all day, so that you won't get bored, but you still have no friends.

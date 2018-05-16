@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
-const snekfetch = require('snekfetch');
 const auth = require('./auth');
 const config = require('../config.json');
 const Logger = require('../Util/Logger');
@@ -20,23 +19,6 @@ class Website {
 		this.app.set('view engine', 'pug');
 		this.app.set('views', path.join(__dirname, 'dynamic'));
 		this.app.use(auth(this.r));
-		this.app.use((req, res, next) => {
-			if (!req.user || Date.now() - req.user.lastGuildUpdate < 1000 * 60 * 60 * 24) return next();
-			snekfetch.get('https://discordapp.com/api/users/@me/guilds').set('Authorization', 'Bearer ' + req.user.accessToken).then((guilds) => {
-				this.r.table('users').get(req.user.id).update({ guilds: Array.from(guilds.body) }).run((error) => {
-					if (error) Logger.error(error);
-				});
-				req.user.guilds = Array.from(guilds.body);
-				req.user.lastGuildUpdate = Date.now();
-				next();
-			}).catch((error) => {
-				res.status(500).render('error.pug', {
-					code: 500,
-					message: 'An error occured while trying to fetch new guilds. Please try again later.'
-				});
-				Logger.error(error);
-			});
-		});
 	}
 
 	loadRouters() {

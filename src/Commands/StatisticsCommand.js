@@ -13,7 +13,7 @@ class Statistics extends BaseCommand {
 				'stats'
 			],
 			description: 'Sends detailed information about this bot.',
-			category: 'Utility',
+			category: 'General',
 			usage: 'statistics',
 			hidden: false
 		});

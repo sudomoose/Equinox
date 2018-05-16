@@ -1,32 +1,22 @@
 extends layout.pug
 
 block content
-    // Header
-    header#header
-        h1
-            strong
-                a(href='/') Equinox
-        nav#nav
-            ul
-                li
-                    a(href='/') Home
-                li
-                    a(href='/dashboard') Dashboard
-    a.navPanelToggle(href='#menu')
-        span.fa.fa-bars
-    // Main
-    section#main.wrapper
+    .jumbotron
         .container
-            header.major.special
-                h2 Welcome, #{user.username}##{user.discriminator}
-                p Click a server below to configure.
-            // Servers
-            section
-                .box.alt
-                    .row.uniform(class='50%')
-                        for guild in user.guilds
-                            a.2u(href='/dashboard/' + guild.id)
-                                span.image.fit(style='margin-bottom: 1em; box-shadow: 0 5px 20px rgb(127, 127, 127);')
-                                    img(src=(guild.icon ? 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png?size=256' : '/images/equinox.jpg') alt=guild.name + '\'s icon')
-                                header.major.special
-                                    h4 #{guild.name}
+            h1.title Dashboard
+            p.subtitle Select a server below to configure its settings.
+            a.btn.btn-primary(href='/dashboard/refresh') Refresh Servers
+    .container.container-margin
+        if user.guilds.length > 0
+            .row
+                for guild in user.guilds.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 0)
+                    .col-lg-3.text-center(style='margin-bottom: 30px;')
+                        img.img(src=guild.icon ? 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '?size=256' : '/images/equinox.jpg' style='width: 128px; margin-bottom: 10px;')
+                        h3.title #{guild.name}
+                        if botGuilds.includes(guild.id) && (guild.owner || (guild.permissions & (1 << 0x00000020)) !== 0 || developers.includes(user.id))
+                            a(href='/dashboard/' + guild.id) Go to Dashboard
+                        else if guild.owner || (guild.permissions & (1 << 0x00000020)) !== 0
+                            a(href='/invite/' + guild.id) Invite Equinox
+        else
+            h2.title No servers!
+            p.subtitle Join a server to see them here.

@@ -24,6 +24,11 @@ class Client {
 		this.bot.prefixes = new Collection();
 		this.bot.reminders = new Collection();
 		this.bot.queue = {};
+		this.bot.statistics = {
+			commandUsage: {},
+			eventsReceived: 0,
+			messagesReceived: 0
+		};
 
 		this.loadCommand(path.join(__dirname, 'Commands'));
 		this.loadEvents(path.join(__dirname, 'Events'));
