@@ -1,5 +1,4 @@
 const Logger = require('../Util/Logger.js');
-const handleDatabaseError = require('../Util/handleDatabaseError');
 const WebhookClient = require('../Structure/WebhookClient');
 const config = require('../config.json');
 const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
@@ -20,30 +19,14 @@ module.exports = (bot, r, metrics) => {
 				color: bot.embedColor,
 				description: '**Command**: ' + command + '\n**Guild**: ' + (msg.channel.guild ? msg.channel.guild.name : 'N/A') + '\n**User**: ' + msg.author.username + '#' + msg.author.discriminator
 			});
-			r.table('commands').insert({
-				timestamp: Date.now(),
-				userID: msg.author.id,
-				channelID: msg.channel.guild ? msg.channel.id : null,
-				guildID: msg.channel.guild ? msg.channel.guild.id : null,
-				command: commands[0].command,
-				args,
-				successful: false
-			}).run((error, result) => {
-				if (error) return handleDatabaseError(error, msg);
-				metrics.increment('commands.top', 1, [ 'command:' + commands[0].command ]);
-				bot.statistics.commandUsage[commands[0].command] = (bot.statistics.commandUsage[commands[0].command] || 0) + 1;
-				try {
-					commands[0].execute(msg, args);
-					r.table('commands').get(result.generated_keys[0]).update({
-						successful: true
-					}).run((error) => {
-						if (error) handleDatabaseError(error);
-					});
-				} catch(e) {
-					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
-					Logger.error('Failed to run command.', e);
-				}
-			});
+			metrics.increment('commands.top', 1, [ 'command:' + commands[0].command ]);
+			bot.statistics.commandUsage[commands[0].command] = (bot.statistics.commandUsage[commands[0].command] || 0) + 1;
+			try {
+				commands[0].execute(msg, args);
+			} catch(e) {
+				msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
+				Logger.error('Failed to run command.', e);
+			}
 		}
 	});
 };
