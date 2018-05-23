@@ -13,11 +13,5 @@ module.exports = (bot, r) => {
 			description: '**Name**: ' + guild.name + '\n**ID**: ' + guild.id + '\n**Members**: ' + guild.memberCount + '\n**Owner**: ' + owner.username + '#' + owner.discriminator
 		});
 		updateGuildCount(bot);
-		r.table('guilds').insert({
-			id: guild.id,
-			memberCount: guild.memberCount
-		}, { conflict: 'update' }).run((error) => {
-			if (error) return handleDatabaseError(error);
-		});
 	});
 };

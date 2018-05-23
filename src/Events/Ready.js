@@ -35,26 +35,5 @@ module.exports = (bot, r, metrics) => {
 			metrics.gauge('uptime', Date.now() - bot.startTime);
 			metrics.gauge('voiceConnections', bot.voiceConnections.size);
 		}, 15000);
-
-		const guilds = Array.from(bot.guilds.keys());
-		for (const guildID in guilds) {
-			r.table('guilds').insert({
-				id: guilds[guildID].id,
-				memberCount: guilds[guildID].memberCount
-			}, { conflict: 'update' }).run((error) => {
-				if (error) return handleDatabaseError(error);
-			});
-		}
-
-		r.table('guilds')('id').run((error, guilds) => {
-			if (error) return handleDatabaseError(error);
-			for (let i = 0; i < guilds.length; i++) {
-				if (!bot.guilds.has(guilds[i])) {
-					r.table('guilds').get(guilds[i]).delete().run((error) => {
-						if (error) return handleDatabaseError(error);
-					});
-				}
-			}
-		});
 	});
 };
