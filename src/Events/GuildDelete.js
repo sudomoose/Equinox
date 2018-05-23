@@ -1,10 +1,9 @@
 const WebhookClient = require('../Structure/WebhookClient');
 const updateGuildCount = require('../Util/updateGuildCount');
-const handleDatabaseError = require('../Util/handleDatabaseError');
 const config = require('../config.json');
 const webhook = new WebhookClient(config.webhooks.guilds.id, config.webhooks.guilds.token);
 
-module.exports = (bot, r) => {
+module.exports = (bot) => {
 	bot.on('guildDelete', (guild) => {
 		const owner = bot.users.get(guild.ownerID);
 		if (bot.user.id !== '336658909206937600') webhook.send({

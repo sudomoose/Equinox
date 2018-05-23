@@ -149,7 +149,7 @@ class ChannelInfo extends BaseCommand {
 					});
 					msg.channel.createMessage({ embed });
 				}).catch((error) => {
-					if (error.statusCode === 404) msg.channel.createMessage({ embed });
+					if (error.statusCode === 404) return msg.channel.createMessage({ embed });
 					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 					Logger.error('Failed to get bot info', error);
 				});
