@@ -38,13 +38,13 @@ class Call extends BaseCommand {
 					accepted: true
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
-					this.bot.calls.set(calls[0].caller, {
-						callee: calls[0].callee,
-						accepted: true
+					this.r.table('calls').get(calls[0].id).run((error, call) => {
+						if (error) return handleDatabaseError(error, msg);
+						this.bot.calls.set(calls[0].caller, call[0]);
+						const otherSide = this.bot.guilds.get(this.bot.channelGuildMap[calls[0].callerChannelID]).channels.get(calls[0].callerChannelID);
+						msg.channel.createMessage(':telephone:   **»**   You have accepted the incoming call. You are now talking with #' + otherSide.name + ' in ' + otherSide.guild.name + '.');
+						otherSide.createMessage(':telephone:   **»**   The other side accepted the call. You are now talking with #' + msg.channel.name + ' in ' + msg.channel.guild.name + '.');
 					});
-					const otherSide = this.bot.guilds.get(this.bot.channelGuildMap[calls[0].callerChannelID]).channels.get(calls[0].callerChannelID);
-					msg.channel.createMessage(':telephone:   **»**   You have accepted the incoming call. You are now talking with #' + otherSide.name + ' in ' + otherSide.guild.name + '.');
-					otherSide.createMessage(':telephone:   **»**   The other side accepted the call. You are now talking with #' + msg.channel.name + ' in ' + msg.channel.guild.name + '.');
 				});
 			});
 		});
