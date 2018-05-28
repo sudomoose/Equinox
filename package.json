@@ -1,6 +1,6 @@
 {
 	"name": "equinox",
-	"version": "1.1.2",
+	"version": "1.1.4",
 	"description": "A feature rich Discord bot packed full of the best functionalities you'll ever need.",
 	"main": "src/index.js",
 	"scripts": {
@@ -15,24 +15,25 @@
 	"author": "PassTheMayo",
 	"license": "Apache-2.0",
 	"dependencies": {
+		"body-parser": "^1.18.2",
 		"cleverbot.io": "^1.0.4",
+		"convert-units": "^2.3.4",
+		"cookie-parser": "^1.4.3",
+		"cookie-session": "^2.0.0-beta.3",
 		"datadog-metrics": "^0.8.1",
 		"dateformat": "^3.0.3",
 		"duration-parser": "^1.0.2",
 		"eris": "^0.8.5",
 		"eris-lavalink": "^1.0.2",
+		"express": "^4.16.3",
 		"google-translate-api": "^2.3.0",
 		"google-translate-token": "^1.0.0",
 		"humanize-duration": "^3.14.0",
-		"rethinkdbdash": "^2.3.31",
-		"snekfetch": "^4.0.0",
-		"body-parser": "^1.18.2",
-		"cookie-parser": "^1.4.3",
-		"cookie-session": "^2.0.0-beta.3",
-		"express": "^4.16.3",
 		"passport": "^0.4.0",
 		"passport-discord": "^0.1.3",
-		"pug": "^2.0.3"
+		"pug": "^2.0.3",
+		"rethinkdbdash": "^2.3.31",
+		"snekfetch": "^4.0.0"
 	},
 	"repository": {
 		"type": "git",
