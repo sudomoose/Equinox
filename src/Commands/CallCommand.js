@@ -26,7 +26,6 @@ class Call extends BaseCommand {
 			const call = (register) => {
 				if (!(register.id in this.bot.channelGuildMap)) return msg.channel.createMessage(':exclamation:   **»**   That phone number exists, but the channel has been deleted. Please try again.');
 				if (register.id === registeration.id) return msg.channel.createMessage(':exclamation:   **»**   You can\'t call yourself, silly!');
-				if (register.blocked.includes(registeration.number)) return msg.channel.createMessage(':exclamation:   **»**   You cannot call this number because they have blocked you.');
 				this.r.table('calls').filter(this.r.row('caller').eq(register.number).or(this.r.row('callee').eq(register.number))).run((error, calls) => {
 					if (error) return handleDatabaseError(error, msg);
 					if (calls.length > 0) return msg.channel.createMessage(':exclamation:   **»**   That channel is already in another call with a different channel.');

@@ -27,8 +27,7 @@ class Register extends BaseCommand {
 			const number = Math.floor(Math.random() * (9999999999 - 1000000000)) + 1000000000;
 			this.r.table('registrations').insert({
 				id: msg.channel.id,
-				number,
-				blocked: []
+				number
 			}).run((error) => {
 				if (error) return handleDatabaseError(error, msg);
 				msg.channel.createMessage(':white_check_mark:   **»**   The new phone number for this channel is now `' + formatPhoneNumber(number) + '`.');
