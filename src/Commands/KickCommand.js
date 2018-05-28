@@ -48,6 +48,8 @@ class Kick extends BaseCommand {
 							msg.channel.createMessage(':boot:   **»**   Successfully kicked ' + member.username + '#' + member.discriminator + ' (' + member.id + ').');
 						}
 					});
+				}).catch(() => {
+					msg.channel.createMessage(':exclamation:   **»**   Failed to kick ' + member.username + '#' + member.discriminator + '. Please note that I cannot kick members that have a higher role than mine.');
 				});
 			}).catch(() => {
 				msg.channel.createMessage(':exclamation:   **»**   Unable to find any users by that query.');

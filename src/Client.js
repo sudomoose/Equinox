@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Collection = require('./Structure/Collection');
 const config = require('./config.json');
+const Logger = require('./Util/Logger');
 
 class Client {
 	constructor(options) {
@@ -33,6 +34,11 @@ class Client {
 
 		this.loadCommand(path.join(__dirname, 'Commands'));
 		this.loadEvents(path.join(__dirname, 'Events'));
+
+		process.on('unhandledRejection', (error) => {
+			if (error.code && (error.code === 50006 || error.code === 50007 || error.code === 50013)) return;
+			Logger.error(error);
+		});
 
 		process.on('exit', () => {
 			this.bot.disconnect({

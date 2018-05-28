@@ -48,6 +48,8 @@ class Ban extends BaseCommand {
 							msg.channel.createMessage(':hammer:   **»**   Successfully banned ' + member.username + '#' + member.discriminator + ' (' + member.id + ').');
 						}
 					});
+				}).catch(() => {
+					msg.channel.createMessage(':exclamation:   **»**   Failed to ban ' + member.username + '#' + member.discriminator + '. Please note that I cannot ban members that have a higher role than mine.');
 				});
 			}).catch(() => {
 				msg.channel.createMessage(':exclamation:   **»**   Unable to find any users by that query.');
