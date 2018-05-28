@@ -23,7 +23,11 @@ block content
                         code {user.mention}
                     td Mentions the user.
                     td
-                        span.mention @PassTheMayo
+                        span.mention
+                            if user
+                                | @#{user.username}
+                            else
+                                | @PassTheMayo
                 tr
                     td
                         code {user.username}

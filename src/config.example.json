@@ -27,7 +27,8 @@
     "links": {
         "server": "https://discord.gg/3hqURjk",
         "github": "https://github.com/EquinoxBot/Equinox",
-        "donate": "http://patreon.com/PassTheMayo"
+        "donate": "http://patreon.com/PassTheMayo",
+        "dashboard": "https://equinoxbot.xyz/dashboard"
     },
     "webhooks": {
         "guilds": {
@@ -59,5 +60,13 @@
             "scope": [ "identify", "guilds" ],
             "callbackURL": "/auth/callback"
         }
+    },
+    "help_category_emojis": {
+        "Economy": ":dollar:",
+        "Utility": ":wrench:",
+        "Information": ":newspaper:",
+        "Music": ":musical_note:",
+        "Fun": ":tada:",
+        "Moderation": ":shield:"
     }
 }

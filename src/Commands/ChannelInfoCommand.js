@@ -10,7 +10,7 @@ class ChannelInfo extends BaseCommand {
 				'channel'
 			],
 			description: 'Displays information about a channel.',
-			category: 'Discord',
+			category: 'Information',
 			usage: 'channelinfo [<channel...>]',
 			hidden: false
 		});

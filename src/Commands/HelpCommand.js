@@ -1,4 +1,5 @@
 const BaseCommand = require('../Structure/BaseCommand');
+const config = require('../config.json');
 
 class Help extends BaseCommand {
 	constructor(bot, r, metrics) {
@@ -6,7 +7,7 @@ class Help extends BaseCommand {
 			command: 'help',
 			aliases: [],
 			description: 'Gets a list of commands sent to your channel.',
-			category: 'General',
+			category: 'Information',
 			usage: 'help',
 			hidden: false
 		});
@@ -16,17 +17,22 @@ class Help extends BaseCommand {
 	}
 
 	execute(msg) {
-		let help = 'All of this bot\'s commands are listed below, along with the category that they belong in. Each of the commands will start with `' + msg.prefix + '`. For example: `' + msg.prefix + 'prefix`.';
+		let help = '';
 		const categories = {};
 		this.bot.commands.filter((command) => !command.hidden).forEach((command) => {
 			if (!(command.category in categories)) categories[command.category] = [];
 			categories[command.category].push(command.command);
 		});
 		for (const category in categories) {
-			help += '\n\n**' + category + '**   **»**   ' + categories[category].map((command) => '`' + command + '`').join('   ');
+			help += '\n\n' + (category in config.help_category_emojis ? config.help_category_emojis[category] : ':question:') + '   **' + category + '**:   ' + categories[category].map((command) => '`' + command + '`').join(', ');
 		}
-		help += '\n\nIf you need more assistance with the bot, type `' + msg.prefix + 'support` and join the server.';
-		msg.channel.createMessage(help);
+		msg.channel.createMessage({
+			embed: {
+				title: 'Command List',
+				color: this.bot.embedColor,
+				description: 'To use any of the commands below, use `' + msg.prefix + '<command>`. For example, `' + msg.prefix + 'prefix`.\n\nIf you want a full list of commands, go to ' + config.links.commands + '.' + help
+			}
+		});
 	}
 }
 

@@ -9,7 +9,7 @@ class Balance extends BaseCommand {
 				'src'
 			],
 			description: 'Gets the source of the bot on GitHub.',
-			category: 'General',
+			category: 'Information',
 			usage: 'source',
 			hidden: false
 		});

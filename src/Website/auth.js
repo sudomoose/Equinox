@@ -34,7 +34,7 @@ module.exports = (r) => {
 	router.use(cookieParser(config.website.secret));
 	router.use(cookieSession({
 		secret: config.website.secret,
-		maxAge: 1000 * 60 * 60 * 24 * 365
+		maxAge: 1000 * 60 * 60 * 24 * 7
 	}));
 	router.use(passport.initialize());
 	router.use(passport.session());

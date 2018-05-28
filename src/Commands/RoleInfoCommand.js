@@ -10,7 +10,7 @@ class RoleInfo extends BaseCommand {
 				'role'
 			],
 			description: 'Displays information about a role.',
-			category: 'Discord',
+			category: 'Information',
 			usage: 'roleinfo [<role...>]',
 			hidden: false
 		});

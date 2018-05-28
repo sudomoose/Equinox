@@ -10,7 +10,7 @@ class UserInfo extends BaseCommand {
 				'user'
 			],
 			description: 'Displays information about a user.',
-			category: 'Discord',
+			category: 'Information',
 			usage: 'userinfo [<user...>]',
 			hidden: false
 		});

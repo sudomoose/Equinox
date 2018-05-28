@@ -12,7 +12,7 @@ class ServerInfo extends BaseCommand {
 				'guild'
 			],
 			description: 'Displays information about a server.',
-			category: 'Discord',
+			category: 'Information',
 			usage: 'serverinfo [<server...>]',
 			hidden: false
 		});

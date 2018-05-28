@@ -86,6 +86,52 @@ block content
                     a(href='/tags' target='_blank') tags
                     |   which are used as placeholders for dynamic content.
                 textarea.form-control(name='leaveMessages.message') #{settings && settings.leaveMessages.message}
+            hr
+            h2.title Ban Log
+            p.subtitle Send messages to a channel when users get banned.
+            div(style='margin-left: 50px; margin-top: 50px;')
+                h3.title Enabled
+                .btn-group.btn-group-toggle(data-toggle='buttons')
+                    label(class='btn btn-secondary' + (settings && settings.banLog.enabled ? ' active' : ''))
+                        input#enabled(type='radio' name='banLog.enabled' autocomplete='off' value='true' checked=(settings && settings.banLog.enabled))
+                        | Enabled
+                    label(class='btn btn-secondary' + (!settings || !settings.banLog.enabled ? ' active' : ''))
+                        input#disabled(type='radio' name='banLog.enabled' autocomplete='off' value='false' checked=(!settings || !settings.banLog.enabled))
+                        | Disabled
+                br
+                br
+                br
+                h3.title Channel
+                select.form-control(name='banLog.channelID')
+                    for channel in guild.channels.filter((channel) => channel.type === 0 && !channel.parentID).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                        option(value=channel.id selected=(settings && settings.banLog.channelID === channel.id)) ##{channel.name}
+                    for category in guild.channels.filter((channel) => channel.type === 4 && channel.channels.filter((channel) => channel.type === 2).length !== channel.channels.size).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                        optgroup(label=category.name)
+                            for channel in guild.channels.filter((channel) => channel.parentID === category.id && channel.type === 0).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                option(value=channel.id selected=(settings && settings.banLog.channelID === channel.id)) ##{channel.name}
+            hr
+            h2.title Kick Log
+            p.subtitle Send messages to a channel when users get kicked.
+            div(style='margin-left: 50px; margin-top: 50px;')
+                h3.title Enabled
+                .btn-group.btn-group-toggle(data-toggle='buttons')
+                    label(class='btn btn-secondary' + (settings && settings.kickLog.enabled ? ' active' : ''))
+                        input#enabled(type='radio' name='kickLog.enabled' autocomplete='off' value='true' checked=(settings && settings.kickLog.enabled))
+                        | Enabled
+                    label(class='btn btn-secondary' + (!settings || !settings.kickLog.enabled ? ' active' : ''))
+                        input#disabled(type='radio' name='kickLog.enabled' autocomplete='off' value='false' checked=(!settings || !settings.kickLog.enabled))
+                        | Disabled
+                br
+                br
+                br
+                h3.title Channel
+                select.form-control(name='kickLog.channelID')
+                    for channel in guild.channels.filter((channel) => channel.type === 0 && !channel.parentID).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                        option(value=channel.id selected=(settings && settings.kickLog.channelID === channel.id)) ##{channel.name}
+                    for category in guild.channels.filter((channel) => channel.type === 4 && channel.channels.filter((channel) => channel.type === 2).length !== channel.channels.size).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                        optgroup(label=category.name)
+                            for channel in guild.channels.filter((channel) => channel.parentID === category.id && channel.type === 0).sort((a, b) => { if (a.position > b.position) return 1; if (b.position > a.position) return -1; return 0; })
+                                option(value=channel.id selected=(settings && settings.kickLog.channelID === channel.id)) ##{channel.name}
             br
             br
             br

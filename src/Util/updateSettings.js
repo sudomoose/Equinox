@@ -20,7 +20,14 @@ module.exports = (r, guildID, value) => {
 						channelID: 'leaveMessages' in value && 'channelID' in value.leaveMessages ? value.leaveMessages.channelID : null,
 						message: 'leaveMessages' in value && 'message' in value.leaveMessages ? value.leaveMessages.message : null
 					},
-					moderators: 'moderators' in value ? value.moderators : [],
+					banLog: {
+						enabled: 'banLog' in value && 'enabled' in value.banLog ? value.banLog.enabled : false,
+						channelID: 'banLog' in value && 'channelID' in value.banLog ? value.banLog.channelID : null
+					},
+					kickLog: {
+						enabled: 'kickLog' in value && 'enabled' in value.kickLog ? value.kickLog.enabled : false,
+						channelID: 'kickLog' in value && 'channelID' in value.kickLog ? value.kickLog.channelID : null
+					},
 					autoSnipe: 'autoSnipe' in value ? value.autoSnipe : false
 				}).run((error) => {
 					if (error) return reject(error);

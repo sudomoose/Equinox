@@ -1,5 +1,4 @@
 const BaseCommand = require('../Structure/BaseCommand');
-const resolveUser = require('../Util/resolveUser');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Bet extends BaseCommand {
@@ -17,7 +16,7 @@ class Bet extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a question to ask clever.');
+		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide an amount to bet.');
 		if (isNaN(args[0])) return msg.channel.createMessage(':exclamation:   **»**   The bet amount must be a valid number.');
 		if (Number(args[0]) < 1) return msg.channel.createMessage(':exclamation:   **»**   The bet amount must be greater than or equal to 1.');
 		this.r.table('balance').get(msg.author.id).run((error, balance) => {
