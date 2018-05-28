@@ -1,0 +1,45 @@
+extends layout.pug
+
+block content
+    .jumbotron
+        .container
+            h1.title Filters
+            p.subtitle A total list of filters for certain commands.
+    .container.container-margin
+        table.table.table-striped(style='table-layout: fixed; text-wrap: ')
+            thead
+                tr
+                    th(style='width: 10%;') Name
+                    th(style='width: 50%;') Description
+                    th(style='width: 40%;') Usable In
+            tbody
+                tr
+                    td
+                        code bot
+                    td Only can see bot messages.
+                    td
+                        code prune
+                tr
+                    td
+                        code user
+                    td Only can see user messages.
+                    td
+                        code prune
+                tr
+                    td
+                        code attachment
+                    td Only can see messages with attached images.
+                    td
+                        code prune
+                tr
+                    td
+                        code embed
+                    td Only can see messages with embeded content.
+                    td
+                        code prune
+                tr
+                    td
+                        code new
+                    td Only messages under 14 days old will be deleted, as required by Discord.
+                    td
+                        code prune
