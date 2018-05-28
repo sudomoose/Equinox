@@ -28,7 +28,7 @@ class Daily extends BaseCommand {
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
 					updateBalance(this.r, msg.author.id, 250).then((balance) => {
-						msg.channel.createMessage(':money_with_wings:   **»**   $250 has been added to your account. Your balance is now $' + balance + '.');
+						msg.channel.createMessage(':money_with_wings:   **»**   $250 has been added to your account. Your balance is now $' + balance.toLocaleString() + '.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});
@@ -40,7 +40,7 @@ class Daily extends BaseCommand {
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
 					updateBalance(this.r, msg.author.id, 250).then((balance) => {
-						msg.channel.createMessage(':money_with_wings:   **»**   $250 has been added to your account. Your balance is now $' + balance + '.');
+						msg.channel.createMessage(':money_with_wings:   **»**   $250 has been added to your account. Your balance is now $' + balance.toLocaleString() + '.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});

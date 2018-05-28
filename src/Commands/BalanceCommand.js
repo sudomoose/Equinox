@@ -24,7 +24,7 @@ class Balance extends BaseCommand {
 		resolveUser(this.bot, args.length > 0 ? args.join(' ') : msg.author.id).then((user) => {
 			this.r.table('balance').get(user.id).run((error, balance) => {
 				if (error) return handleDatabaseError(error, msg);
-				msg.channel.createMessage(':money_with_wings:   **»**   ' + (user.id === msg.author.id ? 'You have' : user.username + '#' + user.discriminator + ' has') + ' a total of $' + (balance ? balance.amount : 0) + '.');
+				msg.channel.createMessage(':money_with_wings:   **»**   ' + (user.id === msg.author.id ? 'You have' : user.username + '#' + user.discriminator + ' has') + ' a total of $' + (balance ? balance.amount.toLocaleString() : 0) + '.');
 			});
 		}).catch(() => {
 			msg.channel.createMessage(':exclamation:   **»**   Unable to find any users by that query.');

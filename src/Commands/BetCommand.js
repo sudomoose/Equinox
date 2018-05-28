@@ -27,14 +27,14 @@ class Bet extends BaseCommand {
 					amount: balance.amount + Number(args[0])
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
-					msg.channel.createMessage(':money_with_wings:   **»**   You guessed the correct number and added $' + args[0] + ' to your account. Your new balance is $' + (balance.amount + Number(args[0])) + '.');
+					msg.channel.createMessage(':money_with_wings:   **»**   You guessed the correct number and added $' + Number(args[0]).toLocaleString() + ' to your account. Your new balance is $' + (balance.amount + Number(args[0])).toLocaleString() + '.');
 				});
 			} else {
 				this.r.table('balance').get(msg.author.id).update({
 					amount: balance.amount - Number(args[0])
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
-					msg.channel.createMessage(':money_with_wings:   **»**   You guessed the wrong number and $' + args[0] + ' was removed from your account. Your new balance is $' + (balance.amount - Number(args[0])) + '.');
+					msg.channel.createMessage(':money_with_wings:   **»**   You guessed the wrong number and $' + Number(args[0]).toLocaleString() + ' was removed from your account. Your new balance is $' + (balance.amount - Number(args[0])).toLocaleString() + '.');
 				});
 			}
 		});
