@@ -25,6 +25,7 @@ class Client {
 		this.bot.prefixes = new Collection();
 		this.bot.reminders = new Collection();
 		this.bot.pardonModLog = new Collection();
+		this.bot.calls = new Collection();
 		this.bot.queue = {};
 		this.bot.statistics = {
 			commandUsage: {},

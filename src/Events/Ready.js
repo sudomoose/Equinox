@@ -2,6 +2,7 @@ const Lavalink = require('eris-lavalink');
 const humanizeDuration = require('humanize-duration');
 const Logger = require('../Util/Logger.js');
 const handleReminders = require('../Util/handleReminders');
+const handleCalls = require('../Util/handleCalls');
 const updateGuildCount = require('../Util/updateGuildCount');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const config = require('../config.json');
@@ -18,6 +19,7 @@ module.exports = (bot, r, metrics) => {
 		});
 
 		handleReminders(bot, r);
+		handleCalls(bot, r);
 		updateGuildCount(bot);
 
 		r.table('intervals').get('restart').run((error, restart) => {
