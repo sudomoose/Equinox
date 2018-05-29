@@ -8,8 +8,8 @@ module.exports = (bot, r, giveawayID) => {
 		r.table('giveaways').get(giveawayID).run((error, giveaway) => {
 			if (error) return handleDatabaseError(error);
 			if (!giveaway) return clearInterval(update);
-			const channel = bot.guilds.get(bot.channelGuildMap[giveaway.channelID]).channels.get(giveaway.channelID);
 			if (!(giveaway.channelID in bot.channelGuildMap)) return clearInterval(update);
+			const channel = bot.guilds.get(bot.channelGuildMap[giveaway.channelID]).channels.get(giveaway.channelID);
 			channel.getMessage(giveawayID).then((message) => {
 				if (giveaway.cancelled) {
 					message.edit({
