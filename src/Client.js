@@ -35,6 +35,7 @@ class Client {
 
 		this.loadCommand(path.join(__dirname, 'Commands'));
 		this.loadEvents(path.join(__dirname, 'Events'));
+		this.setupMetrics();
 
 		process.on('unhandledRejection', (error) => {
 			if (error.code && (error.code === 50006 || error.code === 50007 || error.code === 50013)) return;
@@ -69,6 +70,15 @@ class Client {
 				event(this.bot, this.r, this.metrics);
 			}
 		});
+	}
+
+	setupMetrics() {
+		setInterval(() => {
+			this.metrics.gauge('guilds', this.bot.guilds.size);
+			this.metrics.gauge('memoryUsage', process.memoryUsage().heapUsed);
+			this.metrics.gauge('uptime', Date.now() - this.bot.startTime);
+			this.metrics.gauge('voiceConnections', this.bot.voiceConnections.size);
+		}, 1000 * 60);
 	}
 }
 

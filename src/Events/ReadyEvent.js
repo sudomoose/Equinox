@@ -34,10 +34,5 @@ module.exports = (bot, r, metrics) => {
 				channel.createMessage(':white_check_mark:   **»**   Successfully restarted in `' + humanizeDuration(Date.now() - restart.timestamp) + '`.');
 			});
 		});
-
-		setInterval(() => {
-			metrics.gauge('uptime', Date.now() - bot.startTime);
-			metrics.gauge('voiceConnections', bot.voiceConnections.size);
-		}, 15000);
 	});
 };
