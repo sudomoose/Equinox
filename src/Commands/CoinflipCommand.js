@@ -1,6 +1,6 @@
 const BaseCommand = require('../Structure/BaseCommand');
 
-class Say extends BaseCommand {
+class Coinflip extends BaseCommand {
 	constructor(bot, r, metrics) {
 		super({
 			command: 'coinflip',
@@ -27,4 +27,4 @@ class Say extends BaseCommand {
 	}
 }
 
-module.exports = Say;
+module.exports = Coinflip;
