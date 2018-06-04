@@ -23,7 +23,7 @@ class Prune extends BaseCommand {
 		if (isNaN(args[0])) return msg.channel.createMessage(':exclamation:   **»**   The prune amount must be a valid number.');
 		if (Number(args[0]) < 2) return msg.channel.createMessage(':exclamation:   **»**   The prune amount must be greater than or equal to 2.');
 		if (Number(args[0]) > 100) return msg.channel.createMessage(':exclamation:   **»**   The prune amount must be less than or equal to 100.');
-		msg.channel.getMessages(100, msg.id).then((messages) => {
+		msg.channel.getMessages(Number(args[0]), msg.id).then((messages) => {
 			const filters = args.slice(1).join(' ').toLowerCase();
 			if (args.length > 1) messages = messages.filter((message) => (filters.includes('bot') ? message.author.bot : true) && (filters.includes('user') ? !message.author.bot : true) && (filters.includes('attachment') ? message.attachments.length > 0 : true) && (filters.includes('embed') ? message.embeds.length > 0 : true) && (filters.includes('new') ? message.timestamp > (Date.now() - (1000 * 60 * 60 * 24 * 14)) : true));
 			if (messages.length < 1) return msg.channel.createMessage(':exclamation:   **»**   There were no remaining messages after being filtered.');
