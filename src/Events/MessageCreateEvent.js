@@ -28,6 +28,7 @@ module.exports = (bot, r, metrics) => {
 					description: '**Command**: ' + command + '\n**Guild**: ' + (msg.channel.guild ? msg.channel.guild.name : 'N/A') + '\n**User**: ' + msg.author.username + '#' + msg.author.discriminator
 				});
 				metrics.increment('commands.top', 1, [ 'command:' + commands[0].command ]);
+				metrics.increment('commandsUsed');
 				bot.statistics.commandUsage[commands[0].command] = (bot.statistics.commandUsage[commands[0].command] || 0) + 1;
 				try {
 					commands[0].execute(msg, args);
