@@ -26,7 +26,7 @@ class Client {
 		this.bot.reminders = new Collection();
 		this.bot.pardonModLog = new Collection();
 		this.bot.calls = new Collection();
-		this.bot.queue = {};
+		this.bot.queue = new Collection();
 		this.bot.statistics = {
 			commandUsage: {},
 			eventsReceived: 0,
@@ -78,11 +78,6 @@ class Client {
 			this.metrics.gauge('memoryUsage', process.memoryUsage().heapUsed);
 			this.metrics.gauge('uptime', Date.now() - this.bot.startTime);
 			this.metrics.gauge('voiceConnections', this.bot.voiceConnections.size);
-			this.r.db('rethinkdb').table('stats').get([ 'cluster' ]).run((error, cluster) => {
-				if (error) return Logger.error(error);
-				this.metrics.gauge('database.queriesPerSecond', cluster[0].query_engine.queries_per_sec);
-				this.metrics.gauge('database.connections', cluster[0].query_engine.client_connections);
-			});
 		}, 1000 * 60);
 	}
 }

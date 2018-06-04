@@ -1,7 +1,7 @@
 const Lavalink = require('eris-lavalink');
 const humanizeDuration = require('humanize-duration');
 const Logger = require('../Util/Logger.js');
-const handleReminders = require('../Util/handleReminders');
+const Reminder = require('../Structure/Reminder');
 const handleCalls = require('../Util/handleCalls');
 const handleGiveaways = require('../Util/handleGiveaways');
 const updateGuildCount = require('../Util/updateGuildCount');
@@ -19,7 +19,13 @@ module.exports = (bot, r, metrics) => {
 			numShards: bot.shards.size
 		});
 
-		handleReminders(bot, r);
+		r.table('reminders').run((error, reminders) => {
+			if (error) return handleDatabaseError(error);
+			for (let i = 0; i < reminders.length; i++) {
+				bot.reminders.set(reminders[i].id, new Reminder(bot, r, reminders[i]));
+			}
+		});
+
 		handleCalls(bot, r);
 		handleGiveaways(bot, r);
 		updateGuildCount(bot);

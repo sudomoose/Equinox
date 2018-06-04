@@ -1,9 +1,8 @@
 const snekfetch = require('snekfetch');
 const BaseCommand = require('../Structure/BaseCommand');
 const resolveTrack = require('../Util/resolveTrack');
-const streamHandler = require('../Util/streamHandler');
 const getPlayer = require('../Util/getPlayer');
-const formatDuration = require('../Util/formatDuration');
+const VoiceConnection = require('../Structure/VoiceConnection');
 const Logger = require('../Util/Logger');
 const config = require('../config.json');
 
@@ -31,48 +30,11 @@ class Play extends BaseCommand {
 		const play = () => {
 			resolveTrack((/^https?:\/\//.test(args.join(' ')) ? '' : 'ytsearch:') + args.join(' ')).then((results) => {
 				if (results.length < 1) return msg.channel.createMessage(':exclamation:   **»**   Unable to find any videos by that query.');
-				if (!(msg.channel.guild.id in this.bot.queue)) this.bot.queue[msg.channel.guild.id] = {
-					queue: []
-				};
-				const queue = this.bot.queue[msg.channel.guild.id];
-				if (playlist) {
-					queue.queue.push(...results);
+				if (this.bot.voiceConnections.has(msg.channel.guild.id) && this.bot.queue.has(msg.channel.guild.id)) {
+					this.bot.queue.get(msg.channel.guild.id).queueSong(results, playlist);
 				} else {
-					queue.queue.push(results[0]);
-				}
-				if (this.bot.voiceConnections.has(msg.channel.guild.id)) {
-					if (playlist) {
-						msg.channel.createMessage(':white_check_mark:   **»**   Added `' + results.length + '` songs to the queue.');
-					} else {
-						msg.channel.createMessage({
-							embed: {
-								title: 'Added to Queue',
-								color: this.bot.embedColor,
-								description: results[0].info.title,
-								fields: [
-									{
-										name: 'Author',
-										value: results[0].info.author,
-										inline: true
-									},
-									{
-										name: 'Duration',
-										value: formatDuration(results[0].info.length),
-										inline: true
-									},
-									{
-										name: 'Position in Queue',
-										value: queue.queue.length,
-										inline: true
-									}
-								]
-							}
-						});
-					}
-				} else {
-					if (playlist) msg.channel.createMessage(':white_check_mark:   **»**   Added `' + results.length + '` songs to the queue.');
 					getPlayer(this.bot, msg.member.voiceState.channelID, msg.channel.guild.id).then((player) => {
-						streamHandler(this.bot, player, queue, msg.channel);
+						this.bot.queue.set(msg.channel.guild.id, new VoiceConnection(this.bot, player, msg.channel, results, playlist));
 					}).catch((error) => {
 						Logger.error(error);
 					});

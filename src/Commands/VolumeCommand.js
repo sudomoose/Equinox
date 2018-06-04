@@ -22,15 +22,14 @@ class Volume extends BaseCommand {
 		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   You cannot use this command in a direct message.');
 		if (!msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   You must be in a voice channel in order to use this command.');
 		if (!this.bot.voiceConnections.has(msg.channel.guild.id)) return msg.channel.createMessage(':no_entry_sign:   **»**   I am not playing any music within that channel.');
-		if (this.bot.voiceConnections.has(msg.channel.guild.id) && this.bot.voiceConnections.get(msg.channel.guild.id).channelId !== msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   I am already playing music within a different voice channel. Please join that channel instead.');
-		if (!(msg.channel.guild.id in this.bot.queue)) return msg.channel.createMessage(':exclamation:   **»**   I am not playing any music in that voice channel.');
-		const queue = this.bot.queue[msg.channel.guild.id];
+		if (this.bot.voiceConnections.get(msg.channel.guild.id).channelId !== msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   I am already playing music within a different voice channel. Please join that channel instead.');
+		if (!this.bot.queue.has(msg.channel.guild.id)) return msg.channel.createMessage(':exclamation:   **»**   I am not playing any music in that voice channel.');
+		const queue = this.bot.queue.get(msg.channel.guild.id);
 		if (args.length > 0) {
 			if (isNaN(args[0])) return msg.channel.createMessage(':exclamation:   **»**   The volume must be a valid number.');
 			if (Number(args[0]) < 1) return msg.channel.createMessage(':exclamation:   **»**   The volume must be greater than or equal to 1.');
 			if (Number(args[0]) > 150) return msg.channel.createMessage(':exclamation:   **»**   The volume must be less than or equal to 150.');
-			queue.volume = Number(args[0]);
-			this.bot.voiceConnections.get(msg.channel.guild.id).setVolume(queue.volume);
+			queue.setVolume(Number(args[0]));
 		}
 		msg.channel.createMessage({
 			embed: {

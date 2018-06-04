@@ -1,6 +1,7 @@
 const durationParser = require('duration-parser');
 const humanizeDuration = require('humanize-duration');
 const BaseCommand = require('../Structure/BaseCommand');
+const Reminder = require('../Structure/Reminder');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Remind extends BaseCommand {
@@ -35,35 +36,11 @@ class Remind extends BaseCommand {
 				message: args.slice(1).join(' '),
 				end,
 				duration
-			}).run((error) => {
+			}, { returnChanges: true }).run((error, result) => {
 				if (error) return handleDatabaseError(error, msg);
 				msg.channel.createMessage(':alarm_clock:   **»**   Okay, I\'ll remind you in ' + humanizeDuration(duration, { round: true }) + ' to `' + args.slice(1).join(' ') + '`.');
-				if (duration > 2147483647) {
-					const wait = () => {
-						if (end - Date.now() <= 2147483647) {
-							this.bot.reminders.set(id, setTimeout(() => {
-								this.r.table('reminders').get(id).delete().run((error) => {
-									if (error) return handleDatabaseError(error);
-									msg.author.getDMChannel().then((user) => {
-										user.createMessage(':alarm_clock:   **»**   About ' + humanizeDuration(duration, { round: true }) + ' ago, you asked me to remind you about `' + args.slice(1).join(' ') + '`.');
-									});
-								});
-							}, Math.max(end - Date.now(), 0)));
-						} else {
-							this.bot.reminders.set(id, setTimeout(wait, 2147483647));
-						}
-					};
-					wait();
-				} else {
-					this.bot.reminders.set(id, setTimeout(() => {
-						this.r.table('reminders').get(id).delete().run((error) => {
-							if (error) return handleDatabaseError(error);
-							msg.author.getDMChannel().then((user) => {
-								user.createMessage(':alarm_clock:   **»**   About ' + humanizeDuration(duration, { round: true }) + ' ago, you asked me to remind you about `' + args.slice(1).join(' ') + '`.');
-							});
-						});
-					}, duration));
-				}
+				const reminder = result.changes[0].new_val;
+				this.bot.reminders.set(reminder.id, new Reminder(this.bot, this.r, reminder));
 			});
 		} catch (e) {
 			msg.channel.createMessage(':exclamation:   **»**   Unable to parse a duration from `' + args[0] + '`.');
