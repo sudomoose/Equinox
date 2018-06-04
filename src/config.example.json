@@ -22,7 +22,8 @@
             "appKey": "",
             "apiKey": ""
         },
-        "youtube": ""
+        "youtube": "",
+        "imgur": ""
     },
     "links": {
         "server": "https://discord.gg/3hqURjk",
