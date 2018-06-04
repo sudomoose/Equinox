@@ -25,7 +25,7 @@ class MinecraftOldNames extends BaseCommand {
 			if (result.body.length < 1) return msg.channel.createMessage(':exclamation:   **»**   Unable to find any players by that username.');
 			snekfetch.get('https://api.mojang.com/user/profiles/' + result.body[0].id + '/names').then((names) => {
 				if (names.body.length < 2) return msg.channel.createMessage(':exclamation:   **»**   `' + result.body[0].name + '` has had no previous usernames.');
-				msg.channel.createMessage(':clipboard:   **»**   `' + result.body[0].name + '` has had the following names: `' + names.body.map((name) => name.name).join(' -> ') + '`');
+				msg.channel.createMessage(':clipboard:   **»**   `' + result.body[0].name + '` has had the following names: `' + names.body.map((name) => name.name).join(' → ') + '`');
 			}).catch((error) => {
 				msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 				Logger.error('Failed to get server information', error);
