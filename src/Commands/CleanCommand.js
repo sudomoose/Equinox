@@ -27,16 +27,13 @@ class Clean extends BaseCommand {
 			if (Number(args[0]) > 100) return msg.channel.createMessage(':exclamation:   **»**   The clean amount must be less than or equal to 100.');
 			msg.channel.getMessages(Number(args[0]), msg.id).then((messages) => {
 				messages = messages.filter((message) => message.author.id === this.bot.user.id);
-				msg.channel.deleteMessages(messages.map((message) => message.id)).then(() => {
+				Promise.all(messages.map((message) => message.delete())).then(() => {
 					msg.channel.createMessage(':white_check_mark:   **»**   Successfully cleaned `' + messages.length + '` messages.').then((m) => {
 						setTimeout(() => {
 							m.delete();
 							msg.delete().catch(() => {});
-						}, 1200);
+						}, 2000);
 					});
-				}).catch((error) => {
-					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
-					Logger.error(error);
 				});
 			}).catch((error) => {
 				msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
