@@ -34,11 +34,11 @@ class Clean extends BaseCommand {
 							msg.delete().catch(() => {});
 						}, 1200);
 					});
-				}).catch(() => {
+				}).catch((error) => {
 					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 					Logger.error(error);
 				});
-			}).catch(() => {
+			}).catch((error) => {
 				msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 				Logger.error(error);
 			});
