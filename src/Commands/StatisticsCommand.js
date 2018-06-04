@@ -26,7 +26,7 @@ class Statistics extends BaseCommand {
 				embed: {
 					title: 'Bot Statistics',
 					color: this.bot.embedColor,
-					description: result.body.slice(0, 3).map((commit) => '[`' + commit.sha.substr(0, 7) + '`](' + commit.commit.url + ') ' + commit.commit.message).join('\n'),
+					description: result.body.slice(0, 3).map((commit) => '[`' + commit.sha.substr(0, 7) + '`](' + commit.html_url + ') ' + commit.commit.message).join('\n'),
 					fields: [
 						{
 							name: 'Shards',
