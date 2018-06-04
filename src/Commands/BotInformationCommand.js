@@ -97,31 +97,6 @@ class ChannelInfo extends BaseCommand {
 						value: result.body.owner_ids.map((owner) => '<@' + owner + '>').join(', '),
 						inline: true
 					});
-					checkTerminal();
-				}).catch((error) => {
-					if (error.statusCode === 404) return checkTerminal();
-					msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
-					Logger.error('Failed to get bot info', error);
-				});
-			};
-			const checkTerminal = () => {
-				snekfetch.get('https://ls.terminal.ink/api/v1/bots/' + user.id + '/').then((result) => {
-					if (!embed.description) embed.description = result.body.shortDesc;
-					if (result.body.website && embed.fields.filter((field) => field.name === 'Website').length < 1) embed.fields.push({
-						name: 'Website',
-						value: result.body.website,
-						inline: true
-					});
-					if (embed.fields.filter((field) => field.name === 'Prefix').length < 1) embed.fields.push({
-						name: 'Prefix',
-						value: result.body.prefix,
-						inline: true
-					});
-					if (embed.fields.filter((field) => field.name === 'Owners').length < 1) embed.fields.push({
-						name: 'Owners',
-						value: '<@' + result.body.owner + '>',
-						inline: true
-					});
 					checkBL();
 				}).catch((error) => {
 					if (error.statusCode === 404) return checkBL();
