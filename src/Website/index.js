@@ -18,6 +18,11 @@ class Website {
 	setup() {
 		this.app.set('view engine', 'pug');
 		this.app.set('views', path.join(__dirname, 'dynamic'));
+		this.app.use((req, res, next) => {
+			this.metrics.increment('website.views');
+			this.metrics.increment('website.viewsByURL', 1, [ 'url:' + req.method + ' ' + req.url ]);
+			next();
+		});
 		this.app.use(auth(this.r));
 	}
 
