@@ -5,19 +5,18 @@ module.exports = (bot, r) => {
 		r.table('uptime').get(presence.user.id).run((error, uptime) => {
 			if (error) return handleDatabaseError(error);
 			if (uptime) {
-				if (presence.status !== 'offline') {
+				if (presence.status !== 'offline' && uptime.status === 'offline') {
 					r.table('uptime').get(presence.user.id).update({
-						id: presence.user.id,
-						status: 'online',
-						since: Date.now()
+						since: Date.now(),
+						status: 'online'
 					}).run((error) => {
 						if (error) return handleDatabaseError(error);
 					});
-				} else {
+				} else if (presence.status === 'offline' && uptime.status === 'online') {
 					r.table('uptime').get(presence.user.id).update({
-						duration: uptime.duration + (Date.now() - uptime.since),
+						since: Date.now(),
 						status: 'offline',
-						since: null
+						duration: Date.now() - uptime.since
 					}).run((error) => {
 						if (error) return handleDatabaseError(error);
 					});
