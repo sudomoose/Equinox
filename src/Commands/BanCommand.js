@@ -20,10 +20,10 @@ class Ban extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
-		if (!msg.member.permission.has('banMembers')) return msg.channel.createMessage(':no_entry_sign:   **»**   You need the `Ban Members` permission in order to use this command.');
-		if (!msg.channel.guild.members.get(this.bot.user.id).permission.has('banMembers')) return msg.channel.createMessage(':no_entry_sign:   **»**   I need the `Ban Members` permission in order to complete this command.');
-		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a user to ban.');
+		if (!msg.channel.guild) return msg.channel.createMessage(this.i18n.__({ phrase: 'noDM', locale: msg.locale }));
+		if (!msg.member.permission.has('banMembers')) return msg.channel.createMessage(this.i18n.__({ phrase: 'ban.banPermissionNeeded', locale: msg.locale }));
+		if (!msg.channel.guild.members.get(this.bot.user.id).permission.has('banMembers')) return msg.channel.createMessage(this.i18n.__({ phrase: 'ban.selfBanPermissionNeeded', locale: msg.locale }));
+		if (args.length < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'ban.userRequired', locale: msg.locale }));
 		this.r.table('modlog').filter({ guildID: msg.channel.guild.id }).count().run((error, cases) => {
 			if (error) return handleDatabaseError(error, msg);
 			resolveMember(this.bot, args[0], msg.channel.guild, true).then((member) => {
@@ -43,18 +43,18 @@ class Ban extends BaseCommand {
 									moderator: msg.author.toJSON()
 								}).run((error) => {
 									if (error) return handleDatabaseError(error, msg);
-									msg.channel.createMessage(':hammer:   **»**   Successfully banned ' + member.username + '#' + member.discriminator + ' (' + member.id + ').');
+									msg.channel.createMessage(this.i18n.__({ phrase: 'ban.banned', locale: msg.locale }, member.username, member.discriminator, member.id));
 								});
 							});
 						} else {
-							msg.channel.createMessage(':hammer:   **»**   Successfully banned ' + member.username + '#' + member.discriminator + ' (' + member.id + ').');
+							msg.channel.createMessage(this.i18n.__({ phrase: 'ban.banned', locale: msg.locale }, member.username, member.discriminator, member.id));
 						}
 					});
 				}).catch(() => {
-					msg.channel.createMessage(':exclamation:   **»**   Failed to ban ' + member.username + '#' + member.discriminator + '. Please note that I cannot ban members that have a higher role than mine.');
+					msg.channel.createMessage(this.i18n.__({ phrase: 'ban.banFailed', locale: msg.locale }, member.username, member.discriminator, member.id));
 				});
 			}).catch(() => {
-				msg.channel.createMessage(':exclamation:   **»**   Unable to find any users by that query.');
+				msg.channel.createMessage(this.i18n.__({ phrase: 'ban.noUsers', locale: msg.locale }));
 			});
 		});
 	}

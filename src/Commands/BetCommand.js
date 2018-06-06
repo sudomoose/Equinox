@@ -18,25 +18,25 @@ class Bet extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide an amount to bet.');
-		if (isNaN(args[0])) return msg.channel.createMessage(':exclamation:   **»**   The bet amount must be a valid number.');
-		if (Number(args[0]) < 1) return msg.channel.createMessage(':exclamation:   **»**   The bet amount must be greater than or equal to 1.');
+		if (args.length < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'bet.betRequired', locale: msg.locale }));
+		if (isNaN(args[0])) return msg.channel.createMessage(this.i18n.__({ phrase: 'bet.betInvalid', locale: msg.locale }));
+		if (Number(args[0]) < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'bet.betGTR', locale: msg.locale }));
 		this.r.table('balance').get(msg.author.id).run((error, balance) => {
 			if (error) return handleDatabaseError(error, msg);
-			if (!balance || balance.amount < Number(args[0])) return msg.channel.createMessage(':exclamation:   **»**   You cannot bet more money than you have.');
+			if (!balance || balance.amount < Number(args[0])) return msg.channel.createMessage(this.i18n.__({ phrase: 'bet.notEnough', locale: msg.locale }));
 			if (Math.round(Math.random()) >= 0.5) {
 				this.r.table('balance').get(msg.author.id).update({
 					amount: balance.amount + Number(args[0])
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
-					msg.channel.createMessage(':money_with_wings:   **»**   You guessed the correct number and added $' + Number(args[0]).toLocaleString() + ' to your account. Your new balance is $' + (balance.amount + Number(args[0])).toLocaleString() + '.');
+					msg.channel.createMessage(this.i18n.__({ phrase: 'bet.guessCorrect', locale: msg.locale }, Number(args[0]).toLocaleString(), (balance.amount + Number(args[0])).toLocaleString()));
 				});
 			} else {
 				this.r.table('balance').get(msg.author.id).update({
 					amount: balance.amount - Number(args[0])
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
-					msg.channel.createMessage(':money_with_wings:   **»**   You guessed the wrong number and $' + Number(args[0]).toLocaleString() + ' was removed from your account. Your new balance is $' + (balance.amount - Number(args[0])).toLocaleString() + '.');
+					msg.channel.createMessage(this.i18n.__({ phrase: 'bet.guessIncorrect', locale: msg.locale }, Number(args[0]).toLocaleString(), (balance.amount - Number(args[0])).toLocaleString()));
 				});
 			}
 		});
