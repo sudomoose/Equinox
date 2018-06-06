@@ -18,6 +18,7 @@ module.exports = (bot, r, metrics) => {
 		} else if (msg.content.startsWith(prefix)) {
 			if (!msg.content.startsWith(prefix)) return;
 			msg.prefix = prefix;
+			msg.locale = msg.channel.guild && bot.locales.has(msg.channel.guild.id) ? bot.locales.get(msg.channel.guild.id) : config.default_locale;
 			const command = msg.content.split(' ')[0].replace(prefix, '').toLowerCase();
 			const commands = bot.commands.filter((c) => c.command === command || c.aliases.includes(command));
 			const args = msg.content.replace(/ {2,}/g, ' ').replace(prefix, '').split(' ').slice(1);

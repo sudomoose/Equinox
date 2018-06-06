@@ -4,7 +4,7 @@ const updateBalance = require('../Util/updateBalance');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Daily extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'daily',
 			aliases: [],
@@ -16,6 +16,7 @@ class Daily extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg) {

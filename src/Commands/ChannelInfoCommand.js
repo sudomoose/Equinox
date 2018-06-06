@@ -3,7 +3,7 @@ const dateformat = require('dateformat');
 const resolveChannel = require('../Util/resolveChannel');
 
 class ChannelInfo extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'channelinfo',
 			aliases: [
@@ -17,6 +17,7 @@ class ChannelInfo extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

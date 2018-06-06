@@ -1,7 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 
 class Ping extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'ping',
 			aliases: [],
@@ -13,6 +13,7 @@ class Ping extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg) {

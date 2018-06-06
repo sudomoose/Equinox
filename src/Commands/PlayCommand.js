@@ -7,7 +7,7 @@ const Logger = require('../Util/Logger');
 const config = require('../config.json');
 
 class Play extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'play',
 			aliases: [],
@@ -19,6 +19,7 @@ class Play extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

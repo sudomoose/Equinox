@@ -4,7 +4,7 @@ const resolveMember = require('../Util/resolveMember');
 const formatKickLogMessage = require('../Util/formatKickLogMessage');
 
 class Kick extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'kick',
 			aliases: [],
@@ -15,6 +15,8 @@ class Kick extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

@@ -1,0 +1,15 @@
+{
+    "acceptCall": {
+        "noAssignedNumber": ":exclamation:   **»**   This channel does not have an assigned phone number. Use `%sregister` to get one.",
+        "noIncomingCalls": ":exclamation:   **»**   You do not have any incoming calls at this time.",
+        "noLongerAvailable": ":exclamation:   **»**   The channel that was calling you is no longer available.",
+        "selfAccepted": ":telephone:   **»**   You have accepted the incoming call. You are now talking with #%s in %s.",
+        "accepted": ":telephone:   **»**   The other side accepted the call. You are now talking with #%s in %s."
+    },
+    "balance": {
+        "noUsers": ":exclamation:   **»**   Unable to find any users by that query.",
+        "balanceSelf": ":money_with_wings:   **»**   You have a total of $'%s.",
+        "balance": ":money_with_wings:   **»**   %s#%s has a total of $'%s."
+    },
+    "noDM": ":no_entry_sign:   **»**   This command cannot be used in a direct message."
+}

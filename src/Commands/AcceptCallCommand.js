@@ -2,7 +2,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Call extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'acceptcall',
 			aliases: [
@@ -16,18 +16,19 @@ class Call extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
+		if (!msg.channel.guild) return msg.channel.createMessage(this.i18n.__({ phrase: 'noDM', locale: msg.locale }));
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
 			if (error) return handleDatabaseError(error, msg);
-			if (!registeration) return msg.channel.createMessage(':exclamation:   **»**   This channel does not have an assigned phone number. Use `' + msg.prefix + 'register` to get one.');
+			if (!registeration) return msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noAssignedNumber', locale: msg.locale }, msg.prefix));
 			this.r.table('calls').filter({ callee: registeration.number }).run((error, calls) => {
 				if (error) return handleDatabaseError(error, msg);
-				if (calls.length < 1) return msg.channel.createMessage(':exclamation:   **»**   You do not have any incoming calls at this time.');
+				if (calls.length < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noIncomingCalls', locale: msg.locale }));
 				if (!(calls[0].calleeChannelID in this.bot.channelGuildMap)) {
-					msg.channel.createMessage(':exclamation:   **»**   The channel that was calling you is no longer available');
+					msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noLongerAvailable', locale: msg.locale }));
 					this.r.table('calls').get(calls[0].id).delete().run((error) => {
 						if (error) return handleDatabaseError(error);
 					});
@@ -42,8 +43,8 @@ class Call extends BaseCommand {
 						if (error) return handleDatabaseError(error, msg);
 						this.bot.calls.set(calls[0].caller, call[0]);
 						const otherSide = this.bot.guilds.get(this.bot.channelGuildMap[calls[0].callerChannelID]).channels.get(calls[0].callerChannelID);
-						msg.channel.createMessage(':telephone:   **»**   You have accepted the incoming call. You are now talking with #' + otherSide.name + ' in ' + otherSide.guild.name + '.');
-						otherSide.createMessage(':telephone:   **»**   The other side accepted the call. You are now talking with #' + msg.channel.name + ' in ' + msg.channel.guild.name + '.');
+						msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.selfAccepted', locale: msg.locale }, otherSide.name, otherSide.guild.name));
+						otherSide.createMessage(this.i18n.__({ phrase: 'acceptCall.accepted', locale: msg.locale }, msg.channel.name, msg.channel.guild.name));
 					});
 				});
 			});

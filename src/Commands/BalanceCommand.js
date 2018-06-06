@@ -3,7 +3,7 @@ const resolveUser = require('../Util/resolveUser');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Balance extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'balance',
 			aliases: [
@@ -18,16 +18,21 @@ class Balance extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {
 		resolveUser(this.bot, args.length > 0 ? args.join(' ') : msg.author.id).then((user) => {
 			this.r.table('balance').get(user.id).run((error, balance) => {
 				if (error) return handleDatabaseError(error, msg);
-				msg.channel.createMessage(':money_with_wings:   **»**   ' + (user.id === msg.author.id ? 'You have' : user.username + '#' + user.discriminator + ' has') + ' a total of $' + (balance ? balance.amount.toLocaleString() : 0) + '.');
+				if (user.id === msg.author.id) {
+					msg.channel.createMessage(this.i18n.__({ phrase: 'balance.balanceSelf', locale: msg.locale }, balance ? balance.amount.toLocaleString() : 0));
+				} else {
+					msg.channel.createMessage(this.i18n.__({ phrase: 'balance.balance', locale: msg.locale }, balance ? balance.amount.toLocaleString() : 0));
+				}
 			});
 		}).catch(() => {
-			msg.channel.createMessage(':exclamation:   **»**   Unable to find any users by that query.');
+			msg.channel.createMessage(this.i18n.__({ phrase: 'balance.noUsers', locale: msg.locale }));
 		});
 	}
 }

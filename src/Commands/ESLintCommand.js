@@ -2,7 +2,7 @@ const Lint = require('eslint');
 const BaseCommand = require('../Structure/BaseCommand');
 
 class ESLint extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'eslint',
 			aliases: [
@@ -16,6 +16,7 @@ class ESLint extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 		this.linter = new Lint.Linter();
 	}
 

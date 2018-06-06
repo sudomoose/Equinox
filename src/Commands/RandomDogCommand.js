@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const Logger = require('../Util/Logger');
 
 class DeleteReminder extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'dog',
 			aliases: [
@@ -17,6 +17,7 @@ class DeleteReminder extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg) {

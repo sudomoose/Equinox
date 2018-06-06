@@ -6,7 +6,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 const Logger = require('../Util/Logger');
 
 class Reload extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'reload',
 			aliases: [
@@ -20,6 +20,7 @@ class Reload extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

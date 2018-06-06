@@ -6,7 +6,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 const handleGiveaway = require('../Util/handleGiveaway');
 
 class Giveaway extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'creategiveaway',
 			aliases: [
@@ -21,6 +21,7 @@ class Giveaway extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

@@ -5,7 +5,7 @@ const Logger = require('../Util/Logger');
 const config = require('../config.json');
 
 class Weather extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'weather',
 			aliases: [],
@@ -17,6 +17,7 @@ class Weather extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

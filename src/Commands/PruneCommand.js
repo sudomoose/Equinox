@@ -2,7 +2,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const Logger = require('../Util/Logger');
 
 class Prune extends BaseCommand {
-	constructor(bot, r) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'prune',
 			aliases: [],
@@ -13,6 +13,8 @@ class Prune extends BaseCommand {
 		});
 		this.bot = bot;
 		this.r = r;
+		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

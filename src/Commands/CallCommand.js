@@ -3,7 +3,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 const formatPhoneNumber = require('../Util/formatPhoneNumber');
 
 class Call extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'call',
 			aliases: [],
@@ -15,6 +15,7 @@ class Call extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {

@@ -10,6 +10,7 @@ class Client {
 		this.bot = new Eris(options.token, options.client_options);
 		this.r = options.rethinkdb;
 		this.metrics = options.metrics;
+		this.i18n = options.i18n;
 	}
 
 	launch() {
@@ -27,6 +28,7 @@ class Client {
 		this.bot.pardonModLog = new Collection();
 		this.bot.calls = new Collection();
 		this.bot.queue = new Collection();
+		this.bot.locales = new Collection();
 		this.bot.statistics = {
 			commandUsage: {},
 			eventsReceived: 0,
@@ -56,7 +58,7 @@ class Client {
 			if (error) throw error;
 			for (let i = 0; i < commands.length; i++) {
 				const Command = require(path.join(__dirname, 'Commands', commands[i]));
-				const command = new Command(this.bot, this.r, this.metrics);
+				const command = new Command(this.bot, this.r, this.metrics, this.i18n);
 				this.bot.commands.set(command.command, command);
 			}
 		});
@@ -67,7 +69,7 @@ class Client {
 			if (error) throw error;
 			for (let i = 0; i < events.length; i++) {
 				const event = require(path.join(__dirname, 'Events', events[i]));
-				event(this.bot, this.r, this.metrics);
+				event(this.bot, this.r, this.metrics, this.i18n);
 			}
 		});
 	}

@@ -4,7 +4,7 @@ const formatBanLogMessage = require('../Util/formatBanLogMessage');
 const formatKickLogMessage = require('../Util/formatKickLogMessage');
 
 class Daily extends BaseCommand {
-	constructor(bot, r, metrics) {
+	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'reason',
 			aliases: [],
@@ -16,6 +16,7 @@ class Daily extends BaseCommand {
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
+		this.i18n = i18n;
 	}
 
 	execute(msg, args) {
