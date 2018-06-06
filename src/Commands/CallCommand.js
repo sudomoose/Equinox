@@ -1,3 +1,5 @@
+/* eslint-disable no-unreachable */
+
 const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const formatPhoneNumber = require('../Util/formatPhoneNumber');
@@ -19,6 +21,7 @@ class Call extends BaseCommand {
 	}
 
 	execute(msg, args) {
+		return msg.channel.createMessage(':no_entry_sign:   **»**   Calling has been temporarily disabled until the call rewrite.');
 		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a phone number, or `random`.');
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
