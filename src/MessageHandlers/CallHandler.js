@@ -10,7 +10,6 @@ class CallHandler extends MessageHandler {
 	}
 
 	execute(msg, next) {
-		console.log(this.bot.calls);
 		const calls = this.bot.calls.filter((call) => (call.callerChannelID === msg.channel.id || call.calleeChannelID === msg.channel.id) && call.accepted);
 		if (!msg.content.startsWith(msg.prefix) && calls.length > 0 && msg.content !== '') {
 			const call = calls[0];
