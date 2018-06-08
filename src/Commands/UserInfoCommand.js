@@ -5,8 +5,11 @@ const resolveUser = require('../Util/resolveUser');
 class UserInfo extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'userinfo',
+			command: 'user-info',
 			aliases: [
+				'userinfo',
+				'user-information',
+				'userinformation',
 				'user'
 			],
 			description: 'Displays information about a user.',

@@ -4,14 +4,13 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 class EndGiveaway extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'endgiveaway',
+			command: 'end-giveaway',
 			aliases: [
-				'endga',
-				'ega'
+				'endgiveaway'
 			],
 			description: 'Ends a giveaway in your current channel.',
 			category: 'Utility',
-			usage: 'endgiveaway <message ID>',
+			usage: 'end-giveaway <message ID>',
 			hidden: false,
 			guildOnly: true
 		});

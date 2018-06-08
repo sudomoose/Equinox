@@ -50,8 +50,8 @@ class Call extends BaseCommand {
 							timestamp: Date.now(),
 							accepted: false
 						});
-						msg.channel.createMessage(':telephone:   **»**   Calling `' + formatPhoneNumber(register.number) + '`... They have 30 seconds to accept it. You can use `' + msg.prefix + 'endcall` to end the call.');
-						this.bot.guilds.get(this.bot.channelGuildMap[register.id]).channels.get(register.id).createMessage(':telephone:   **»**   You are receiving a call from `' + formatPhoneNumber(registeration.number) + '`. Use `' + msg.prefix + 'acceptcall` to accept it, and `' + msg.prefix + 'declinecall` to decline it.');
+						msg.channel.createMessage(':telephone:   **»**   Calling `' + formatPhoneNumber(register.number) + '`... They have 30 seconds to accept it. You can use `' + msg.prefix + 'end-call` to end the call.');
+						this.bot.guilds.get(this.bot.channelGuildMap[register.id]).channels.get(register.id).createMessage(':telephone:   **»**   You are receiving a call from `' + formatPhoneNumber(registeration.number) + '`. Use `' + msg.prefix + 'accept-call` to accept it, and `' + msg.prefix + 'decline-call` to decline it.');
 						setTimeout(() => {
 							this.r.table('calls').filter({ caller: registeration.number, callee: register.number }).run((error, call) => {
 								if (error) return handleDatabaseError(error, msg);

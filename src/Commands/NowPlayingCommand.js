@@ -4,8 +4,9 @@ const formatDuration = require('../Util/formatDuration');
 class Volume extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'nowplaying',
+			command: 'now-playing',
 			aliases: [
+				'nowplaying',
 				'np'
 			],
 			description: 'Shows the song that is currently playing.',

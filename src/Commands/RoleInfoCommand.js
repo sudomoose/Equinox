@@ -5,8 +5,11 @@ const resolveRole = require('../Util/resolveRole');
 class RoleInfo extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'roleinfo',
+			command: 'role-info',
 			aliases: [
+				'roleinfo',
+				'role-information',
+				'roleinformation',
 				'role'
 			],
 			description: 'Displays information about a role.',

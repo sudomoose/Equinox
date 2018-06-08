@@ -6,8 +6,7 @@ class Leaderboard extends BaseCommand {
 		super({
 			command: 'leaderboard',
 			aliases: [
-				'lb',
-				'top'
+				'lb'
 			],
 			description: 'View the top most people with coins.',
 			category: 'Information',

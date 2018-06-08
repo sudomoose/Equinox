@@ -14,7 +14,10 @@ class Help extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'help',
-			aliases: [],
+			aliases: [
+				'cmds',
+				'commands'
+			],
 			description: 'Gets a list of commands sent to your channel.',
 			category: 'Information',
 			usage: 'help',

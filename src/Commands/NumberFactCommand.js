@@ -5,9 +5,9 @@ const BaseCommand = require('../Structure/BaseCommand');
 class NumberFact extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'numberfact',
+			command: 'number-fact',
 			aliases: [
-				'numfact'
+				'numberfact'
 			],
 			description: 'Gives you a fact about a number.',
 			category: 'Fun',

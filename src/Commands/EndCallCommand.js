@@ -5,14 +5,15 @@ const formatPhoneNumber = require('../Util/formatPhoneNumber');
 class EndCall extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'endcall',
+			command: 'end-call',
 			aliases: [
-				'ecall',
+				'endcall',
+				'decline-call',
 				'declinecall'
 			],
 			description: 'Ends your current call.',
 			category: 'Fun',
-			usage: 'endcall',
+			usage: 'end-call',
 			hidden: false,
 			guildOnly: true
 		});

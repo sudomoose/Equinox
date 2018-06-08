@@ -6,9 +6,11 @@ const Logger = require('../Util/Logger');
 class MinecraftServer extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'mcserver',
+			command: 'mc-server',
 			aliases: [
-				'mcs'
+				'mcserver',
+				'minecraft-server',
+				'minecraftserver'
 			],
 			description: 'Gets basic information about a Minecraft server from its IP address.',
 			category: 'Information',

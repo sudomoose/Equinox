@@ -5,10 +5,16 @@ const resolveGuild = require('../Util/resolveGuild');
 class ServerInfo extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'serverinfo',
+			command: 'server-info',
 			aliases: [
+				'serverinfo',
+				'server-information',
+				'serverinformation',
 				'server',
+				'guild-info',
 				'guildinfo',
+				'guild-information',
+				'guildinformation',
 				'guild'
 			],
 			description: 'Displays information about a server.',

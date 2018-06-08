@@ -4,7 +4,9 @@ class Queue extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
 			command: 'queue',
-			aliases: [],
+			aliases: [
+				'q'
+			],
 			description: 'Get all of the songs in the queue.',
 			category: 'Music',
 			usage: 'queue',

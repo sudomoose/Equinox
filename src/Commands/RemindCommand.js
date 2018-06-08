@@ -7,13 +7,14 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 class Remind extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'remind',
+			command: 'remind-me',
 			aliases: [
 				'remindme',
-				'setreminder'
+				'setreminder',
+				'remind'
 			],
 			description: 'Reminds you to do something at a specific time.',
-			category: 'Utility',
+			category: 'Reminders',
 			usage: 'remind <time> <message...>',
 			hidden: false,
 			guildOnly: false

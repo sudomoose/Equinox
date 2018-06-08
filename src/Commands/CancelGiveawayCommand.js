@@ -4,13 +4,13 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 class CancelGiveaway extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'cancelgiveaway',
+			command: 'cancel-giveaway',
 			aliases: [
-				'cancelga'
+				'cancelgiveaway'
 			],
 			description: 'Cancels a giveaway in your current channel.',
 			category: 'Utility',
-			usage: 'cancelgiveaway <message ID>',
+			usage: 'cancel-giveaway <message ID>',
 			hidden: false,
 			guildOnly: true
 		});

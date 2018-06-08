@@ -8,8 +8,11 @@ const config = require('../config.json');
 class ChannelInfo extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'botinfo',
+			command: 'bot-info',
 			aliases: [
+				'botinfo',
+				'bot-information',
+				'botinformation',
 				'bot'
 			],
 			description: 'Retrieves information about a bot on the bot lists.',

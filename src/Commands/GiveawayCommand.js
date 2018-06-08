@@ -8,10 +8,9 @@ const handleGiveaway = require('../Util/handleGiveaway');
 class Giveaway extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'creategiveaway',
+			command: 'create-giveaway',
 			aliases: [
-				'createga',
-				'cga'
+				'creategiveaway'
 			],
 			description: 'Create a giveaway in your current channel.',
 			category: 'Utility',

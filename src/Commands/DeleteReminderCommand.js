@@ -4,14 +4,13 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 class DeleteReminder extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'deletereminder',
+			command: 'delete-reminder',
 			aliases: [
-				'delete-reminder',
-				'delreminder'
+				'deletereminder'
 			],
 			description: 'Deletes a reminder that you\'ve created.',
-			category: 'Utility',
-			usage: 'deletereminder <id>',
+			category: 'Reminders',
+			usage: 'delete-reminder <id>',
 			hidden: false,
 			guildOnly: false
 		});

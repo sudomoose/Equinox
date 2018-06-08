@@ -4,9 +4,9 @@ const BaseCommand = require('../Structure/BaseCommand');
 class TestToken extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'testtoken',
+			command: 'test-token',
 			aliases: [
-				'test-token'
+				'testtoken'
 			],
 			description: 'Tests a bot token by logging into Discord.',
 			category: 'Utility',

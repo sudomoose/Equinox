@@ -7,10 +7,11 @@ class Reminders extends BaseCommand {
 		super({
 			command: 'reminders',
 			aliases: [
+				'manage-reminders',
 				'managereminders'
 			],
 			description: 'Manages and delete your own reminders.',
-			category: 'Utility',
+			category: 'Reminders',
 			usage: 'reminders',
 			hidden: false,
 			guildOnly: false

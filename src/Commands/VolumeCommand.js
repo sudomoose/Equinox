@@ -6,6 +6,8 @@ class Volume extends BaseCommand {
 		super({
 			command: 'volume',
 			aliases: [
+				'set-volume',
+				'setvolume',
 				'vol'
 			],
 			description: 'See the volume or change the volume.',

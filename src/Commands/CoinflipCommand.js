@@ -3,14 +3,16 @@ const BaseCommand = require('../Structure/BaseCommand');
 class Coinflip extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'coinflip',
+			command: 'coin-flip',
 			aliases: [
-				'flipacoin',
+				'coinflip',
+				'flip-coin',
+				'flipcoin',
 				'coin'
 			],
 			description: 'Flips a coin.',
 			category: 'Fun',
-			usage: 'coinflip',
+			usage: 'coin-flip',
 			hidden: false,
 			guildOnly: false
 		});

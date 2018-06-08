@@ -5,11 +5,13 @@ const Logger = require('../Util/Logger');
 class MinecraftUUID extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'mcuuid',
-			aliases: [],
+			command: 'mc-uuid',
+			aliases: [
+				'mcuuid'
+			],
 			description: 'Gets a Minecraft account UUID from a username.',
 			category: 'Information',
-			usage: 'mcuuid <username>',
+			usage: 'mc-uuid <username>',
 			hidden: false,
 			guildOnly: false
 		});

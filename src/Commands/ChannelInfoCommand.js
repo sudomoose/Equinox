@@ -5,13 +5,15 @@ const resolveChannel = require('../Util/resolveChannel');
 class ChannelInfo extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'channelinfo',
+			command: 'channel-info',
 			aliases: [
-				'channel'
+				'channelinfo',
+				'channel',
+				'channel-information'
 			],
 			description: 'Displays information about a channel.',
 			category: 'Information',
-			usage: 'channelinfo [<channel...>]',
+			usage: 'channel-info [<channel...>]',
 			hidden: false,
 			guildOnly: false
 		});

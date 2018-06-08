@@ -4,13 +4,13 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 class Call extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'acceptcall',
+			command: 'accept-call',
 			aliases: [
-				'acall'
+				'acceptcall'
 			],
 			description: 'Accept your current incoming call.',
 			category: 'Fun',
-			usage: 'acceptcall',
+			usage: 'accept-call',
 			hidden: false,
 			guildOnly: true
 		});

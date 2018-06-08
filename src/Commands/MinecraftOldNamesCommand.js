@@ -5,13 +5,15 @@ const Logger = require('../Util/Logger');
 class MinecraftOldNames extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'mcoldnames',
+			command: 'mc-old-names',
 			aliases: [
-				'mcon'
+				'mcoldnames',
+				'minecraft-old-names',
+				'minecraftoldnames'
 			],
 			description: 'Gets previous usernames of a player using the username.',
 			category: 'Information',
-			usage: 'mcoldnames <username>',
+			usage: 'mc-old-names <username>',
 			hidden: false,
 			guildOnly: false
 		});

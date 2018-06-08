@@ -5,9 +5,10 @@ const Logger = require('../Util/Logger');
 class DeleteReminder extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'dog',
+			command: 'random-dog',
 			aliases: [
-				'randomdog'
+				'randomdog',
+				'dog'
 			],
 			description: 'Gets a random dog picture from the internet.',
 			category: 'Fun',
