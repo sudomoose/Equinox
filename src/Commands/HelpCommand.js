@@ -7,7 +7,8 @@ const emotes = {
 	Music: ':musical_note:',
 	Fun: ':tada:',
 	Moderation: ':shield:',
-	Special: ':ribbon:'
+	Special: ':ribbon:',
+	Reminders: ':hourglass_flowing_sand:'
 };
 
 class Help extends BaseCommand {
