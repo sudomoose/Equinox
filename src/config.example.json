@@ -69,7 +69,8 @@
         "Information": ":newspaper:",
         "Music": ":musical_note:",
         "Fun": ":tada:",
-        "Moderation": ":shield:"
+        "Moderation": ":shield:",
+        "Special": ":ribbon:"
     },
     "convert_category_emojis": {
         "length": ":straight_ruler:",
