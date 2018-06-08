@@ -12,7 +12,8 @@ class Call extends BaseCommand {
 			description: 'Call a specific channel using their phone number.',
 			category: 'Fun',
 			usage: 'call <phone number...>|random',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -22,7 +23,6 @@ class Call extends BaseCommand {
 
 	execute(msg, args) {
 		return msg.channel.createMessage(':no_entry_sign:   **»**   Calling has been temporarily disabled until the call rewrite.');
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a phone number, or `random`.');
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
 			if (error) return handleDatabaseError(error, msg);

@@ -11,7 +11,8 @@ class Support extends BaseCommand {
 			description: 'Gets the link to the support server.',
 			category: 'Information',
 			usage: 'support',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

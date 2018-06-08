@@ -13,7 +13,8 @@ class MinecraftServer extends BaseCommand {
 			description: 'Gets basic information about a Minecraft server from its IP address.',
 			category: 'Information',
 			usage: 'mcserver <IP address>[:<port>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

@@ -10,7 +10,8 @@ class Quote extends BaseCommand {
 			description: 'Fetches a random quote.',
 			category: 'Fun',
 			usage: 'insult [<user...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

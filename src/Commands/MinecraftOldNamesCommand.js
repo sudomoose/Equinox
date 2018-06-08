@@ -12,7 +12,8 @@ class MinecraftOldNames extends BaseCommand {
 			description: 'Gets previous usernames of a player using the username.',
 			category: 'Information',
 			usage: 'mcoldnames <username>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

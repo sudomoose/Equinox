@@ -15,7 +15,8 @@ class Remind extends BaseCommand {
 			description: 'Reminds you to do something at a specific time.',
 			category: 'Utility',
 			usage: 'remind <time> <message...>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

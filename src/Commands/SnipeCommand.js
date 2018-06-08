@@ -11,7 +11,8 @@ class Snipe extends BaseCommand {
 			description: 'Snipes the last deleted messages.',
 			category: 'Utility',
 			usage: 'snipe [opt-out|opt-in]',
-			hidden: false
+			hidden: false,
+			guildOnly: (msg, args) => args.length < 1
 		});
 		this.bot = bot;
 		this.r = r;

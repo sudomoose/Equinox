@@ -13,7 +13,8 @@ class EndCall extends BaseCommand {
 			description: 'Ends your current call.',
 			category: 'Fun',
 			usage: 'endcall',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -22,7 +23,6 @@ class EndCall extends BaseCommand {
 	}
 
 	execute(msg) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (!registeration) return msg.channel.createMessage(':exclamation:   **»**   This channel does not have an assigned phone number. Use `' + msg.prefix + 'register` to get one.');

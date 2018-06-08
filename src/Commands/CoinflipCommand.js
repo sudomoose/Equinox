@@ -11,7 +11,8 @@ class Coinflip extends BaseCommand {
 			description: 'Flips a coin.',
 			category: 'Fun',
 			usage: 'coinflip',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

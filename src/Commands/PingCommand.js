@@ -8,7 +8,8 @@ class Ping extends BaseCommand {
 			description: 'Check how long it takes to send a message.',
 			category: 'Information',
 			usage: 'ping',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

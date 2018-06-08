@@ -12,7 +12,8 @@ class UserInfo extends BaseCommand {
 			description: 'Displays information about a user.',
 			category: 'Information',
 			usage: 'userinfo [<user...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

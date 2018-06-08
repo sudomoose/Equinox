@@ -9,7 +9,8 @@ class Bet extends BaseCommand {
 			description: 'Bet cash to double it or lose it.',
 			category: 'Economy',
 			usage: 'bet [<amount...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

@@ -12,7 +12,8 @@ class DeleteReminder extends BaseCommand {
 			description: 'Gets a random dog picture from the internet.',
 			category: 'Fun',
 			usage: 'dog',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

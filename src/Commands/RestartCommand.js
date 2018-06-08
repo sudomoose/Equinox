@@ -13,7 +13,8 @@ class Restart extends BaseCommand {
 			description: 'Restarts the bot.',
 			category: 'Developers',
 			usage: 'restart',
-			hidden: true
+			hidden: true,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

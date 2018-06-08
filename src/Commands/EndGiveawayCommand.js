@@ -12,7 +12,8 @@ class EndGiveaway extends BaseCommand {
 			description: 'Ends a giveaway in your current channel.',
 			category: 'Utility',
 			usage: 'endgiveaway <message ID>',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -21,7 +22,6 @@ class EndGiveaway extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a message ID.');
 		this.r.table('giveaways').get(args[0]).run((error, giveaway) => {
 			if (error) return handleDatabaseError(error, msg);

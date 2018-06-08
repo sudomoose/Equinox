@@ -10,7 +10,8 @@ class Translate extends BaseCommand {
 			description: 'Translates text from one language to another.',
 			category: 'Utility',
 			usage: 'translate <language> <text...>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

@@ -12,7 +12,8 @@ class DeleteReminder extends BaseCommand {
 			description: 'Deletes a reminder that you\'ve created.',
 			category: 'Utility',
 			usage: 'deletereminder <id>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

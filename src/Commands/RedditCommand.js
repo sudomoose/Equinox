@@ -10,7 +10,8 @@ class Reddit extends BaseCommand {
 			description: 'Gets information about a subreddit.',
 			category: 'Utility',
 			usage: 'reddit <subreddit>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

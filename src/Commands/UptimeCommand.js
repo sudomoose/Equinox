@@ -11,7 +11,8 @@ class Balance extends BaseCommand {
 			description: 'See how long a user has been online for.',
 			category: 'Utility',
 			usage: 'uptime [<user...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

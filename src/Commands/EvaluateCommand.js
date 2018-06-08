@@ -14,7 +14,8 @@ class Evaluate extends BaseCommand {
 			description: 'Runs JavaScript code within the process.',
 			category: 'Developers',
 			usage: 'eval <code...>',
-			hidden: true
+			hidden: true,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

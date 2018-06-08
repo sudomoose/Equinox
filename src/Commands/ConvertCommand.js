@@ -1,6 +1,54 @@
 const convert = require('convert-units');
 const BaseCommand = require('../Structure/BaseCommand');
-const config = require('../config.json');
+const emotes = {
+	length: ':straight_ruler:',
+	area: ':map:',
+	mass: ':scales:',
+	volume: ':house:',
+	each: ':four_leaf_clover:',
+	temperature: ':hot_pepper:',
+	time: ':alarm_clock:',
+	digital: ':floppy_disk:',
+	partsPer: ':oil:',
+	speed: ':race_car:',
+	pace: ':runner:',
+	pressure: ':ocean:',
+	current: ':zap:',
+	voltage: ':zap:',
+	power: ':zap:',
+	reactivePower: ':zap:',
+	apparentPower: ':zap:',
+	energy: ':zap:',
+	reactiveEnergy: ':zap:',
+	volumeFlowRate: ':water_polo:',
+	illuminance: ':flashlight:',
+	frequency: ':loudspeaker:'
+};
+const rename = {
+	length: 'Length',
+	area: 'Area',
+	mass: 'Mass',
+	volume: 'Volume',
+	each: 'Each',
+	temperature: 'Temperature',
+	time: 'Time',
+	digital: 'Digital',
+	partsPer: 'Parts Per',
+	speed: 'Speed',
+	pace: 'Pace',
+	pressure: 'Pressure',
+	current: 'Current',
+	voltage: 'Voltage',
+	power: 'Power',
+	reactivePower: 'Reactive Power',
+	apparentPower: 'Apparent Power',
+	energy: 'Energy',
+	reactiveEnergy: 'Reactive Energy',
+	volumeFlowRate: 'Volume Flow Rate',
+	illuminance: 'Illuminance',
+	frequency: 'Frequency',
+	angle: 'Angle'
+};
 
 class Convert extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -12,7 +60,8 @@ class Convert extends BaseCommand {
 			description: 'Convert basic units with amounts.',
 			category: 'Utility',
 			usage: 'convert [<amount>] [<unit from>] [<unit to>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;
@@ -36,7 +85,7 @@ class Convert extends BaseCommand {
 				embed: {
 					title: 'Conversion Cheat Sheet',
 					color: this.bot.embedColor,
-					description: convert().measures().map((unit) => config.convert_category_emojis[unit] + ' **' + config.unit_renames[unit] + '**:   ' + convert().possibilities(unit).map((unit) => '`' + unit + '`').join(', ')).join('\n\n')
+					description: convert().measures().map((unit) => emotes[unit] + ' **' + rename[unit] + '**:   ' + convert().possibilities(unit).map((unit) => '`' + unit + '`').join(', ')).join('\n\n')
 				}
 			});
 		}

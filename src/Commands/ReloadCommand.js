@@ -15,7 +15,8 @@ class Reload extends BaseCommand {
 			description: 'Reloads a command from file.',
 			category: 'Developers',
 			usage: 'reload <command>|all',
-			hidden: true
+			hidden: true,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

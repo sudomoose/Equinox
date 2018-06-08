@@ -15,7 +15,8 @@ class ChannelInfo extends BaseCommand {
 			description: 'Retrieves information about a bot on the bot lists.',
 			category: 'Utility',
 			usage: 'botinfo <bot>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

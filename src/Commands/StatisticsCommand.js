@@ -13,7 +13,8 @@ class Statistics extends BaseCommand {
 			description: 'Sends detailed information about this bot.',
 			category: 'Information',
 			usage: 'statistics',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

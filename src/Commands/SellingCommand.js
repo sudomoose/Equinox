@@ -8,7 +8,8 @@ class Selling extends BaseCommand {
 			description: 'View some of the products Mayo is selling.',
 			category: 'Special',
 			usage: 'selling',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

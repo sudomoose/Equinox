@@ -8,7 +8,8 @@ class Raffle extends BaseCommand {
 			description: 'Randomly selects a user from the server.',
 			category: 'Utility',
 			usage: 'raffle',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -17,7 +18,6 @@ class Raffle extends BaseCommand {
 	}
 
 	execute(msg) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		const member = Array.from(msg.channel.guild.members.values())[Math.floor(Math.random() * msg.channel.guild.members.size)];
 		msg.channel.createMessage(':tickets:   **»**   `' + member.user.username + '#' + member.user.discriminator + ' (' + member.user.id + ')`');
 	}

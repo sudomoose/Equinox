@@ -12,7 +12,8 @@ class RoleInfo extends BaseCommand {
 			description: 'Displays information about a role.',
 			category: 'Information',
 			usage: 'roleinfo [<role...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -21,7 +22,6 @@ class RoleInfo extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		resolveRole(this.bot, args.length > 0 ? args.join(' ') : msg.member.roles[msg.member.roles.length - 1], msg.channel.guild).then((role) => {
 			const embed = {
 				title: 'Role Information',

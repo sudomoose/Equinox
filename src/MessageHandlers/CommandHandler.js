@@ -1,8 +1,5 @@
 const MessageHandler = require('../Structure/MessageHandler');
 const Logger = require('../Util/Logger');
-const config = require('../config.json');
-const WebhookClient = require('../Structure/WebhookClient');
-const webhook = new WebhookClient(config.webhooks.commands.id, config.webhooks.commands.token);
 
 class CommandHandler extends MessageHandler {
 	constructor(bot, r, metrics, i18n) {
@@ -19,11 +16,7 @@ class CommandHandler extends MessageHandler {
 		const commands = this.bot.commands.filter((c) => c.command === command || c.aliases.includes(command));
 		const args = msg.content.replace(/ {2,}/g, ' ').replace(msg.prefix, '').split(' ').slice(1);
 		if (commands.length > 0) {
-			if (this.bot.user.id !== '336658909206937600' && !commands[0].hidden) webhook.send({
-				title: 'A command was used',
-				color: this.bot.embedColor,
-				description: '**Command**: ' + command + '\n**Guild**: ' + (msg.channel.guild ? msg.channel.guild.name : 'N/A') + '\n**User**: ' + msg.author.username + '#' + msg.author.discriminator
-			});
+			if (!msg.channel.guild && (typeof commands[0].guildOnly === 'function' ? commands[0].guildOnly(msg, args) : commands[0].guildOnly)) return msg.channel.createMessage(this.i18n.__({ phrase: 'noDM', locale: msg.locale }));
 			this.metrics.increment('commands.top', 1, ['command:' + commands[0].command]);
 			this.metrics.increment('commandsUsed');
 			this.bot.statistics.commandUsage[commands[0].command] = (this.bot.statistics.commandUsage[commands[0].command] || 0) + 1;

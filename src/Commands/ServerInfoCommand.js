@@ -14,7 +14,8 @@ class ServerInfo extends BaseCommand {
 			description: 'Displays information about a server.',
 			category: 'Information',
 			usage: 'serverinfo [<server...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: (msg, args) => args.length < 1
 		});
 		this.bot = bot;
 		this.r = r;

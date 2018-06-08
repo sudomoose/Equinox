@@ -10,7 +10,8 @@ class XKCD extends BaseCommand {
 			description: 'View a random comic from xkcd.',
 			category: 'Fun',
 			usage: 'xkcd [<comic number>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

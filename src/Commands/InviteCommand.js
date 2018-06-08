@@ -10,7 +10,8 @@ class Balance extends BaseCommand {
 			description: 'Get the invite to get Equinox added to your server.',
 			category: 'Information',
 			usage: 'invite',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

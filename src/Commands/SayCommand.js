@@ -8,7 +8,8 @@ class Say extends BaseCommand {
 			description: 'Sends whatever you tell it to say.',
 			category: 'Fun',
 			usage: 'say <message...>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

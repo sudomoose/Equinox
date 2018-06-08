@@ -10,7 +10,8 @@ class MinecraftUUID extends BaseCommand {
 			description: 'Gets a Minecraft account UUID from a username.',
 			category: 'Information',
 			usage: 'mcuuid <username>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

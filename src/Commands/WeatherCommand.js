@@ -12,7 +12,8 @@ class Weather extends BaseCommand {
 			description: 'Retrieves the weather information about a specific location.',
 			category: 'Utility',
 			usage: 'weather <location...>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

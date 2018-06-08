@@ -13,7 +13,8 @@ class Settings extends BaseCommand {
 			description: 'Adjust numerous settings within this server.',
 			category: 'Moderation',
 			usage: 'settings',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -22,7 +23,6 @@ class Settings extends BaseCommand {
 	}
 
 	execute(msg) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		this.r.table('developers').get(msg.author.id).run((error, developer) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (!msg.member.permission.has('manageGuild') && !developer) return msg.channel.createMessage(':no_entry_sign:   **»**   You need the `Manage Server` permission in order to use this command.');

@@ -13,7 +13,8 @@ class Balance extends BaseCommand {
 			description: 'View how many coins you own.',
 			category: 'Economy',
 			usage: 'balance [<user...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

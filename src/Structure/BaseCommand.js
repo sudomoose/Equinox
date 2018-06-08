@@ -6,6 +6,7 @@ class BaseCommand {
 		this.usage = options.usage;
 		this.category = options.category;
 		this.hidden = options.hidden;
+		this.guildOnly = options.guildOnly;
 	}
 }
 

@@ -14,7 +14,8 @@ class Play extends BaseCommand {
 			description: 'Plays music within your voice channel.',
 			category: 'Music',
 			usage: 'play <query>',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -23,7 +24,6 @@ class Play extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   You cannot use this command in a direct message.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a query.');
 		if (!msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   You must be in a voice channel in order to use this command.');
 		if (this.bot.voiceConnections.has(msg.channel.guild.id) && this.bot.voiceConnections.get(msg.channel.guild.id).channelId !== msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   I am already playing music within a different voice channel. Please join that channel instead.');

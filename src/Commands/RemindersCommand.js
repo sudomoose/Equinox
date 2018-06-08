@@ -12,7 +12,8 @@ class Reminders extends BaseCommand {
 			description: 'Manages and delete your own reminders.',
 			category: 'Utility',
 			usage: 'reminders',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

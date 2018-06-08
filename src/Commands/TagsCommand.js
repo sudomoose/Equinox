@@ -11,7 +11,8 @@ class Tag extends BaseCommand {
 			description: 'Creates or view a tag within this server.',
 			category: 'Utility',
 			usage: 'tag [create|delete|edit|list|<tag name>] [<name>] [<new value>]',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -20,7 +21,6 @@ class Tag extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide `create`, `delete`, `edit`, `list`, or a tag name.');
 		if (args[0].toLowerCase() === 'create') {
 			if (args.length < 2) return msg.channel.createMessage(':question:   **»**   You must provide a tag name.');

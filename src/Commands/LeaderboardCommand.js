@@ -12,7 +12,8 @@ class Leaderboard extends BaseCommand {
 			description: 'View the top most people with coins.',
 			category: 'Information',
 			usage: 'leaderboard [server]',
-			hidden: false
+			hidden: false,
+			guildOnly: (msg, args) => args.length > 0 && args[0].toLowerCase() === 'server'
 		});
 		this.bot = bot;
 		this.r = r;
@@ -23,7 +24,6 @@ class Leaderboard extends BaseCommand {
 	execute(msg, args) {
 		if (args.length > 0) {
 			if (args[0].toLowerCase() === 'server') {
-				if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 				this.r.table('balance').orderBy(this.r.desc('amount')).run((error, leaderboard) => {
 					if (error) return handleDatabaseError(error, msg);
 					leaderboard = leaderboard.filter((balance) => msg.channel.guild.members.has(balance.id));

@@ -11,7 +11,8 @@ class Balance extends BaseCommand {
 			description: 'Gets the source of the bot on GitHub.',
 			category: 'Information',
 			usage: 'source',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

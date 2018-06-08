@@ -11,7 +11,8 @@ class Ban extends BaseCommand {
 			description: 'Bans a user from the server.',
 			category: 'Moderation',
 			usage: 'ban <user> [<reason...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -20,7 +21,6 @@ class Ban extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(this.i18n.__({ phrase: 'noDM', locale: msg.locale }));
 		if (!msg.member.permission.has('banMembers')) return msg.channel.createMessage(this.i18n.__({ phrase: 'ban.banPermissionNeeded', locale: msg.locale }));
 		if (!msg.channel.guild.members.get(this.bot.user.id).permission.has('banMembers')) return msg.channel.createMessage(this.i18n.__({ phrase: 'ban.selfBanPermissionNeeded', locale: msg.locale }));
 		if (args.length < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'ban.userRequired', locale: msg.locale }));

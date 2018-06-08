@@ -14,7 +14,8 @@ class Execute extends BaseCommand {
 			description: 'Executes command in the host console.',
 			category: 'Developers',
 			usage: 'exec <command...>',
-			hidden: true
+			hidden: true,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

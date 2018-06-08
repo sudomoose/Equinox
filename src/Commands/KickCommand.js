@@ -11,7 +11,8 @@ class Kick extends BaseCommand {
 			description: 'Kicks a user from the server.',
 			category: 'Moderation',
 			usage: 'kick <user> [<reason...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -20,7 +21,6 @@ class Kick extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		if (!msg.member.permission.has('kickMembers')) return msg.channel.createMessage(':no_entry_sign:   **»**   You need the `Kick Members` permission in order to use this command.');
 		if (!msg.channel.guild.members.get(this.bot.user.id).permission.has('kickMembers')) return msg.channel.createMessage(':no_entry_sign:   **»**   I need the `Kick Members` permission in order to complete this command.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a user to kick.');

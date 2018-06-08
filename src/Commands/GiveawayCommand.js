@@ -16,7 +16,8 @@ class Giveaway extends BaseCommand {
 			description: 'Create a giveaway in your current channel.',
 			category: 'Utility',
 			usage: 'creategiveaway <duration> <winners> <item...>',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -25,7 +26,6 @@ class Giveaway extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		if (!msg.channel.guild) return msg.channel.createMessage(':no_entry_sign:   **»**   This command cannot be used in a direct message.');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a duration.');
 		if (args.length < 2) return msg.channel.createMessage(':question:   **»**   You must provide an amount of winners.');
 		if (isNaN(args[1])) return msg.channel.createMessage(':exclamation:   **»**   The amount of winners must be a valid number.');

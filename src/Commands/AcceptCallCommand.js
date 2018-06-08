@@ -11,7 +11,8 @@ class Call extends BaseCommand {
 			description: 'Accept your current incoming call.',
 			category: 'Fun',
 			usage: 'acceptcall',
-			hidden: false
+			hidden: false,
+			guildOnly: true
 		});
 		this.bot = bot;
 		this.r = r;
@@ -20,7 +21,6 @@ class Call extends BaseCommand {
 	}
 
 	execute(msg) {
-		if (!msg.channel.guild) return msg.channel.createMessage(this.i18n.__({ phrase: 'noDM', locale: msg.locale }));
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (!registeration) return msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noAssignedNumber', locale: msg.locale }, msg.prefix));

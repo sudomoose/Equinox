@@ -11,7 +11,8 @@ class Daily extends BaseCommand {
 			description: 'Collect your daily cash reward.',
 			category: 'Economy',
 			usage: 'daily',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

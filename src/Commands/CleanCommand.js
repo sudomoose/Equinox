@@ -10,7 +10,8 @@ class Clean extends BaseCommand {
 			description: 'Cleans Equinox\'s messages from chat.',
 			category: 'Developers',
 			usage: 'clean <amount>',
-			hidden: true
+			hidden: true,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

@@ -11,7 +11,8 @@ class TestToken extends BaseCommand {
 			description: 'Tests a bot token by logging into Discord.',
 			category: 'Utility',
 			usage: 'testtoken <token>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

@@ -11,7 +11,8 @@ class DeleteReminder extends BaseCommand {
 			description: 'Insults a user or yourself.',
 			category: 'Fun',
 			usage: 'insult [<user...>]',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

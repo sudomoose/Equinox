@@ -11,7 +11,8 @@ class ESLint extends BaseCommand {
 			description: 'Verifies inputted JavaScript code and tells you if there is errors.',
 			category: 'Utility',
 			usage: 'eslint <code...>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;

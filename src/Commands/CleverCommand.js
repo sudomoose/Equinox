@@ -13,7 +13,8 @@ class Cleverbot extends BaseCommand {
 			description: 'Ask Artifical "Intelligence" a question.',
 			category: 'Fun',
 			usage: 'cleverbot <question...>',
-			hidden: false
+			hidden: false,
+			guildOnly: false
 		});
 		this.bot = bot;
 		this.r = r;
