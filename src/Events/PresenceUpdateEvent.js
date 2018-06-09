@@ -38,6 +38,7 @@ module.exports = (bot, r) => {
 			r.table('games').get(presence.game.name).run((error, game) => {
 				if (error) return handleDatabaseError(error);
 				if (game) {
+					if (game.users.filter((user) => user.id === presence.user.id).length > 0) return;
 					r.table('games').get(presence.game.name).update({
 						users: r.row('users').append({
 							id: presence.user.id,
