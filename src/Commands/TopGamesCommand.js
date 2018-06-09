@@ -26,7 +26,7 @@ class TopGames extends BaseCommand {
 	execute(msg) {
 		this.r.table('games').merge((row) => ({ duration: row('duration').add(this.r.args(row('users').map((user) => this.r.expr(Date.now()).sub(user('timestamp'))))) })).orderBy(this.r.desc('duration')).limit(15).run((error, games) => {
 			if (error) return handleDatabaseError(error, msg);
-			const largestName = Math.max(...games.map((game) => game.id.length));
+			const largestName = Math.max(...games.map((game, index) => ((index + 1) + '. ' + game.id).length));
 			msg.channel.createMessage({
 				embed: {
 					title: 'Top Played Games',
