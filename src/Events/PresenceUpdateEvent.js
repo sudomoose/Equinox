@@ -34,7 +34,7 @@ module.exports = (bot, r) => {
 				});
 			}
 		});
-		if (!oldPresence.game && presence.game) {
+		if (!oldPresence.game && presence.game && !presence.user.bot) {
 			r.table('games').get(presence.game.name).run((error, game) => {
 				if (error) return handleDatabaseError(error);
 				if (game) {
@@ -62,7 +62,7 @@ module.exports = (bot, r) => {
 					});
 				}
 			});
-		} else if (oldPresence.game && !presence.game) {
+		} else if (oldPresence.game && !presence.game && !presence.user.bot) {
 			r.table('games').filter(r.row('users').filter((user) => user('id').eq(presence.user.id)).count().gt(0)).run((error, games) => {
 				if (error) return handleDatabaseError(error);
 				for (let i = 0; i < games.length; i++) {
