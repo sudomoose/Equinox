@@ -36,7 +36,7 @@ class TopGames extends BaseCommand {
 			this.r.table('games').merge((row) => ({ duration: row('duration').add(this.r.args(row('users').map((user) => this.r.expr(Date.now()).sub(user('timestamp'))))) })).orderBy(this.r.desc('duration')).slice((page * 15) - 15, page * 15).run((error, games) => {
 				if (error) return handleDatabaseError(error, msg);
 				const largestName = Math.max(...games.map((game, index) => ((index + 1) + '. ' + game.id).length));
-				msg.channel.createMessage('```\n' + games.map((game, index) => '`' + (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1, units: [ 'h', 'm' ] }) + ' (' + game.users.length + ' playing)`').join('\n') + '\n\nPage ' + page + ' / ' + Math.ceil(gameCount / 15) + '```');
+				msg.channel.createMessage('```\n' + games.map((game, index) => (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1, units: [ 'h', 'm' ] }) + ' (' + game.users.length + ' playing)').join('\n') + '\n\nPage ' + page + ' / ' + Math.ceil(gameCount / 15) + '```');
 			});
 		});
 	}
