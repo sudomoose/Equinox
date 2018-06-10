@@ -23,16 +23,29 @@ class TopGames extends BaseCommand {
 		this.i18n = i18n;
 	}
 
-	execute(msg) {
-		this.r.table('games').merge((row) => ({ duration: row('duration').add(this.r.args(row('users').map((user) => this.r.expr(Date.now()).sub(user('timestamp'))))) })).orderBy(this.r.desc('duration')).limit(15).run((error, games) => {
+	execute(msg, args) {
+		this.r.table('games').count().run((error, gameCount) => {
 			if (error) return handleDatabaseError(error, msg);
-			const largestName = Math.max(...games.map((game, index) => ((index + 1) + '. ' + game.id).length));
-			msg.channel.createMessage({
-				embed: {
-					title: 'Top Played Games',
-					color: this.bot.embedColor,
-					description: games.map((game, index) => '`' + (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1, units: [ 'h', 'm' ] }) + '`').join('\n')
-				}
+			let page = 1;
+			if (args.length > 0) {
+				if (isNaN(args[0])) return msg.channel.createMessage(':exclamation:   **»**   The page must be a valid number.');
+				if (Number(args[0]) < 1) return msg.channel.createMessage(':exclamation:   **»**   The page number must be greater than or equal to 1.');
+				if (Number(args[0]) > Math.ceil(gameCount / 15)) return msg.channel.createMessage(':exclamation:   **»**   Page `' + args[0] + '` does not exist.');
+				page = Number(args[0]);
+			}
+			this.r.table('games').merge((row) => ({ duration: row('duration').add(this.r.args(row('users').map((user) => this.r.expr(Date.now()).sub(user('timestamp'))))) })).orderBy(this.r.desc('duration')).slice((page * 15) - 15, page * 15).run((error, games) => {
+				if (error) return handleDatabaseError(error, msg);
+				const largestName = Math.max(...games.map((game, index) => ((index + 1) + '. ' + game.id).length));
+				msg.channel.createMessage({
+					embed: {
+						title: 'Top Played Games',
+						color: this.bot.embedColor,
+						description: games.map((game, index) => '`' + (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1, units: [ 'h', 'm' ] }) + '`').join('\n'),
+						footer: {
+							text: 'Page ' + page + ' / ' + Math.ceil(gameCount / 15)
+						}
+					}
+				});
 			});
 		});
 	}
