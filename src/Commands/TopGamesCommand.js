@@ -40,7 +40,7 @@ class TopGames extends BaseCommand {
 					embed: {
 						title: 'Top Played Games',
 						color: this.bot.embedColor,
-						description: games.map((game, index) => '`' + (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1, units: [ 'h', 'm' ] }) + '`').join('\n'),
+						description: games.map((game, index) => '`' + (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1, units: [ 'h', 'm' ] }) + ' (' + game.users.length + ' playing)`').join('\n'),
 						footer: {
 							text: 'Page ' + page + ' / ' + Math.ceil(gameCount / 15)
 						}
