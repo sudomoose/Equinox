@@ -37,7 +37,7 @@ class TopGames extends BaseCommand {
 				if (error) return handleDatabaseError(error, msg);
 				games = games.map((game) => { game.id = game.id.replace(/ +/g, ' '); return game; });
 				const largestName = Math.max(...games.map((game, index) => ((index + 1) + '. ' + game.id).length));
-				msg.channel.createMessage('```\n' + games.map((game, index) => (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { round: true, largest: 1 }) + ' (' + game.users.length + ' playing)').join('\n') + '\n\nPage ' + page + ' / ' + Math.ceil(gameCount / 15) + '```');
+				msg.channel.createMessage('```\n' + games.map((game, index) => (index + 1) + '. ' + game.id + Array((largestName + 4) - ((index + 1) + '. ' + game.id).length).join(' ') + humanizeDuration(game.duration, { largest: 1 }) + ' (' + game.users.length + ' playing)').join('\n') + '\n\nPage ' + page + ' / ' + Math.ceil(gameCount / 15) + '```');
 			});
 		});
 	}
