@@ -14,7 +14,7 @@ class UserInfo extends BaseCommand {
 			],
 			description: 'Displays information about a user.',
 			category: 'Information',
-			usage: 'userinfo [<user...>]',
+			usage: 'user-info [<user...>]',
 			hidden: false,
 			guildOnly: false
 		});
