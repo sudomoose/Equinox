@@ -29,9 +29,9 @@ class MessageFilter extends MessageHandler {
 			} else {
 				this.r.table('user_statistics').insert({
 					id: msg.author.id,
-					messagesSent: stats.messagesSent + 1,
-					wordCount: stats.wordCount + msg.content.split(' ').length,
-					characterCount: stats.characterCount + msg.content.length
+					messagesSent: 1,
+					wordCount: msg.content.split(' ').length,
+					characterCount: msg.content.length
 				}).run((error) => {
 					if (error) return handleDatabaseError(error);
 				});
