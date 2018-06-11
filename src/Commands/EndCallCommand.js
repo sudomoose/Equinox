@@ -27,16 +27,15 @@ class EndCall extends BaseCommand {
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (!registeration) return msg.channel.createMessage(':exclamation:   **»**   This channel does not have an assigned phone number. Use `' + msg.prefix + 'register` to get one.');
-			this.r.table('calls').filter(this.r.row('caller').eq(registeration.number).or(this.r.row('callee').eq(registeration.number))).run((error, calls) => {
-				if (error) return handleDatabaseError(error, msg);
-				if (calls.length < 1) return msg.channel.createMessage(':exclamation:   **»**   You are not in any calls in this channel.');
-				this.r.table('calls').get(calls[0].id).delete().run((error) => {
-					if (error) return handleDatabaseError(error, msg);
-					this.bot.calls.delete(calls[0].caller);
-					const otherSide = this.bot.guilds.get(this.bot.channelGuildMap[registeration.number === calls[0].caller ? calls[0].calleeChannelID : calls[0].callerChannelID]).channels.get(registeration.number === calls[0].caller ? calls[0].calleeChannelID : calls[0].callerChannelID);
-					msg.channel.createMessage(':telephone:   **»**   You have ended the current call. To call back, use `' + msg.prefix + 'call ' + formatPhoneNumber(registeration.number === calls[0].caller ? calls[0].callee : calls[0].caller) + '`.');
-					otherSide.createMessage(':telephone:   **»**   The other side has ended the call. To call back, use `' + msg.prefix + 'call ' + formatPhoneNumber(registeration.number === calls[0].caller ? calls[0].caller : calls[0].callee) + '`.');
-				});
+			const calls = this.bot.calls.filter((call) => call.isCall(msg));
+			if (calls.length < 1) return msg.channel.createMessage(':exclamation:   **»**   You are not in any calls in this channel.');
+			calls[0].endCall().then(() => {
+				const otherSide = msg.channel.id === calls[0].caller.id ? calls[0].calleeChannel : calls[0].callerChannel;
+				msg.channel.createMessage(':telephone:   **»**   You have ended the current call. To call back, use `' + msg.prefix + 'call ' + formatPhoneNumber(msg.channel.id === calls[0].caller.id ? calls[0].callee.number : calls[0].caller.number) + '`.');
+				otherSide.createMessage(':telephone:   **»**   The other side has ended the call. To call back, use `' + msg.prefix + 'call ' + formatPhoneNumber(msg.channel.id === calls[0].caller.id ? calls[0].caller.number : calls[0].callee.number) + '`.');
+				this.bot.calls.delete(calls[0].caller);
+			}).catch((error) => {
+				handleDatabaseError(error, msg);
 			});
 		});
 	}

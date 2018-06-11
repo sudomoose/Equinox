@@ -24,29 +24,19 @@ class Call extends BaseCommand {
 		this.r.table('registrations').get(msg.channel.id).run((error, registeration) => {
 			if (error) return handleDatabaseError(error, msg);
 			if (!registeration) return msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noAssignedNumber', locale: msg.locale }, msg.prefix));
-			this.r.table('calls').filter({ callee: registeration.number }).run((error, calls) => {
-				if (error) return handleDatabaseError(error, msg);
-				if (calls.length < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noIncomingCalls', locale: msg.locale }));
-				if (!(calls[0].calleeChannelID in this.bot.channelGuildMap)) {
-					msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noLongerAvailable', locale: msg.locale }));
-					this.r.table('calls').get(calls[0].id).delete().run((error) => {
-						if (error) return handleDatabaseError(error);
-					});
-					this.bot.calls.delete(calls[0].caller);
-					return;
-				}
-				this.r.table('calls').get(calls[0].id).update({
-					accepted: true
-				}).run((error) => {
-					if (error) return handleDatabaseError(error, msg);
-					this.r.table('calls').get(calls[0].id).run((error, call) => {
-						if (error) return handleDatabaseError(error, msg);
-						this.bot.calls.set(calls[0].caller, call[0]);
-						const otherSide = this.bot.guilds.get(this.bot.channelGuildMap[calls[0].callerChannelID]).channels.get(calls[0].callerChannelID);
-						msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.selfAccepted', locale: msg.locale }, otherSide.name, otherSide.guild.name));
-						otherSide.createMessage(this.i18n.__({ phrase: 'acceptCall.accepted', locale: msg.locale }, msg.channel.name, msg.channel.guild.name));
-					});
-				});
+			const calls = this.bot.calls.filter((call) => call.callee.id === msg.channel.id && !call.accepted);
+			if (calls.length < 1) return msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noIncomingCalls', locale: msg.locale }));
+			if (!(calls[0].calleeChannel.id in this.bot.channelGuildMap)) return calls[0].endCall().then(() => {
+				msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.noLongerAvailable', locale: msg.locale }));
+				this.bot.calls.delete(calls[0].id);
+			}).catch((error) => {
+				handleDatabaseError(error, msg);
+			});
+			calls[0].acceptCall().then(() => {
+				msg.channel.createMessage(this.i18n.__({ phrase: 'acceptCall.selfAccepted', locale: msg.locale }, calls[0].calleeChannel.name, calls[0].calleeChannel.guild.name));
+				calls[0].callerChannel.createMessage(this.i18n.__({ phrase: 'acceptCall.accepted', locale: msg.locale }, msg.channel.name, msg.channel.guild.name));
+			}).catch((error) => {
+				handleDatabaseError(error, msg);
 			});
 		});
 	}

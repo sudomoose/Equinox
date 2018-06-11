@@ -10,14 +10,9 @@ class CallHandler extends MessageHandler {
 	}
 
 	execute(msg, next) {
-		const calls = this.bot.calls.filter((call) => (call.callerChannelID === msg.channel.id || call.calleeChannelID === msg.channel.id) && call.accepted);
+		const calls = this.bot.calls.filter((call) => call.isCall(msg) && call.accepted);
 		if (!msg.content.startsWith(msg.prefix) && calls.length > 0 && msg.content !== '') {
-			const call = calls[0];
-			if (msg.channel.id === call.callerChannelID) {
-				this.bot.guilds.get(this.bot.channelGuildMap[call.calleeChannelID]).channels.get(call.calleeChannelID).createMessage('**' + msg.author.username + '#' + msg.author.discriminator + '**: ' + msg.content);
-			} else {
-				this.bot.guilds.get(this.bot.channelGuildMap[call.callerChannelID]).channels.get(call.callerChannelID).createMessage('**' + msg.author.username + '#' + msg.author.discriminator + '**: ' + msg.content);
-			}
+			calls[0].chat(msg);
 		} else {
 			next();
 		}
