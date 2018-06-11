@@ -61,6 +61,7 @@ class Client {
 			for (let i = 0; i < commands.length; i++) {
 				const Command = require(path.join(dir, commands[i]));
 				const command = new Command(this.bot, this.r, this.metrics, this.i18n);
+				command.file = path.join(dir, commands[i]);
 				this.bot.commands.set(command.command, command);
 			}
 		});

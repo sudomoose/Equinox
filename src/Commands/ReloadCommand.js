@@ -40,7 +40,7 @@ class Reload extends BaseCommand {
 						try {
 							delete require.cache[path.join(__dirname, files[i])];
 							const Command = require(path.join(__dirname, files[i]));
-							const command = new Command(this.bot, this.r);
+							const command = new Command(this.bot, this.r, this.metrics, this.i18n);
 							this.bot.commands.delete(command.command);
 							command.file = path.join(__dirname, files[i]);
 							this.bot.commands.set(command.command, command);
@@ -58,11 +58,11 @@ class Reload extends BaseCommand {
 				try {
 					delete require.cache[commands[0].file];
 					const Command = require(commands[0].file);
-					const command = new Command(this.bot, this.r);
+					const command = new Command(this.bot, this.r, this.metrics, this.i18n);
 					this.bot.commands.delete(command.command);
 					command.file = commands[0].file;
 					this.bot.commands.set(command.command, command);
-					msg.channel.createMessage(':arrows_counterclockwise:   **»**   Command file `' + command.file.split('/')[command.file.split('/').length - 1] + '` has been reloaded.');
+					msg.channel.createMessage(':arrows_counterclockwise:   **»**   Command `' + command.command + '` has been reloaded.');
 				} catch (e) {
 					msg.channel.createMessage(':exclamation:   **»**   An error occured while trying to reload command.\n```js\n' + util.inspect(e) + '```');
 				}
