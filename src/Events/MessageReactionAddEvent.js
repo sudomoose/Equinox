@@ -10,6 +10,6 @@ module.exports = (bot, r) => {
 					message.delete();
 				});
 			}
-		});
+		}).catch(() => {});
 	});
 };
