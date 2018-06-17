@@ -21,7 +21,7 @@ class Donate extends BaseCommand {
 	}
 
 	execute(msg) {
-		msg.channel.createMessage(':inbox_tray:   **»**   Hosting ' + this.bot.user.username + ' costs money, especially with music, and that is why we need your help. You can donate monthly at Patreon: <' + config.links.donate + '>.');
+		msg.channel.createMessage(':dollar:   **»**   Hosting ' + this.bot.user.username + ' costs money, especially with music, and that is why we need your help. You can donate monthly at Patreon: <' + config.links.donate + '>.');
 	}
 }
 
