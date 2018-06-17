@@ -35,11 +35,12 @@ module.exports = (bot, r) => {
 			}
 		});
 		if (!oldPresence.game && presence.game && !presence.user.bot) {
-			r.table('games').get(presence.game.name).run((error, game) => {
+			r.table('games').get(presence.game.name.slice(0, 127)).run((error, game) => {
 				if (error) return handleDatabaseError(error);
+				if (!presence.game) return; // race condition
 				if (game) {
 					if (game.users.filter((user) => user.id === presence.user.id).length > 0) return;
-					r.table('games').get(presence.game.name).update({
+					r.table('games').get(presence.game.name.slice(0, 127)).update({
 						users: r.row('users').append({
 							id: presence.user.id,
 							timestamp: Date.now()
@@ -49,7 +50,7 @@ module.exports = (bot, r) => {
 					});
 				} else {
 					r.table('games').insert({
-						id: presence.game.name,
+						id: presence.game.name.slice(0, 127),
 						duration: 0,
 						users: [
 							{

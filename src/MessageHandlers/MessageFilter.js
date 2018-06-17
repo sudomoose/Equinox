@@ -37,6 +37,51 @@ class MessageFilter extends MessageHandler {
 				});
 			}
 		});
+		if (msg.channel.guild) {
+			this.r.table('channel_statistics').get(msg.channel.id).run((error, stats) => {
+				if (error) return handleDatabaseError(error);
+				if (stats) {
+					this.r.table('channel_statistics').get(msg.channel.id).update({
+						messagesSent: stats.messagesSent + 1,
+						wordCount: stats.wordCount + msg.content.split(' ').length,
+						characterCount: stats.characterCount + msg.content.length
+					}).run((error) => {
+						if (error) return handleDatabaseError(error);
+					});
+				} else {
+					this.r.table('channel_statistics').insert({
+						id: msg.channel.id,
+						type: 'text',
+						messagesSent: 1,
+						wordCount: msg.content.split(' ').length,
+						characterCount: msg.content.length
+					}).run((error) => {
+						if (error) return handleDatabaseError(error);
+					});
+				}
+			});
+			this.r.table('server_statistics').get(msg.channel.guild.id).run((error, stats) => {
+				if (error) return handleDatabaseError(error);
+				if (stats) {
+					this.r.table('server_statistics').get(msg.channel.guild.id).update({
+						messagesSent: stats.messagesSent + 1,
+						wordCount: stats.wordCount + msg.content.split(' ').length,
+						characterCount: stats.characterCount + msg.content.length
+					}).run((error) => {
+						if (error) return handleDatabaseError(error);
+					});
+				} else {
+					this.r.table('server_statistics').insert({
+						id: msg.channel.guild.id,
+						messagesSent: 1,
+						wordCount: msg.content.split(' ').length,
+						characterCount: msg.content.length
+					}).run((error) => {
+						if (error) return handleDatabaseError(error);
+					});
+				}
+			});
+		}
 		next();
 	}
 }

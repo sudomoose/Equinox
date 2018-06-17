@@ -1,21 +1,25 @@
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const BaseCommand = require('../Structure/BaseCommand');
-const resolveUser = require('../Util/resolveUser');
+const resolveGuild = require('../Util/resolveGuild');
 
-class UserStatistics extends BaseCommand {
+class ServerStatistics extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'user-stats',
+			command: 'server-stats',
 			aliases: [
-				'userstats',
-				'user-statistics',
-				'userstatistics'
+				'serverstats',
+				'server-statistics',
+				'serverstatistics',
+				'guild-stats',
+				'guildstats',
+				'guild-statistics',
+				'guildstatistics'
 			],
-			description: 'Displays statistics about a user.',
+			description: 'Displays statistics about a channel.',
 			category: 'Information',
-			usage: 'user-stats [<user...>]',
+			usage: 'channel-stats [<channel...>]',
 			hidden: false,
-			guildOnly: false
+			guildOnly: (msg, args) => args.length < 1
 		});
 		this.bot = bot;
 		this.r = r;
@@ -24,30 +28,22 @@ class UserStatistics extends BaseCommand {
 	}
 
 	execute(msg, args) {
-		resolveUser(this.bot, args.length > 0 ? args.join(' ') : msg.author.id).then((user) => {
-			this.r.table('user_statistics').get(user.id).run((error, stats) => {
+		resolveGuild(this.bot, args.length > 0 ? args.join(' ') : msg.channel.guild.id).then((guild) => {
+			this.r.table('server_statistics').get(guild.id).run((error, stats) => {
 				if (error) return handleDatabaseError(error, msg);
 				msg.channel.createMessage({
 					embed: {
-						title: 'User Statistics',
+						title: 'Server Statistics',
 						color: this.bot.embedColor,
-						thumbnail: {
-							url: user.avatarURL || user.defaultAvatarURL
-						},
 						fields: [
 							{
 								name: 'Name',
-								value: user.username + '#' + user.discriminator,
+								value: guild.name,
 								inline: true
 							},
 							{
 								name: 'ID',
-								value: user.id,
-								inline: true
-							},
-							{
-								name: 'Bot',
-								value: user.bot ? 'Yes' : 'No',
+								value: guild.id,
 								inline: true
 							},
 							{
@@ -70,9 +66,9 @@ class UserStatistics extends BaseCommand {
 				});
 			});
 		}).catch(() => {
-			msg.channel.createMessage(':exclamation:   **»**   Unable to find any users by that query.');
+			msg.channel.createMessage(':exclamation:   **»**   Unable to find any servers by that query.');
 		});
 	}
 }
 
-module.exports = UserStatistics;
+module.exports = ServerStatistics;
