@@ -31,7 +31,7 @@ class Monthly extends BaseCommand {
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
 					updateBalance(this.r, msg.author.id, amount).then((balance) => {
-						msg.channel.createMessage(':money_with_wings:   **»**   $' + amount + ' has been added to your account. Your balance is now $' + balance.toLocaleString() + '.');
+						msg.channel.createMessage(':money_with_wings:   **»**   $' + amount.toLocaleString() + ' has been added to your account. Your balance is now $' + balance.toLocaleString() + '.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});
@@ -43,7 +43,7 @@ class Monthly extends BaseCommand {
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
 					updateBalance(this.r, msg.author.id, amount).then((balance) => {
-						msg.channel.createMessage(':money_with_wings:   **»**   $' + amount + ' has been added to your account. Your balance is now $' + balance.toLocaleString() + '.');
+						msg.channel.createMessage(':money_with_wings:   **»**   $' + amount.toLocaleString() + ' has been added to your account. Your balance is now $' + balance.toLocaleString() + '.');
 					}).catch((error) => {
 						handleDatabaseError(error, msg);
 					});
