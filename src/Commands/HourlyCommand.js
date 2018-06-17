@@ -3,14 +3,14 @@ const BaseCommand = require('../Structure/BaseCommand');
 const updateBalance = require('../Util/updateBalance');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
-class Daily extends BaseCommand {
+class Hourly extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
 		super({
-			command: 'daily',
+			command: 'hourly',
 			aliases: [],
-			description: 'Collect your daily cash reward.',
+			description: 'Collect your hourly cash reward.',
 			category: 'Economy',
-			usage: 'daily',
+			usage: 'hourly',
 			hidden: false,
 			guildOnly: false
 		});
@@ -23,11 +23,11 @@ class Daily extends BaseCommand {
 	execute(msg) {
 		this.r.table('intervals').get(msg.author.id).run((error, result) => {
 			if (error) return handleDatabaseError(error, msg);
-			const amount = Math.floor(Math.random() * (500 - 100)) + 100;
+			const amount = Math.floor(Math.random() * ((500 - 100) / 24)) + Math.ceil(100 / 24);
 			if (result) {
-				if (Date.now() - result.daily <= (1000 * 60 * 60 * 24)) return msg.channel.createMessage(':exclamation:   **»**   You\'ve already done your daily today. Try again in ' + humanizeDuration((1000 * 60 * 60 * 24) - (Date.now() - result.daily), { round: true }) + '.');
+				if (Date.now() - result.hourly <= (1000 * 60 * 60)) return msg.channel.createMessage(':exclamation:   **»**   You\'ve already done your hourly in the last hour. Try again in ' + humanizeDuration((1000 * 60 * 60) - (Date.now() - result.hourly), { round: true }) + '.');
 				this.r.table('intervals').get(msg.author.id).update({
-					daily: Date.now()
+					hourly: Date.now()
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
 					updateBalance(this.r, msg.author.id, amount).then((balance) => {
@@ -39,7 +39,7 @@ class Daily extends BaseCommand {
 			} else {
 				this.r.table('intervals').insert({
 					id: msg.author.id,
-					daily: Date.now()
+					hourly: Date.now()
 				}).run((error) => {
 					if (error) return handleDatabaseError(error, msg);
 					updateBalance(this.r, msg.author.id, amount).then((balance) => {
@@ -53,4 +53,4 @@ class Daily extends BaseCommand {
 	}
 }
 
-module.exports = Daily;
+module.exports = Hourly;
