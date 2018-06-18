@@ -24,7 +24,7 @@ class Balance extends BaseCommand {
 		resolveUser(this.bot, args.length > 0 ? args.join(' ') : msg.author.id).then((user) => {
 			this.r.table('uptime').get(msg.author.id).run((error, uptime) => {
 				if (error) return handleDatabaseError(error, msg);
-				const duration = uptime ? ((uptime.status !== 'offline' ? ((Date.now() - uptime.since) + uptime.duration) : uptime.duration) / (Date.now() - uptime.timestamp)) : 0;
+				const duration = uptime ? (uptime.status === 'online' ? ((Date.now() - uptime.since) + uptime.duration) : uptime.duration) / (Date.now() - uptime.timestamp) : 0;
 				msg.channel.createMessage(':watch:   **»**   ' + (msg.author.id === user.id ? 'You have' : user.username + '#' + user.discriminator + ' has') + ' been online for ' + (duration * 100).toFixed(1) + '% of the time, and ' + (msg.author.id === user.id ? 'have' : 'has') + ' been ' + (uptime ? uptime.status : 'offline') + ' for ' + (uptime ? '`' + humanizeDuration(Date.now() - uptime.since, { round: true }) + '`' : ' an unknown duration') + '.');
 			});
 		}).catch(() => {
