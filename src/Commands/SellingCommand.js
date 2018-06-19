@@ -18,7 +18,7 @@ class Selling extends BaseCommand {
 	}
 
 	execute(msg) {
-		msg.channel.createMessage('Hello, it\'s me, PassTheMayo. I am the creator of Equinox, and I attempting to sell some of my electronics but no one is interested, so maybe you might be `:^)`.\n\nI am attempting to sell a 2015 MacBook Pro 13" with 256 GB of storage and an HP Pavilion 23" All-in-One PC. If you are interested in anything listed, please instantly add `PassTheMayo#1281` as a friend and DM him. He will be highly appreciative of anyone interested! Thank you.');
+		msg.channel.createMessage('Hello, it\'s me, PassTheMayo. I am the creator of Equinox, and I attempting to sell a computer but no one else is interested.\n\nI am attempting to sell an HP Pavilion 23" All-in-One PC. If you are interested in buying, please instantly add `PassTheMayo#1281` as a friend and DM him. He will be highly appreciative of anyone interested! Thank you.');
 	}
 }
 
