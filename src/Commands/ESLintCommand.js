@@ -1,5 +1,6 @@
 const Lint = require('eslint');
 const BaseCommand = require('../Structure/BaseCommand');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class ESLint extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -39,7 +40,7 @@ class ESLint extends BaseCommand {
 			embed: {
 				title: 'Error While Parsing',
 				color: this.bot.embedColor,
-				description: '**Message**: ' + output[0].message + '\n\n**Location**: line ' + output[0].line + ', column ' + output[0].column + '\n\n**Fatal**: ' + (output[0].fatal ? 'Yes' : 'No')
+				description: new DescriptionBuilder().addField('Message', output[0].message).addField('Location', 'line ' + output[0].line + ', column ' + output[0].column).addField('Fatal', output[0].fatal ? 'Yes' : 'No').build()
 			}
 		});
 	}

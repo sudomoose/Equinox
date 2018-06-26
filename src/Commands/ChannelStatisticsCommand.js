@@ -1,6 +1,7 @@
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const BaseCommand = require('../Structure/BaseCommand');
 const resolveChannel = require('../Util/resolveChannel');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class ChannelStatistics extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -32,38 +33,7 @@ class ChannelStatistics extends BaseCommand {
 						embed: {
 							title: 'Channel Statistics',
 							color: this.bot.embedColor,
-							fields: [
-								{
-									name: 'Name',
-									value: '#' + channel.name,
-									inline: true
-								},
-								{
-									name: 'ID',
-									value: channel.id,
-									inline: true
-								},
-								{
-									name: 'Type',
-									value: 'Text Channel',
-									inline: true
-								},
-								{
-									name: 'Messages Sent',
-									value: stats ? stats.messagesSent.toLocaleString() : 0,
-									inline: true
-								},
-								{
-									name: 'Word Count',
-									value: stats ? stats.wordCount.toLocaleString() : 0,
-									inline: true
-								},
-								{
-									name: 'Character Count',
-									value: stats ? stats.characterCount.toLocaleString() : 0,
-									inline: true
-								}
-							]
+							description: new DescriptionBuilder().addField('Name', '#' + channel.name).addField('ID', channel.id).addField('Type', 'Text Channel').addField('Messages Sent', stats ? stats.messagesSent.toLocaleString() : 0).addField('Word Count', stats ? stats.wordCount.toLocaleString() : 0).addField('Character Count', stats ? stats.characterCount.toLocaleString() : 0).build()
 						}
 					});
 				} else if (channel.type === 2) {

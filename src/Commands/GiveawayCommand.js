@@ -4,6 +4,7 @@ const dateformat = require('dateformat');
 const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const handleGiveaway = require('../Util/handleGiveaway');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class Giveaway extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -36,7 +37,7 @@ class Giveaway extends BaseCommand {
 				embed: {
 					title: ':tada: Giveaway :tada:',
 					color: 0x00FF00,
-					description: '**Prize**: ' + args.slice(2).join(' ') + '\n\n**Winners**: ' + args[1] + '\n\n**Time Remaining**: ' + humanizeDuration(duration) + '\n\n**Ends At**: ' + dateformat(Date.now() + duration, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')
+					description: new DescriptionBuilder().addField('Prize', args.slice(2).join(' ')).addField('Winners', args[1]).addField('Time Remaining', humanizeDuration(duration)).addField('Ends At', dateformat(Date.now() + duration, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')).addField('Status', 'Active').build()
 				}
 			}).then((message) => {
 				message.addReaction('🎉').catch(() => {

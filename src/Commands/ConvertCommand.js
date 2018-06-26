@@ -1,5 +1,7 @@
 const convert = require('convert-units');
 const BaseCommand = require('../Structure/BaseCommand');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
+
 const emotes = {
 	length: ':straight_ruler:',
 	area: ':map:',
@@ -24,6 +26,7 @@ const emotes = {
 	illuminance: ':flashlight:',
 	frequency: ':loudspeaker:'
 };
+
 const rename = {
 	length: 'Length',
 	area: 'Area',
@@ -85,7 +88,7 @@ class Convert extends BaseCommand {
 				embed: {
 					title: 'Conversion Cheat Sheet',
 					color: this.bot.embedColor,
-					description: convert().measures().map((unit) => emotes[unit] + ' **' + rename[unit] + '**:   ' + convert().possibilities(unit).map((unit) => '`' + unit + '`').join(', ')).join('\n\n')
+					description: new DescriptionBuilder().addFields(convert().measures().map((unit) => [emotes[unit], rename[unit], convert().possibilities(unit).map((unit) => '`' + unit + '`').join(', ')])).build()
 				}
 			});
 		}

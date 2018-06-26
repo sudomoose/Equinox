@@ -1,6 +1,7 @@
 const handleDatabaseError = require('../Util/handleDatabaseError');
 const BaseCommand = require('../Structure/BaseCommand');
 const resolveUser = require('../Util/resolveUser');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class UserStatistics extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -34,38 +35,7 @@ class UserStatistics extends BaseCommand {
 						thumbnail: {
 							url: user.avatarURL || user.defaultAvatarURL
 						},
-						fields: [
-							{
-								name: 'Name',
-								value: user.username + '#' + user.discriminator,
-								inline: true
-							},
-							{
-								name: 'ID',
-								value: user.id,
-								inline: true
-							},
-							{
-								name: 'Bot',
-								value: user.bot ? 'Yes' : 'No',
-								inline: true
-							},
-							{
-								name: 'Messages Sent',
-								value: stats ? stats.messagesSent.toLocaleString() : 0,
-								inline: true
-							},
-							{
-								name: 'Word Count',
-								value: stats ? stats.wordCount.toLocaleString() : 0,
-								inline: true
-							},
-							{
-								name: 'Character Count',
-								value: stats ? stats.characterCount.toLocaleString() : 0,
-								inline: true
-							}
-						]
+						description: new DescriptionBuilder().addField('Name', user.username + '#' + user.discriminator).addField('ID', user.id).addField('Bot', user.bot ? 'Yes' : 'No').addField('Messages Sent', stats ? stats.messagesSent.toLocaleString() : 0).addField('Word Count', stats ? stats.wordCount.toLocaleString() : 0).addField('Character Count', stats ? stats.characterCount.toLocaleString() : 0).build()
 					}
 				});
 			});

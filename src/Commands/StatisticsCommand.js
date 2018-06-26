@@ -1,7 +1,7 @@
-const snekfetch = require('snekfetch');
 const BaseCommand = require('../Structure/BaseCommand');
 const formatSize = require('../Util/formatSize');
 const formatDuration = require('../Util/formatDuration');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class Statistics extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -23,51 +23,12 @@ class Statistics extends BaseCommand {
 	}
 
 	execute(msg) {
-		snekfetch.get('https://api.github.com/repos/EquinoxBot/Equinox/commits').then((result) => {
-			msg.channel.createMessage({
-				embed: {
-					title: 'Bot Statistics',
-					color: this.bot.embedColor,
-					description: result.body.slice(0, 3).map((commit) => '[`' + commit.sha.substr(0, 7) + '`](' + commit.html_url + ') ' + commit.commit.message).join('\n'),
-					fields: [
-						{
-							name: 'Shards',
-							value: this.bot.shards.size.toLocaleString(),
-							inline: true
-						},
-						{
-							name: 'Guilds',
-							value: this.bot.guilds.size.toLocaleString(),
-							inline: true
-						},
-						{
-							name: 'Users',
-							value: this.bot.users.size.toLocaleString(),
-							inline: true
-						},
-						{
-							name: 'Voice Connections',
-							value: this.bot.voiceConnections.size.toLocaleString(),
-							inline: true
-						},
-						{
-							name: 'Memory Usage',
-							value: formatSize(process.memoryUsage().heapUsed),
-							inline: true
-						},
-						{
-							name: 'Uptime',
-							value: formatDuration(this.bot.uptime),
-							inline: true
-						},
-						{
-							name: 'Commands',
-							value: this.bot.commands.size.toLocaleString(),
-							inline: true
-						}
-					]
-				}
-			});
+		msg.channel.createMessage({
+			embed: {
+				title: 'Bot Statistics',
+				color: this.bot.embedColor,
+				description: new DescriptionBuilder().addField('Shards', this.bot.shards.size.toLocaleString()).addField('Guilds', this.bot.guilds.size.toLocaleString()).addField('Users', this.bot.users.size.toLocaleString()).addField('Voice Connections', this.bot.voiceConnections.size).addField('Memory Usage', formatSize(process.memoryUsage().heapUsed)).addField('Uptime', formatDuration(this.bot.uptime)).addField('Commands', this.bot.commands.size.toLocaleString()).build()
+			}
 		});
 	}
 }

@@ -1,6 +1,7 @@
 const dateformat = require('dateformat');
 const BaseCommand = require('../Structure/BaseCommand');
 const resolveGuild = require('../Util/resolveGuild');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class ServerInfo extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -36,56 +37,10 @@ class ServerInfo extends BaseCommand {
 				embed: {
 					title: 'Server Information',
 					color: this.bot.embedColor,
+					description: new DescriptionBuilder().addField('Name', guild.name).addField('ID', guild.id).addField('Created At', dateformat(guild.createdAt, 'mm/dd/yyyy hh:MM:ss TT')).addField('Region', guild.region).addField('Owner', '<@' + guild.ownerID + '>').addField('Members', guild.memberCount).addField('Channels', guild.channels.size).addField('Emojis', guild.emojis.length).addField('Roles', guild.roles.size).build(),
 					thumbnail: {
 						url: guild.icon ? guild.iconURL : null
-					},
-					fields: [
-						{
-							name: 'Name',
-							value: guild.name,
-							inline: true
-						},
-						{
-							name: 'ID',
-							value: guild.id,
-							inline: true
-						},
-						{
-							name: 'Created At',
-							value: dateformat(guild.createdAt, 'mm/dd/yyyy hh:MM:ss TT'),
-							inline: true
-						},
-						{
-							name: 'Region',
-							value: guild.region,
-							inline: true
-						},
-						{
-							name: 'Owner',
-							value: '<@' + guild.ownerID + '>',
-							inline: true
-						},
-						{
-							name: 'Members',
-							value: guild.memberCount,
-							inline: true
-						},
-						{
-							name: 'Channels',
-							value: guild.channels.size,
-							inline: true
-						},
-						{
-							name: 'Emojis',
-							value: guild.emojis.length,
-							inline: true
-						},
-						{
-							name: 'Roles',
-							value: guild.roles.size,
-							inline: true
-						}
-					]
+					}
 				}
 			});
 		}).catch(() => {

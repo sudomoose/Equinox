@@ -1,5 +1,7 @@
 const BaseCommand = require('../Structure/BaseCommand');
 const config = require('../config.json');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
+
 const emotes = {
 	Economy: ':dollar:',
 	Utility: ':wrench:',
@@ -31,20 +33,16 @@ class Help extends BaseCommand {
 	}
 
 	execute(msg) {
-		let help = '';
 		const categories = {};
 		this.bot.commands.filter((command) => !command.hidden).forEach((command) => {
 			if (!(command.category in categories)) categories[command.category] = [];
 			categories[command.category].push(command.command);
 		});
-		for (const category in categories) {
-			help += '\n\n' + (category in emotes ? emotes[category] : ':question:') + '   **' + category + '**:   ' + categories[category].map((command) => '`' + command + '`').join(', ');
-		}
 		msg.channel.createMessage({
 			embed: {
 				title: 'Command List',
 				color: this.bot.embedColor,
-				description: 'To use any of the commands below, use `' + msg.prefix + '<command>`. For example, `' + msg.prefix + 'prefix`.\n\nIf you want a full list of commands, go to ' + config.links.commands + '.' + help
+				description: 'To use any of the commands below, use `' + msg.prefix + '<command>`. For example, `' + msg.prefix + 'prefix`.\n\nIf you want a full list of commands, go to ' + config.links.commands + '.\n\n' + new DescriptionBuilder().addFields(Object.keys(categories).map((category) => [ emotes[category], category, categories[category].map((command) => '`' + command + '`').join(', ') ])).build(2)
 			}
 		});
 	}

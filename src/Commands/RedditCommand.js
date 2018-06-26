@@ -35,7 +35,7 @@ class Reddit extends BaseCommand {
 				}
 			});
 		}).catch((error) => {
-			if (error.status === 404) return msg.channel.createMessage(':exclamation:   **»**   Unable to find a subreddit by that name.');
+			if (error.statusCode === 404) return msg.channel.createMessage(':exclamation:   **»**   Unable to find a subreddit by that name.');
 			msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
 			Logger.error('Failed to get subreddit', error);
 		});

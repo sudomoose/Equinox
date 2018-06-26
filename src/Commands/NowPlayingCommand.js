@@ -1,5 +1,6 @@
 const BaseCommand = require('../Structure/BaseCommand');
 const formatDuration = require('../Util/formatDuration');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class Volume extends BaseCommand {
 	constructor(bot, r, metrics, i18n) {
@@ -31,22 +32,10 @@ class Volume extends BaseCommand {
 			embed: {
 				title: 'Now Playing',
 				color: this.bot.embedColor,
-				description: '[' + queue.nowPlaying.info.title + '](' + queue.nowPlaying.info.uri + ')',
+				description: new DescriptionBuilder().addField('URL', '[' + queue.nowPlaying.info.title + '](' + queue.nowPlaying.info.uri + ')').addField('Author', queue.nowPlaying.info.author).addField('Duration', formatDuration(queue.position) + '/' + formatDuration(queue.nowPlaying.info.length)).build(),
 				thumbnail: {
 					url: 'https://img.youtube.com/vi/' + queue.nowPlaying.info.identifier + '/mqdefault.jpg'
-				},
-				fields: [
-					{
-						name: 'Author',
-						value: queue.nowPlaying.info.author,
-						inline: true
-					},
-					{
-						name: 'Duration',
-						value: formatDuration(queue.position) + '/' + formatDuration(queue.nowPlaying.info.length),
-						inline: true
-					}
-				]
+				}
 			}
 		});
 	}

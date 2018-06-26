@@ -2,6 +2,7 @@ const humanizeDuration = require('humanize-duration');
 const dateformat = require('dateformat');
 const handleDatabaseError = require('./handleDatabaseError');
 const greenToRedPercentage = require('./greenToRedPercentage');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 module.exports = (bot, r, giveawayID) => {
 	const update = setInterval(() => {
@@ -16,7 +17,7 @@ module.exports = (bot, r, giveawayID) => {
 						embed: {
 							title: ':tada: Giveaway Ended :tada:',
 							color: 0xFF0000,
-							description: '**Prize**: ' + giveaway.prize + '\n\nThis giveaway has been cancelled.'
+							description: new DescriptionBuilder().addField('Prize', giveaway.prize).addField('Winners', giveaway.winners).addField('Time Remaining', '0 seconds').addField('Ends At', dateformat(giveaway.end, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')).addField('Status', 'Cancelled').build()
 						}
 					});
 					r.table('giveaways').get(giveawayID).delete().run((error) => {
@@ -51,7 +52,7 @@ module.exports = (bot, r, giveawayID) => {
 								embed: {
 									title: ':tada: Giveaway Ended :tada:',
 									color: 0xFF0000,
-									description: '**Prize**: ' + giveaway.prize + '\n\nUnable to select winner(s), not enough people who entered.'
+									description: new DescriptionBuilder().addField('Prize', giveaway.prize).addField('Winners', 'Not enough people entered to select winners.').addField('Time Remaining', '0 seconds').addField('Ends At', dateformat(giveaway.end, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')).addField('Status', 'Ended').build()
 								}
 							});
 							clearInterval(update);
@@ -67,7 +68,7 @@ module.exports = (bot, r, giveawayID) => {
 							embed: {
 								title: ':tada: Giveaway Ended :tada:',
 								color: 0xFF0000,
-								description: '**Prize**: ' + giveaway.prize + '\n\n**Winners**: ' + winners.map((winner) => '<@' + winner.id + '>').join(' ')
+								description: new DescriptionBuilder().addField('Prize', giveaway.prize).addField('Winners', winners.map((winner) => '<@' + winner.id + '>')).addField('Time Remaining', '0 seconds').addField('Ends At', dateformat(giveaway.end, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')).addField('Status', 'Ended').build()
 							}
 						});
 						message.channel.createMessage(':tada:   **»**   Congratulations to ' + winners.map((winner, i) => (i + 1 === winners.length && winners.length > 1 ? 'and ' : '') + '<@' + winner.id + '>').join(', ') + ', you won **' + giveaway.prize + '**!');
@@ -81,7 +82,7 @@ module.exports = (bot, r, giveawayID) => {
 						embed: {
 							title: ':tada: Giveaway :tada:',
 							color: greenToRedPercentage((Date.now() - giveaway.timestamp) / (giveaway.end - giveaway.timestamp)),
-							description: '**Prize**: ' + giveaway.prize + '\n\n**Winners**: ' + giveaway.winners + '\n\n**Time Remaining**: ' + humanizeDuration(giveaway.end - Date.now(), { round: true }) + '\n\n**Ends At**: ' + dateformat(giveaway.end, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')
+							description: new DescriptionBuilder().addField('Prize', giveaway.prize).addField('Winners', giveaway.winners).addField('Time Remaining', humanizeDuration(giveaway.end - Date.now(), { round: true })).addField('Ends At', dateformat(giveaway.end, 'mm/dd/yyyy hh:MM:ss TT (HH:MM:ss)')).addField('Status', 'Active').build()
 						}
 					});
 				}

@@ -1,5 +1,6 @@
 const formatDuration = require('../Util/formatDuration');
 const config = require('../config.json');
+const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class VoiceConnection {
 	constructor(bot, player, channel, results, playlist) {
@@ -20,22 +21,10 @@ class VoiceConnection {
 			embed: {
 				title: 'Now Playing',
 				color: this.bot.embedColor,
-				description: '[' + song.info.title + '](https://youtube.com/watch?v=' + song.info.identifier + ')',
+				description: new DescriptionBuilder().addField('URL', '[' + song.info.title + '](https://youtube.com/watch?v=' + song.info.identifier + ')').addField('Duration', formatDuration(song.info.length)).addField('Stream', song.info.isStream ? 'Yes' : 'No').build(),
 				thumbnail: {
 					url: 'https://img.youtube.com/vi/' + song.info.identifier + '/mqdefault.jpg'
-				},
-				fields: [
-					{
-						name: 'Duration',
-						value: formatDuration(song.info.length),
-						inline: true
-					},
-					{
-						name: 'Stream',
-						value: song.info.isStream ? 'Yes' : 'No',
-						inline: true
-					}
-				]
+				}
 			}
 		});
 	}
@@ -49,24 +38,7 @@ class VoiceConnection {
 				embed: {
 					title: 'Added to Queue',
 					color: this.bot.embedColor,
-					description: results[0].info.title,
-					fields: [
-						{
-							name: 'Author',
-							value: results[0].info.author,
-							inline: true
-						},
-						{
-							name: 'Duration',
-							value: formatDuration(results[0].info.length),
-							inline: true
-						},
-						{
-							name: 'Position in Queue',
-							value: this.queue.length,
-							inline: true
-						}
-					]
+					description: new DescriptionBuilder().addField('Name', results[0].info.title).addField('Author', results[0].info.author).addField('Duration', formatDuration(results[0].info.length)).addField('Position in Queue', this.queue.length).build()
 				}
 			});
 			this.queue.push(results[0]);

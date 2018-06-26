@@ -76,7 +76,7 @@ class Tag extends BaseCommand {
 					embed: {
 						title: 'Tags (' + tags.length + ')',
 						color: this.bot.embedColor,
-						description: tags.map((tag) => '• **' + tag.name + '**').join('\n\n')
+						description: tags.map((tag) => ':white_small_square: **' + tag.name + '**').join('\n\n')
 					}
 				});
 			});
