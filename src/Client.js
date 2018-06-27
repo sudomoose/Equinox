@@ -4,6 +4,7 @@ const path = require('path');
 const Collection = require('./Structure/Collection');
 const config = require('./config.json');
 const Logger = require('./Util/Logger');
+const handleDatabaseError = require('./Util/handleDatabaseError');
 
 class Client {
 	constructor(options) {
@@ -35,15 +36,28 @@ class Client {
 			eventsReceived: 0,
 			messagesReceived: 0
 		};
+		this.bot.queuedQueries = {
+			userStatistics: {},
+			channelStatistics: {},
+			serverStatistics: {}
+		};
+		this.bot.runQueuedQueries = this.runQueuedQueries.bind(this);
 
 		this.loadCommand(path.join(__dirname, 'Commands'));
 		this.loadEvents(path.join(__dirname, 'Events'));
 		this.loadMessageHandlers(path.join(__dirname, 'MessageHandlers'));
 		this.setupMetrics();
+		this.runQueuedQueries();
 
 		process.on('unhandledRejection', (error) => {
 			if (error.code && (error.code === 50006 || error.code === 50007 || error.code === 50013)) return;
 			Logger.error(error);
+		});
+
+		process.on('SIGINT', () => {
+			Logger.info('SIGINT exit code received, executing cleanup tasks before exiting.');
+			this.runQueuedQueries();
+			setTimeout(process.exit, 10000);
 		});
 
 		process.on('exit', () => {
@@ -101,6 +115,46 @@ class Client {
 			this.metrics.gauge('uptime', Date.now() - this.bot.startTime);
 			this.metrics.gauge('voiceConnections', this.bot.voiceConnections.size);
 		}, 1000 * 60);
+	}
+
+	runQueuedQueries() {
+		for (const userID in this.bot.queuedQueries.userStatistics) {
+			const statistics = Object.create(this.bot.queuedQueries.userStatistics[userID]);
+			delete this.bot.queuedQueries.userStatistics[userID];
+			this.r.table('user_statistics').get(userID).update({
+				characterCount: this.r.row('characterCount').add(statistics.characterCount),
+				wordCount: this.r.row('wordCount').add(statistics.wordCount),
+				messagesSent: this.r.row('messagesSent').add(statistics.messagesSent)
+			}).run((error) => {
+				if (error) return handleDatabaseError(error);
+			});
+		}
+		
+		for (const channelID in this.bot.queuedQueries.channelStatistics) {
+			const statistics = Object.create(this.bot.queuedQueries.channelStatistics[channelID]);
+			delete this.bot.queuedQueries.channelStatistics[channelID];
+			this.r.table('channel_statistics').get(channelID).update({
+				characterCount: this.r.row('characterCount').add(statistics.characterCount),
+				wordCount: this.r.row('wordCount').add(statistics.wordCount),
+				messagesSent: this.r.row('messagesSent').add(statistics.messagesSent)
+			}).run((error) => {
+				if (error) return handleDatabaseError(error);
+			});
+		}
+		
+		for (const guildID in this.bot.queuedQueries.serverStatistics) {
+			const statistics = Object.create(this.bot.queuedQueries.serverStatistics[guildID]);
+			delete this.bot.queuedQueries.serverStatistics[guildID];
+			this.r.table('server_statistics').get(guildID).update({
+				characterCount: this.r.row('characterCount').add(statistics.characterCount),
+				wordCount: this.r.row('wordCount').add(statistics.wordCount),
+				messagesSent: this.r.row('messagesSent').add(statistics.messagesSent)
+			}).run((error) => {
+				if (error) return handleDatabaseError(error);
+			});
+		}
+
+		setTimeout(this.runQueuedQueries.bind(this), 1000 * 60 * 60 * 3);
 	}
 }
 

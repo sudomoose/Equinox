@@ -33,10 +33,14 @@ class Restart extends BaseCommand {
 				timestamp: Date.now()
 			}, { conflict: 'replace' }).run((error) => {
 				if (error) return handleDatabaseError(error, msg);
-				msg.channel.createMessage(':arrows_counterclockwise:   **»**   Restarting the PM2 process...');
-				child_process.exec('pm2 restart ' + config.pm2_process, (error) => {
-					if (error) msg.channel.createMessage('```\n' + error + '```');
-				});
+				msg.channel.createMessage(':arrows_counterclockwise:   **»**   Cleaning up cached data before exiting...');
+				this.bot.runQueuedQueries();
+				setTimeout(() => {
+					msg.channel.createMessage(':arrows_counterclockwise:   **»**   Restarting the PM2 process...');
+					child_process.exec('pm2 restart ' + config.pm2_process, (error) => {
+						if (error) msg.channel.createMessage('```\n' + error + '```');
+					});
+				}, 5000);
 			});
 		});
 	}

@@ -35,7 +35,7 @@ class UserStatistics extends BaseCommand {
 						thumbnail: {
 							url: user.avatarURL || user.defaultAvatarURL
 						},
-						description: new DescriptionBuilder().addField('Name', user.username + '#' + user.discriminator).addField('ID', user.id).addField('Bot', user.bot ? 'Yes' : 'No').addField('Messages Sent', stats ? stats.messagesSent.toLocaleString() : 0).addField('Word Count', stats ? stats.wordCount.toLocaleString() : 0).addField('Character Count', stats ? stats.characterCount.toLocaleString() : 0).build()
+						description: new DescriptionBuilder().addField('Name', user.username + '#' + user.discriminator).addField('ID', user.id).addField('Bot', user.bot ? 'Yes' : 'No').addField('Messages Sent', ((stats ? stats.messagesSent : 0) + (user.id in this.bot.queuedQueries.userStatistics ? this.bot.queuedQueries.userStatistics[user.id].messagesSent : 0)).toLocaleString()).addField('Word Count', ((stats ? stats.wordCount : 0) + (user.id in this.bot.queuedQueries.userStatistics ? this.bot.queuedQueries.userStatistics[user.id].wordCount : 0)).toLocaleString()).addField('Character Count', ((stats ? stats.characterCount : 0) + (user.id in this.bot.queuedQueries.userStatistics ? this.bot.queuedQueries.userStatistics[user.id].characterCount : 0)).toLocaleString()).build()
 					}
 				});
 			});

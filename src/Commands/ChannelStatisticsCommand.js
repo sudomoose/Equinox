@@ -33,7 +33,7 @@ class ChannelStatistics extends BaseCommand {
 						embed: {
 							title: 'Channel Statistics',
 							color: this.bot.embedColor,
-							description: new DescriptionBuilder().addField('Name', '#' + channel.name).addField('ID', channel.id).addField('Type', 'Text Channel').addField('Messages Sent', stats ? stats.messagesSent.toLocaleString() : 0).addField('Word Count', stats ? stats.wordCount.toLocaleString() : 0).addField('Character Count', stats ? stats.characterCount.toLocaleString() : 0).build()
+							description: new DescriptionBuilder().addField('Name', '#' + channel.name).addField('ID', channel.id).addField('Type', 'Text Channel').addField('Messages Sent', ((stats ? stats.messagesSent : 0) + (channel.id in this.bot.queuedQueries.channelStatistics ? this.bot.queuedQueries.channelStatistics[channel.id].messagesSent : 0)).toLocaleString()).addField('Word Count', ((stats ? stats.wordCount : 0) + (channel.id in this.bot.queuedQueries.channelStatistics ? this.bot.queuedQueries.channelStatistics[channel.id].wordCount : 0)).toLocaleString()).addField('Character Count', ((stats ? stats.characterCount : 0) + (channel.id in this.bot.queuedQueries.channelStatistics ? this.bot.queuedQueries.channelStatistics[channel.id].characterCount : 0)).toLocaleString()).build()
 						}
 					});
 				} else if (channel.type === 2) {

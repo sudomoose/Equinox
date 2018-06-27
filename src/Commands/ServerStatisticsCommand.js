@@ -36,7 +36,7 @@ class ServerStatistics extends BaseCommand {
 					embed: {
 						title: 'Server Statistics',
 						color: this.bot.embedColor,
-						description: new DescriptionBuilder().addField('Name', guild.name).addField('ID', guild.id).addField('Messages Sent', stats ? stats.messagesSent.toLocaleString() : 0).addField('Word Count', stats ? stats.wordCount.toLocaleString() : 0).addField('Character Count', stats ? stats.characterCount.toLocaleString() : 0).build()
+						description: new DescriptionBuilder().addField('Name', guild.name).addField('ID', guild.id).addField('Messages Sent', ((stats ? stats.messagesSent : 0) + (guild.id in this.bot.queuedQueries.serverStatistics ? this.bot.queuedQueries.serverStatistics[guild.id].messagesSent : 0)).toLocaleString()).addField('Word Count', ((stats ? stats.wordCount : 0) + (guild.id in this.bot.queuedQueries.serverStatistics ? this.bot.queuedQueries.serverStatistics[guild.id].wordCount : 0)).toLocaleString()).addField('Character Count', ((stats ? stats.characterCount : 0) + (guild.id in this.bot.queuedQueries.serverStatistics ? this.bot.queuedQueries.serverStatistics[guild.id].characterCount : 0)).toLocaleString()).build()
 					}
 				});
 			});

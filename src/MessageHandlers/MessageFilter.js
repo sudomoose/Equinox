@@ -1,6 +1,5 @@
 const config = require('../config.json');
 const MessageHandler = require('../Structure/MessageHandler');
-const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class MessageFilter extends MessageHandler {
 	constructor(bot, r, metrics, i18n) {
@@ -16,71 +15,40 @@ class MessageFilter extends MessageHandler {
 		msg.prefix = msg.channel.guild && this.bot.prefixes.has(msg.channel.guild.id) ? this.bot.prefixes.get(msg.channel.guild.id) : config.default_prefix;
 		msg.locale = msg.channel.guild && this.bot.locales.has(msg.channel.guild.id) ? this.bot.locales.get(msg.channel.guild.id) : config.default_locale;
 		this.bot.statistics.messagesReceived++;
-		this.r.table('user_statistics').get(msg.author.id).run((error, stats) => {
-			if (error) return handleDatabaseError(error);
-			if (stats) {
-				this.r.table('user_statistics').get(msg.author.id).update({
-					messagesSent: stats.messagesSent + 1,
-					wordCount: stats.wordCount + msg.content.split(' ').length,
-					characterCount: stats.characterCount + msg.content.length
-				}).run((error) => {
-					if (error) return handleDatabaseError(error);
-				});
-			} else {
-				this.r.table('user_statistics').insert({
-					id: msg.author.id,
-					messagesSent: 1,
-					wordCount: msg.content.split(' ').length,
-					characterCount: msg.content.length
-				}).run((error) => {
-					if (error) return handleDatabaseError(error);
-				});
-			}
-		});
+		if (msg.author.id in this.bot.queuedQueries.userStatistics) {
+			this.bot.queuedQueries.userStatistics[msg.author.id].characterCount += msg.content.length;
+			this.bot.queuedQueries.userStatistics[msg.author.id].wordCount += msg.content.split(' ').length;
+			this.bot.queuedQueries.userStatistics[msg.author.id].messagesSent += 1;
+		} else {
+			this.bot.queuedQueries.userStatistics[msg.author.id] = {
+				characterCount: msg.content.length,
+				wordCount: msg.content.split(' ').length,
+				messagesSent: 1
+			};
+		}
 		if (msg.channel.guild) {
-			this.r.table('channel_statistics').get(msg.channel.id).run((error, stats) => {
-				if (error) return handleDatabaseError(error);
-				if (stats) {
-					this.r.table('channel_statistics').get(msg.channel.id).update({
-						messagesSent: stats.messagesSent + 1,
-						wordCount: stats.wordCount + msg.content.split(' ').length,
-						characterCount: stats.characterCount + msg.content.length
-					}).run((error) => {
-						if (error) return handleDatabaseError(error);
-					});
-				} else {
-					this.r.table('channel_statistics').insert({
-						id: msg.channel.id,
-						type: 'text',
-						messagesSent: 1,
-						wordCount: msg.content.split(' ').length,
-						characterCount: msg.content.length
-					}).run((error) => {
-						if (error) return handleDatabaseError(error);
-					});
-				}
-			});
-			this.r.table('server_statistics').get(msg.channel.guild.id).run((error, stats) => {
-				if (error) return handleDatabaseError(error);
-				if (stats) {
-					this.r.table('server_statistics').get(msg.channel.guild.id).update({
-						messagesSent: stats.messagesSent + 1,
-						wordCount: stats.wordCount + msg.content.split(' ').length,
-						characterCount: stats.characterCount + msg.content.length
-					}).run((error) => {
-						if (error) return handleDatabaseError(error);
-					});
-				} else {
-					this.r.table('server_statistics').insert({
-						id: msg.channel.guild.id,
-						messagesSent: 1,
-						wordCount: msg.content.split(' ').length,
-						characterCount: msg.content.length
-					}).run((error) => {
-						if (error) return handleDatabaseError(error);
-					});
-				}
-			});
+			if (msg.channel.id in this.bot.queuedQueries.channelStatistics) {
+				this.bot.queuedQueries.channelStatistics[msg.channel.id].characterCount += msg.content.length;
+				this.bot.queuedQueries.channelStatistics[msg.channel.id].wordCount += msg.content.split(' ').length;
+				this.bot.queuedQueries.channelStatistics[msg.channel.id].messagesSent += 1;
+			} else {
+				this.bot.queuedQueries.channelStatistics[msg.channel.id] = {
+					characterCount: msg.content.length,
+					wordCount: msg.content.split(' ').length,
+					messagesSent: 1
+				};
+			}
+			if (msg.channel.guild.id in this.bot.queuedQueries.serverStatistics) {
+				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id].characterCount += msg.content.length;
+				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id].wordCount += msg.content.split(' ').length;
+				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id].messagesSent += 1;
+			} else {
+				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id] = {
+					characterCount: msg.content.length,
+					wordCount: msg.content.split(' ').length,
+					messagesSent: 1
+				};
+			}
 		}
 		next();
 	}
