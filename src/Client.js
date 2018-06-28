@@ -60,12 +60,6 @@ class Client {
 			Logger.error(error);
 		});
 
-		process.on('SIGINT', () => {
-			Logger.info('SIGINT exit code received, executing cleanup tasks before exiting.');
-			this.runQueuedQueries();
-			setTimeout(process.exit, 10000);
-		});
-
 		process.on('exit', () => {
 			this.bot.secondaryDB.close();
 			this.bot.disconnect({
@@ -161,7 +155,7 @@ class Client {
 			});
 		}
 
-		setTimeout(this.runQueuedQueries.bind(this), 1000 * 60 * 60 * 3);
+		setTimeout(this.runQueuedQueries.bind(this), 1000 * 60 * 15);
 	}
 }
 
