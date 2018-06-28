@@ -2,7 +2,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class EndGiveaway extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'end-giveaway',
 			aliases: [
@@ -18,6 +18,7 @@ class EndGiveaway extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

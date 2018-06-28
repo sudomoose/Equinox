@@ -4,7 +4,7 @@ const Logger = require('../Util/Logger');
 const config = require('../config.json');
 
 class Cleverbot extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'cleverbot',
 			aliases: [
@@ -20,6 +20,7 @@ class Cleverbot extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 		this.clever = new Clever(config.api_keys.cleverbot.user, config.api_keys.cleverbot.key);
 		this.clever.create((error, nick) => {
 			if (error) throw error;

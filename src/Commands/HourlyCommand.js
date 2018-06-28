@@ -4,7 +4,7 @@ const updateBalance = require('../Util/updateBalance');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Hourly extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'hourly',
 			aliases: [],
@@ -18,6 +18,7 @@ class Hourly extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg) {

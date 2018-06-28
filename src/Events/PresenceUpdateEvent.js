@@ -1,35 +1,22 @@
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
-module.exports = (bot, r) => {
+module.exports = (bot, r, i18n, metrics, secondaryDB) => {
 	bot.on('presenceUpdate', (presence, oldPresence) => {
 		if (!presence || !oldPresence) return;
-		r.table('uptime').get(presence.user.id).run((error, uptime) => {
+		secondaryDB.all('SELECT * FROM uptime WHERE userID = ?', presence.user.id, (error, uptime) => {
 			if (error) return handleDatabaseError(error);
-			if (uptime) {
-				if (presence.status !== 'offline' && uptime.status === 'offline') {
-					r.table('uptime').get(presence.user.id).update({
-						since: Date.now(),
-						status: 'online'
-					}).run((error) => {
+			if (uptime.length > 0) {
+				if (presence.status !== 'offline' && oldPresence.status === 'offline') {
+					secondaryDB.run('UPDATE uptime SET since = ?, status = "online" WHERE userID = ?', Date.now(), presence.user.id, (error) => {
 						if (error) return handleDatabaseError(error);
 					});
-				} else if (presence.status === 'offline' && uptime.status === 'online') {
-					r.table('uptime').get(presence.user.id).update({
-						since: Date.now(),
-						status: 'offline',
-						duration: Date.now() - uptime.since
-					}).run((error) => {
+				} else if (presence.status === 'offline' && oldPresence.status !== 'offline') {
+					secondaryDB.run('UPDATE uptime SET duration = (duration + ?), since = ?, status = "offline" WHERE userID = ?', Date.now() - uptime[0].since, Date.now(), presence.user.id, (error) => {
 						if (error) return handleDatabaseError(error);
 					});
 				}
 			} else {
-				r.table('uptime').insert({
-					id: presence.user.id,
-					status: presence.status !== 'offline' ? 'online' : 'offline',
-					since: presence.status !== 'offline' ? Date.now() : null,
-					duration: 0,
-					timestamp: Date.now()
-				}).run((error) => {
+				secondaryDB.run('INSERT INTO uptime (userID, since, status, duration, timestamp) VALUES (?, ?, ?, ?, ?)', presence.user.id, Date.now(), presence.status !== 'offline' ? 'online' : 'offline', 0, Date.now(), (error) => {
 					if (error) return handleDatabaseError(error);
 				});
 			}

@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const Logger = require('../Util/Logger');
 
 class MinecraftUUID extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'mc-uuid',
 			aliases: [
@@ -19,6 +19,7 @@ class MinecraftUUID extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

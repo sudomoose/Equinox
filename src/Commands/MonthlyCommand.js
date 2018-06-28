@@ -4,7 +4,7 @@ const updateBalance = require('../Util/updateBalance');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Monthly extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'monthly',
 			aliases: [],
@@ -18,6 +18,7 @@ class Monthly extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg) {

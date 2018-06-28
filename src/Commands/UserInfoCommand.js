@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const resolveUser = require('../Util/resolveUser');
 
 class UserInfo extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'user-info',
 			aliases: [
@@ -22,6 +22,7 @@ class UserInfo extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

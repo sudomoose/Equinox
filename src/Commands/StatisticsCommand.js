@@ -4,7 +4,7 @@ const formatDuration = require('../Util/formatDuration');
 const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class Statistics extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'statistics',
 			aliases: [
@@ -20,6 +20,7 @@ class Statistics extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg) {

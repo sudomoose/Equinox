@@ -3,7 +3,7 @@ const BaseCommand = require('../Structure/BaseCommand');
 const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class ESLint extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'eslint',
 			aliases: [
@@ -19,6 +19,7 @@ class ESLint extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 		this.linter = new Lint.Linter();
 	}
 

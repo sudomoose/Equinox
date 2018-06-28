@@ -3,7 +3,7 @@ const Logger = require('../Util/Logger');
 const BaseCommand = require('../Structure/BaseCommand');
 
 class NumberFact extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'number-fact',
 			aliases: [
@@ -19,6 +19,7 @@ class NumberFact extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

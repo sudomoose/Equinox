@@ -4,7 +4,7 @@ const resolveMember = require('../Util/resolveMember');
 const formatBanLogMessage = require('../Util/formatBanLogMessage');
 
 class Ban extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'ban',
 			aliases: [],
@@ -18,6 +18,7 @@ class Ban extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

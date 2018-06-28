@@ -3,7 +3,7 @@ const resolveUser = require('../Util/resolveUser');
 const handleDatabaseError = require('../Util/handleDatabaseError');
 
 class Balance extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'balance',
 			aliases: [
@@ -20,6 +20,7 @@ class Balance extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

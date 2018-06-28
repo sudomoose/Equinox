@@ -2,12 +2,13 @@ const config = require('../config.json');
 const MessageHandler = require('../Structure/MessageHandler');
 
 class MessageFilter extends MessageHandler {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super(0);
 		this.bot = bot;
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, next) {

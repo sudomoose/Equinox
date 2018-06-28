@@ -4,7 +4,7 @@ const resolveUser = require('../Util/resolveUser');
 const Logger = require('../Util/Logger');
 
 class DeleteReminder extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'insult',
 			aliases: [],
@@ -18,6 +18,7 @@ class DeleteReminder extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

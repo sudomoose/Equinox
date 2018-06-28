@@ -4,7 +4,7 @@ const resolveUser = require('../Util/resolveUser');
 const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class UserStatistics extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'user-stats',
 			aliases: [
@@ -22,6 +22,7 @@ class UserStatistics extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

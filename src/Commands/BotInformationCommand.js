@@ -6,7 +6,7 @@ const Logger = require('../Util/Logger');
 const config = require('../config.json');
 
 class ChannelInfo extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'bot-info',
 			aliases: [
@@ -25,6 +25,7 @@ class ChannelInfo extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

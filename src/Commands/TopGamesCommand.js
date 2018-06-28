@@ -3,7 +3,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 const BaseCommand = require('../Structure/BaseCommand');
 
 class TopGames extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'top-games',
 			aliases: [
@@ -21,6 +21,7 @@ class TopGames extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

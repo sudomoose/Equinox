@@ -7,7 +7,7 @@ const handleGiveaway = require('../Util/handleGiveaway');
 const DescriptionBuilder = require('../Structure/DescriptionBuilder');
 
 class Giveaway extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'create-giveaway',
 			aliases: [
@@ -23,6 +23,7 @@ class Giveaway extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

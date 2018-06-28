@@ -2,7 +2,7 @@ const Eris = require('eris');
 const BaseCommand = require('../Structure/BaseCommand');
 
 class TestToken extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'test-token',
 			aliases: [
@@ -18,6 +18,7 @@ class TestToken extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg, args) {

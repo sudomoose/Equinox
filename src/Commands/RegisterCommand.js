@@ -3,7 +3,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 const formatPhoneNumber = require('../Util/formatPhoneNumber');
 
 class Register extends BaseCommand {
-	constructor(bot, r, metrics, i18n) {
+	constructor(bot, r, metrics, i18n, secondaryDB) {
 		super({
 			command: 'register',
 			aliases: [
@@ -19,6 +19,7 @@ class Register extends BaseCommand {
 		this.r = r;
 		this.metrics = metrics;
 		this.i18n = i18n;
+		this.secondaryDB = secondaryDB;
 	}
 
 	execute(msg) {
