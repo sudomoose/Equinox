@@ -40,11 +40,11 @@ class MessageFilter extends MessageHandler {
 				};
 			}
 			if (msg.channel.guild.id in this.bot.queuedQueries.serverStatistics) {
-				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id].characterCount += msg.content.length;
-				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id].wordCount += msg.content.split(' ').length;
-				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id].messagesSent += 1;
+				this.bot.queuedQueries.serverStatistics[msg.channel.guild.id].characterCount += msg.content.length;
+				this.bot.queuedQueries.serverStatistics[msg.channel.guild.id].wordCount += msg.content.split(' ').length;
+				this.bot.queuedQueries.serverStatistics[msg.channel.guild.id].messagesSent += 1;
 			} else {
-				this.bot.queuedQueries.channelStatistics[msg.channel.guild.id] = {
+				this.bot.queuedQueries.serverStatistics[msg.channel.guild.id] = {
 					characterCount: msg.content.length,
 					wordCount: msg.content.split(' ').length,
 					messagesSent: 1
