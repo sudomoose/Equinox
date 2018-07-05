@@ -22,6 +22,7 @@ class Balance extends BaseCommand {
 	}
 
 	execute(msg, args) {
+		msg.channel.createMessage(':exclamation:   **»**   Uptime data logging has been temporarily disabled. The data you see below is most likely incorrect, and will be fixed soon.');
 		resolveUser(this.bot, args.length > 0 ? args.join(' ') : msg.author.id).then((user) => {
 			this.secondaryDB.all('SELECT * FROM uptime WHERE userID = ?', msg.author.id, (error, uptime) => {
 				if (error) return handleDatabaseError(error, msg);

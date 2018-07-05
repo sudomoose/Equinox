@@ -25,6 +25,7 @@ class TopGames extends BaseCommand {
 	}
 
 	execute(msg, args) {
+		msg.channel.createMessage(':exclamation:   **»**   Top games data logging has been temporarily disabled. The data you see below is most likely incorrect, and will be fixed soon.');
 		this.r.table('games').count().run((error, gameCount) => {
 			if (error) return handleDatabaseError(error, msg);
 			let page = 1;

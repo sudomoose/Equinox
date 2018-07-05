@@ -3,7 +3,7 @@ const handleDatabaseError = require('../Util/handleDatabaseError');
 module.exports = (bot, r, i18n, metrics, secondaryDB) => {
 	bot.on('presenceUpdate', (presence, oldPresence) => {
 		if (!presence || !oldPresence) return;
-		secondaryDB.all('SELECT * FROM uptime WHERE userID = ?', presence.user.id, (error, uptime) => {
+		/* secondaryDB.all('SELECT * FROM uptime WHERE userID = ?', presence.user.id, (error, uptime) => {
 			if (error) return handleDatabaseError(error);
 			if (uptime.length > 0) {
 				if (presence.status !== 'offline' && oldPresence.status === 'offline') {
@@ -59,6 +59,6 @@ module.exports = (bot, r, i18n, metrics, secondaryDB) => {
 					});
 				}
 			});
-		}
+		} */
 	});
 };
