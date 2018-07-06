@@ -61,7 +61,7 @@ class Giveaway extends BaseCommand {
 				});
 			});
 		} catch (e) {
-			msg.channel.createMessage(':exclamation:   **»**   The durtion must be a valid duration.');
+			msg.channel.createMessage(':exclamation:   **»**   The duration must be a valid duration.');
 		}
 	}
 }
