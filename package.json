@@ -37,7 +37,7 @@
 		"pug": "^2.0.3",
 		"rethinkdbdash": "^2.3.31",
 		"snekfetch": "^4.0.0",
-		"sqlite3": "^4.0.1"
+		"sqlite3": "^4.0.2"
 	},
 	"repository": {
 		"type": "git",
