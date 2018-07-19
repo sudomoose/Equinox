@@ -61,7 +61,7 @@ class Client {
 		});
 
 		process.on('exit', () => {
-			this.bot.secondaryDB.close();
+			this.secondaryDB.close();
 			this.bot.disconnect({
 				reconnect: false
 			});
