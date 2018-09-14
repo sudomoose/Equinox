@@ -14,10 +14,10 @@ module.exports = (bot, r, metrics) => {
 
 		metrics.increment('ready');
 		
-		bot.voiceConnections = new Lavalink.PlayerManager(bot, config.lavalink.nodes, {
+		/* bot.voiceConnections = new Lavalink.PlayerManager(bot, config.lavalink.nodes, {
 			userId: bot.user.id,
 			numShards: bot.shards.size
-		});
+		}); */
 
 		r.table('reminders').run((error, reminders) => {
 			if (error) return handleDatabaseError(error);

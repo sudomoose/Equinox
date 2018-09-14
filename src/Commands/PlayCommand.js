@@ -25,6 +25,7 @@ class Play extends BaseCommand {
 	}
 
 	execute(msg, args) {
+		return msg.channel.createMessage('Disabled for now :(');
 		if (args.length < 1) return msg.channel.createMessage(':question:   **»**   You must provide a query.');
 		if (!msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   You must be in a voice channel in order to use this command.');
 		if (this.bot.voiceConnections.has(msg.channel.guild.id) && this.bot.voiceConnections.get(msg.channel.guild.id).channelId !== msg.member.voiceState.channelID) return msg.channel.createMessage(':no_entry_sign:   **»**   I am already playing music within a different voice channel. Please join that channel instead.');
