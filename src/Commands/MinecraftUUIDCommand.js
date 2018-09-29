@@ -29,7 +29,7 @@ class MinecraftUUID extends BaseCommand {
 			msg.channel.createMessage(':clipboard:   **»**   Player `' + result.body[0].name + '`\'s UUID is `' + result.body[0].id + '`.');
 		}).catch((error) => {
 			msg.channel.createMessage(':exclamation:   **»**   Failed to run the command. This incident has been reported.');
-			Logger.error('Failed to get server information', error);
+			Logger.error('Failed to get user information', error);
 		});
 	}
 }
